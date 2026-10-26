@@ -5,6 +5,13 @@ const app = document.getElementById("app");
 const HISTORY_KEY = "pdaquiz.history";
 const PASS_MARK = 70;
 const LETTERS = "ABCD";
+// Quiz 1 is 15 multiple choice + 3 short answer in 40 minutes; the other formats keep that pace.
+const FORMATS = {
+  quiz1: { label: "Quiz 1 format · 15 MC + 3 short answer", mc: 15, open: 3 },
+  quick: { label: "Quick · 8 MC + 2 short answer", mc: 8, open: 2 },
+  long: { label: "Long · 24 MC + 6 short answer", mc: 24, open: 6 },
+};
+const SECONDS_PER_QUESTION = (40 * 60) / 18;
 const MODULES = [
   [1, "M1 · Intro to data analytics"],
   [2, "M2 · Data collection & preparation"],
@@ -38,24 +45,25 @@ const chip = (type, name, value, label, checked) =>
   `<label class="chip"><input type="${type}" name="${name}" value="${value}" ${checked ? "checked" : ""}> ${label}</label>`;
 
 // ───────────── Setup ─────────────
-function renderSetup(settings = { modules: MODULES.map(([m]) => m), total: 20, perQuestion: 60 }) {
+function renderSetup(settings = { modules: MODULES.map(([m]) => m), format: "quiz1", timed: true }) {
   state = null;
   const history = loadHistory();
   app.innerHTML = `
     <section class="card">
       <h2>Set up your practice quiz</h2>
-      <p class="muted">80% multiple choice, 20% open answer, and roughly 80% theory, 20% reading data tables and SPSS output.
-      You grade your open answers yourself against a rubric after you submit.</p>
+      <p class="muted">The default matches Quiz 1: 15 multiple-choice and 3 short-answer questions in 40 minutes,
+      submitted automatically when time runs out. You can move freely between questions. About 1 in 5 multiple-choice
+      questions asks you to read SPSS output or a data table. You grade your short answers against a rubric after you submit.</p>
       <form id="setup">
         <fieldset><legend>Modules</legend><div class="chips">
           ${MODULES.map(([m, l]) => chip("checkbox", "module", m, l, settings.modules.includes(m))).join("")}
         </div></fieldset>
-        <fieldset><legend>Number of questions</legend><div class="chips">
-          ${[10, 20, 30].map((n) => chip("radio", "total", n, n, settings.total === n)).join("")}
+        <fieldset><legend>Format</legend><div class="chips">
+          ${Object.entries(FORMATS).map(([k, f]) => chip("radio", "format", k, f.label, settings.format === k)).join("")}
         </div></fieldset>
         <fieldset><legend>Timer</legend><div class="chips">
-          ${[[0, "Off"], [60, "60 s / question"], [90, "90 s / question"]]
-            .map(([v, l]) => chip("radio", "perQuestion", v, l, settings.perQuestion === v)).join("")}
+          ${[[1, "Exam pace · 40 min for 18 questions"], [0, "Off"]]
+            .map(([v, l]) => chip("radio", "timed", v, l, settings.timed === (v === 1))).join("")}
         </div></fieldset>
         <p id="setup-error" class="small" style="color: var(--bad)" hidden>Pick at least one module.</p>
         <button class="primary" type="submit">Start quiz</button>
@@ -75,7 +83,8 @@ function renderSetup(settings = { modules: MODULES.map(([m]) => m), total: 20, p
 }
 
 function startQuiz(settings) {
-  const items = buildQuiz(QUESTIONS, settings);
+  const f = FORMATS[settings.format];
+  const items = buildQuiz(QUESTIONS, { modules: settings.modules, mcCount: f.mc, openCount: f.open });
   const now = Date.now();
   state = {
     screen: "quiz",
@@ -83,7 +92,7 @@ function startQuiz(settings) {
     items,
     index: 0,
     startedAt: now,
-    deadline: settings.perQuestion ? now + settings.perQuestion * items.length * 1000 : null,
+    deadline: settings.timed ? now + Math.round(SECONDS_PER_QUESTION * items.length) * 1000 : null,
     saved: false,
   };
   state.timerId = setInterval(tick, 1000);
@@ -101,7 +110,7 @@ function tick() {
   const el = document.getElementById("timer");
   if (!el) return;
   el.textContent = timerText();
-  el.classList.toggle("low", !!state.deadline && state.deadline - Date.now() < 60_000);
+  el.classList.toggle("low", !!state.deadline && state.deadline - Date.now() < 5 * 60_000);
 }
 
 function navClass(it, i) {
@@ -132,7 +141,7 @@ function renderQuestion() {
     <section class="card">
       <div class="badges">
         <span class="badge">Module ${q.module}</span>
-        <span class="badge">${q.type === "mc" ? "Multiple choice" : "Open answer"}</span>
+        <span class="badge">${q.type === "mc" ? "Multiple choice" : "Short answer"}</span>
         ${q.kind === "code" ? '<span class="badge code">Output</span>' : ""}
       </div>
       <p class="prompt" id="prompt">${esc(q.prompt)}</p>
@@ -180,7 +189,7 @@ function finish(timeUp) {
   else renderResults();
 }
 
-// ───────────── Self-grading of open answers ─────────────
+// ───────────── Self-grading of short answers ─────────────
 function renderSelfGrade() {
   state.screen = "grade";
   const blocks = state.items
@@ -205,7 +214,7 @@ function renderSelfGrade() {
   app.innerHTML = `
     ${state.timeUp ? '<section class="card"><strong>Time is up.</strong> Your quiz was submitted automatically.</section>' : ""}
     <section class="card">
-      <h2>Grade your open answers</h2>
+      <h2>Grade your short answers</h2>
       <p class="muted">Points were pre-ticked by keyword matching. Be honest: untick anything you did not really explain, and tick anything you covered in other words.</p>
     </section>
     ${blocks}
@@ -295,7 +304,7 @@ app.addEventListener("submit", (e) => {
     document.getElementById("setup-error").hidden = false;
     return;
   }
-  startQuiz({ modules, total: Number(form.get("total")), perQuestion: Number(form.get("perQuestion")) });
+  startQuiz({ modules, format: form.get("format"), timed: form.get("timed") === "1" });
 });
 
 app.addEventListener("click", (e) => {

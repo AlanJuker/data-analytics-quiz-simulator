@@ -28,38 +28,38 @@ test("question bank is well formed", () => {
   }
 });
 
-test("bank has enough questions per module for a 30-question quiz", () => {
+test("each module alone can fill the long format (24 MC + 6 short answer)", () => {
   for (const m of [1, 2, 3, 4]) {
-    const quiz = buildQuiz(QUESTIONS, { modules: [m], total: 30 });
+    const quiz = buildQuiz(QUESTIONS, { modules: [m], mcCount: 24, openCount: 6 });
     assert.equal(quiz.length, 30, `module ${m}`);
   }
 });
 
-test("quiz respects the 80/20 MC/open and theory/code mix", () => {
-  const quiz = buildQuiz(QUESTIONS, { modules: [1, 2, 3, 4], total: 20 });
+test("Quiz 1 format: 15 MC + 3 short answer, theory before output before short answer", () => {
+  const quiz = buildQuiz(QUESTIONS, { modules: [1, 2, 3, 4], mcCount: 15, openCount: 3 });
   const mc = quiz.filter((it) => it.q.type === "mc");
   const open = quiz.filter((it) => it.q.type === "open");
-  assert.equal(mc.length, 16);
-  assert.equal(open.length, 4);
-  assert.equal(new Set(quiz.map((it) => it.q.id)).size, 20, "no repeated questions");
+  assert.equal(mc.length, 15);
+  assert.equal(open.length, 3);
+  assert.equal(new Set(quiz.map((it) => it.q.id)).size, 18, "no repeated questions");
   assert.equal(mc.filter((it) => it.q.kind === "code").length, 3);
   const openCode = open.filter((it) => it.q.kind === "code").length;
   assert.equal(openCode, Math.min(1, QUESTIONS.filter((q) => q.type === "open" && q.kind === "code").length));
   const sections = quiz.map((it) => `${it.q.type}-${it.q.kind}`);
   assert.deepEqual(sections, [
-    ...Array(13).fill("mc-theory"), ...Array(3).fill("mc-code"),
-    ...Array(4 - openCode).fill("open-theory"), ...Array(openCode).fill("open-code"),
-  ], "theory MC first, then code MC, then open questions");
+    ...Array(12).fill("mc-theory"), ...Array(3).fill("mc-code"),
+    ...Array(3 - openCode).fill("open-theory"), ...Array(openCode).fill("open-code"),
+  ], "theory MC first, then output MC, then short answers");
 });
 
 test("only selected modules are used", () => {
-  const quiz = buildQuiz(QUESTIONS, { modules: [2], total: 10 });
+  const quiz = buildQuiz(QUESTIONS, { modules: [2], mcCount: 8, openCount: 2 });
   assert.ok(quiz.every((it) => it.q.module === 2));
 });
 
 test("shuffled options still grade against the original answer", () => {
   for (let run = 0; run < 50; run++) {
-    const [item] = buildQuiz(QUESTIONS, { modules: [1, 2, 3, 4], total: 1 });
+    const [item] = buildQuiz(QUESTIONS, { modules: [1, 2, 3, 4], mcCount: 1, openCount: 0 });
     if (item.q.type !== "mc") continue;
     assert.deepEqual([...item.order].sort(), [0, 1, 2, 3]);
     item.choice = item.order.indexOf(item.q.answer);
@@ -88,6 +88,6 @@ test("grade aggregates totals and groups", () => {
   const g = grade(items);
   assert.equal(g.total, 2);
   assert.equal(g.groups["Module 1"].earned, 1);
-  assert.equal(g.groups["Open answer"].earned, 1 / openQ.keyPoints.length);
+  assert.equal(g.groups["Short answer"].earned, 1 / openQ.keyPoints.length);
   assert.equal(g.percent, Math.round(((1 + 1 / openQ.keyPoints.length) / 2) * 100));
 });

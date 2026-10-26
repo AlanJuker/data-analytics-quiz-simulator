@@ -1,6 +1,5 @@
 // Pure quiz logic: selection, shuffling and scoring. No DOM access, so it runs in Node tests too.
 
-const OPEN_SHARE = 0.2; // 80% multiple choice, 20% open
 const CODE_SHARE = 0.2; // 80% theory, 20% data/SPSS output interpretation ("code" kind)
 
 function shuffle(items, rand = Math.random) {
@@ -28,12 +27,12 @@ const theoryFirst = (a, b) => (a.kind === "code") - (b.kind === "code");
 
 // Returns quiz items in exam order: theory MC, code MC, then open questions (theory, then code).
 // MC options are shuffled; `order` maps display index → original index.
-function buildQuiz(bank, { modules, total }, rand = Math.random) {
+function buildQuiz(bank, { modules, mcCount, openCount }, rand = Math.random) {
   const pool = bank.filter((q) => modules.includes(q.module));
   const mc = pool.filter((q) => q.type === "mc");
   const open = pool.filter((q) => q.type === "open");
-  const nOpen = Math.min(open.length, Math.round(total * OPEN_SHARE));
-  const nMc = Math.min(mc.length, total - nOpen);
+  const nMc = Math.min(mc.length, mcCount);
+  const nOpen = Math.min(open.length, openCount);
   return [
     ...shuffle(pickType(mc, nMc, rand), rand).sort(theoryFirst).map((q) => ({ q, order: shuffle([0, 1, 2, 3], rand), choice: null, flagged: false })),
     ...shuffle(pickType(open, nOpen, rand), rand).sort(theoryFirst).map((q) => ({ q, text: "", points: q.keyPoints.map(() => false), flagged: false })),
@@ -65,10 +64,10 @@ function grade(items) {
     const s = itemScore(it);
     earned += s;
     add(`Module ${it.q.module}`, s);
-    add(it.q.type === "mc" ? "Multiple choice" : "Open answer", s);
+    add(it.q.type === "mc" ? "Multiple choice" : "Short answer", s);
     add(it.q.kind === "code" ? "Output interpretation" : "Theory", s);
   }
   return { earned, total: items.length, percent: items.length ? Math.round((earned / items.length) * 100) : 0, groups };
 }
 
-if (typeof module !== "undefined") module.exports = { shuffle, buildQuiz, suggestPoints, itemScore, grade, OPEN_SHARE, CODE_SHARE };
+if (typeof module !== "undefined") module.exports = { shuffle, buildQuiz, suggestPoints, itemScore, grade, CODE_SHARE };
