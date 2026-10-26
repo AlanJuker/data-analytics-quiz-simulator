@@ -1729,6 +1729,264 @@ Pearson Chi-Square       1.69     2   .430`,
       { text: "Direction must be decided before the data (or two-tailed is the default)", keywords: ["before", "advance", "default", "p-hacking"] },
     ],
   },
+  // ───────────────────────── Session 4 activities: confounding and choosing the right test ─────────────────────────
+  {
+    id: "m4-40", module: 4, type: "mc", kind: "theory",
+    prompt: "Students who use more social media tend to have a lower GPA. The university restricts social media on campus, but GPA does not improve. What is the most likely explanation?",
+    options: [
+      "A confounding variable, such as study time, was the real driver of GPA",
+      "The negative correlation proves social media lowers GPA; the policy needed more time",
+      "GPA is an ordinal variable, so the original correlation was meaningless",
+      "Restricting access turned the negative correlation into a positive one",
+    ],
+    answer: 0,
+    explanation: "The policy targeted the wrong variable. Social media was associated with GPA through study time, so removing it did not change what actually drives GPA.",
+  },
+  {
+    id: "m4-41", module: 4, type: "mc", kind: "theory",
+    prompt: "Hot weather increases both ice cream sales and drowning incidents. In this example, what is hot weather?",
+    options: ["A confounding (third) variable", "The dependent variable", "A controlled variable", "A moderating variable"],
+    answer: 0,
+    explanation: "A confounder affects both variables and creates an association between them, even though neither causes the other.",
+  },
+  {
+    id: "m4-42", module: 4, type: "mc", kind: "theory",
+    prompt: "Social media use is linked to GPA only because it reduces study time, and study time affects GPA. How would you describe the link between social media and GPA?",
+    options: ["An indirect association", "A direct causal effect", "A perfect linear relationship", "A measurement error"],
+    answer: 0,
+    explanation: "Social media and GPA are related through another variable, study time, so the association is indirect.",
+  },
+  {
+    id: "m4-43", module: 4, type: "mc", kind: "theory",
+    prompt: "A strong, significant correlation is found between study time and GPA. What else is needed to claim that study time CAUSES higher GPA?",
+    options: [
+      "More evidence, such as a controlled experiment",
+      "A correlation even closer to +1 with the same data",
+      "A smaller p-value from the same correlation test",
+      "A scatterplot that shows the same positive trend",
+    ],
+    answer: 0,
+    explanation: "Correlation alone, however strong or significant, only shows association. Proving causation requires further tests.",
+  },
+  {
+    id: "m4-44", module: 4, type: "mc", kind: "theory",
+    prompt: "According to the \"Choosing the Right Test\" flowchart, what is the FIRST question to ask?",
+    options: [
+      "What type of variables do you have?",
+      "Is the p-value below 0.05?",
+      "How large is the sample size?",
+      "Is the correlation strong or weak?",
+    ],
+    answer: 0,
+    explanation: "The variable types (both categorical, one categorical + one continuous, or both numeric) decide which branch of the flowchart you follow.",
+  },
+  {
+    id: "m4-45", module: 4, type: "mc", kind: "theory",
+    prompt: "You want to compare the MEAN exam score of 2 groups (e.g., morning vs evening class). Which test does the flowchart suggest?",
+    options: ["t-test", "ANOVA", "Chi-square test", "Spearman's rho"],
+    answer: 0,
+    explanation: "One categorical variable with 2 groups plus one continuous variable means comparing two means, so use a t-test.",
+  },
+  {
+    id: "m4-46", module: 4, type: "mc", kind: "theory",
+    prompt: "You want to compare the MEAN salary across 4 departments. Which test does the flowchart suggest?",
+    options: ["ANOVA", "t-test", "Chi-square test", "Pearson's r"],
+    answer: 0,
+    explanation: "With 3 or more groups, use ANOVA to compare the means. The t-test is for exactly 2 groups.",
+  },
+  {
+    id: "m4-47", module: 4, type: "mc", kind: "theory",
+    prompt: "You are comparing 2 groups, but the data is clearly non-normal. Which non-parametric test replaces the t-test?",
+    options: ["Mann–Whitney U test", "Kruskal–Wallis test", "Chi-square test", "Pearson's correlation"],
+    answer: 0,
+    explanation: "Mann–Whitney U is the non-parametric version for 2 groups. Kruskal–Wallis is the one for 3 or more groups.",
+  },
+  {
+    id: "m4-48", module: 4, type: "mc", kind: "theory",
+    prompt: "You are comparing 3 or more groups, but the ANOVA assumptions are violated. Which test should you use?",
+    options: ["Kruskal–Wallis test", "Mann–Whitney U test", "t-test", "Pearson's correlation"],
+    answer: 0,
+    explanation: "Kruskal–Wallis is the non-parametric alternative to ANOVA.",
+  },
+  {
+    id: "m4-49", module: 4, type: "mc", kind: "theory",
+    prompt: "Both variables are numeric, the relationship is linear, there are no strong outliers and the data is roughly normal. Which test fits?",
+    options: ["Pearson correlation", "Spearman's rho", "Chi-square test", "Kruskal–Wallis test"],
+    answer: 0,
+    explanation: "When every assumption holds, the flowchart ends at Pearson, the parametric option.",
+  },
+  {
+    id: "m4-50", module: 4, type: "mc", kind: "theory",
+    prompt: "Both variables are numeric, but the scatterplot shows a curve that keeps rising instead of a straight line. Which test fits?",
+    options: ["Spearman or Kendall", "Pearson correlation", "ANOVA", "Chi-square test"],
+    answer: 0,
+    explanation: "The relationship is monotonic but not linear, so use a rank-based (non-parametric) correlation.",
+  },
+  {
+    id: "m4-51", module: 4, type: "mc", kind: "theory",
+    prompt: "One variable is categorical (department) and the other is continuous (salary). What kind of test fits?",
+    options: [
+      "Compare means (t-test or ANOVA)",
+      "A Pearson correlation between them",
+      "A Chi-square test of independence",
+      "Kendall's tau on the raw values",
+    ],
+    answer: 0,
+    explanation: "Categorical + continuous means comparing group means. Chi-square is for two categorical variables, and correlations are for two numeric ones.",
+  },
+  {
+    id: "m4-52", module: 4, type: "mc", kind: "theory",
+    prompt: "The flowchart ends with: \"Match your test to your data, not the other way around.\" What does this mean?",
+    options: [
+      "Choose the test based on variable types and assumptions",
+      "Choose whichever test gives a significant p-value",
+      "Change the data until Pearson's assumptions are met",
+      "Always use a parametric test because it is more powerful",
+    ],
+    answer: 0,
+    explanation: "The data's characteristics (type, linearity, normality, outliers) decide the test, not the result you hope to get.",
+  },
+  {
+    id: "m4-53", module: 4, type: "mc", kind: "theory",
+    prompt: "For Pearson's r, the normality assumption matters mainly for:",
+    options: [
+      "Testing significance (the p-value)",
+      "Calculating the value of r itself",
+      "Deciding the direction of r",
+      "Choosing the number of categories",
+    ],
+    answer: 0,
+    explanation: "r can be calculated without normality, but the p-value assumes it. With large samples (n > 30) this matters less.",
+  },
+  {
+    id: "m4-54", module: 4, type: "mc", kind: "theory",
+    prompt: "Why should you be careful with a strong correlation found in a very small sample?",
+    options: [
+      "It may be due to chance and not generalize",
+      "Small samples always give weak correlations",
+      "A p-value cannot be computed for small samples",
+      "Small samples always violate linearity",
+    ],
+    answer: 0,
+    explanation: "Small samples can mislead: a few points can create a strong-looking correlation by chance.",
+  },
+  {
+    id: "m4-c9", module: 4, type: "mc", kind: "code",
+    prompt: "How should you describe this result?",
+    code: `Correlation test: Social_Media_Hours vs GPA
+Pearson r = -0.70     p = 0.004     N = 85`,
+    options: [
+      "Strong, negative and statistically significant",
+      "Strong, positive and statistically significant",
+      "Moderate, negative and not significant",
+      "Weak, negative and statistically significant",
+    ],
+    answer: 0,
+    explanation: "|r| = 0.70 is strong, the minus sign means negative, and p = 0.004 < 0.05 means significant.",
+  },
+  {
+    id: "m4-c10", module: 4, type: "mc", kind: "code",
+    prompt: "Based on this result, can the university conclude that social media CAUSES lower GPA?",
+    code: `Correlation test: Social_Media_Hours vs GPA
+Pearson r = -0.70     p = 0.004     N = 85`,
+    options: [
+      "No, correlation alone does not prove causation",
+      "Yes, because the p-value is below 0.05",
+      "Yes, because the correlation is strong",
+      "No, because the correlation is negative",
+    ],
+    answer: 0,
+    explanation: "Even a strong, significant correlation only shows association. A confounder such as study time could explain it.",
+  },
+  {
+    id: "m4-c11", module: 4, type: "mc", kind: "code",
+    prompt: "How should you interpret this SPSS output?",
+    code: `Kendall's tau_b            Rank_A    Rank_B
+Correlation Coefficient      1        .52
+Sig. (2-tailed)                       .081
+N                           12         12`,
+    options: [
+      "Moderate positive, but not statistically significant",
+      "Strong positive and statistically significant",
+      "Moderate negative and statistically significant",
+      "No relationship at all between the rankings",
+    ],
+    answer: 0,
+    explanation: "τ = .52 is moderate and positive, but p = .081 > .05, so it is not significant. With only 12 cases, this could be chance.",
+  },
+  {
+    id: "m4-o5", module: 4, type: "open", kind: "theory",
+    prompt: "A correlation test gives r = 0.70 and p = 0.004. Describe the strength, direction and significance, and say whether this proves causation.",
+    modelAnswer: "Strong (r ≥ 0.70), positive (the variables increase together) and statistically significant (p = 0.004 < 0.05). It does NOT prove causation: correlation only shows association, a third (confounding) variable could explain it, and further tests would be needed.",
+    keyPoints: [
+      { text: "Strong", keywords: ["strong"] },
+      { text: "Positive", keywords: ["positive"] },
+      { text: "Significant because p < 0.05", keywords: ["significant", "< 0.05", "<0.05", "< .05", "less than 0.05", "below 0.05"] },
+      { text: "Does not prove causation", keywords: ["not prove", "n't prove", "no causation", "not causation", "cannot conclude", "can't conclude", "not imply", "n't imply", "not mean", "n't mean"] },
+    ],
+  },
+  {
+    id: "m4-o6", module: 4, type: "open", kind: "theory",
+    prompt: "Social media use and GPA are negatively correlated, but restricting social media on campus did not improve GPA. Explain why.",
+    modelAnswer: "The policy targeted the wrong variable. Social media was only indirectly associated with GPA through a confounding variable, study time: more social media → less study time → lower GPA. Correlation does not imply causation, so removing social media did not change the real driver.",
+    keyPoints: [
+      { text: "Mentions a confounding / third variable or indirect association", keywords: ["confound", "third", "indirect", "another variable", "other variable", "other factor"] },
+      { text: "Identifies study time as the more plausible driver", keywords: ["study time", "studying", "study"] },
+      { text: "Correlation / association is not causation", keywords: ["causation", "not cause", "n't cause", "not the cause", "associat"] },
+    ],
+  },
+  {
+    id: "m4-o7", module: 4, type: "open", kind: "theory",
+    prompt: "How do you decide between Pearson, Spearman/Kendall and Chi-square?",
+    modelAnswer: "Look at the type of variables first. Two categorical variables → Chi-square. Two numeric variables that are ordinal, non-normal, have outliers or a non-linear (monotonic) relationship → Spearman or Kendall (Kendall for small samples or tied ranks). Two continuous variables with a linear relationship, roughly normal data and no strong outliers → Pearson.",
+    keyPoints: [
+      { text: "Chi-square for categorical variables", keywords: ["categorical", "nominal"] },
+      { text: "Spearman/Kendall for ordinal, non-normal, outliers or non-linear data", keywords: ["ordinal", "rank", "non-normal", "not normal", "outlier", "monotonic", "non-linear", "not linear"] },
+      { text: "Pearson for continuous, linear, normal data without outliers", keywords: ["linear", "normal", "continuous", "interval", "ratio"] },
+    ],
+  },
+
+  // Extra short-answer questions
+  {
+    id: "m1-o6", module: 1, type: "open", kind: "theory",
+    prompt: "What happens in the data processing stage of the data lifecycle, and why is it important?",
+    modelAnswer: "Raw data is cleaned and transformed (fixing errors, handling missing values, removing duplicates, normalizing, standardizing formats) to get it ready for analysis. It is important because it ensures data quality and reliability. Analysing unprocessed data leads to wrong conclusions.",
+    keyPoints: [
+      { text: "Data is cleaned / transformed", keywords: ["clean", "transform", "normaliz", "normalis", "standardiz", "standardis"] },
+      { text: "Prepares the data for analysis", keywords: ["prepare", "ready", "usable", "for analysis"] },
+      { text: "Ensures quality / reliability", keywords: ["quality", "reliab", "accura", "wrong conclusion", "trust"] },
+    ],
+  },
+  {
+    id: "m2-o6", module: 2, type: "open", kind: "theory",
+    prompt: "What is an outlier, and how can you detect one?",
+    modelAnswer: "An outlier is an extreme value that differs markedly from the other observations. It can come from an error (data entry, measurement) or be a real but rare event. Detection: a boxplot (points beyond the whiskers), the Z-score method (|z| > 3), the 1.5 × IQR rule, histograms or scatterplots.",
+    keyPoints: [
+      { text: "Extreme value that differs markedly from the rest", keywords: ["extreme", "differ", "far from", "unusual", "much larger", "much smaller"] },
+      { text: "Names a detection method", keywords: ["boxplot", "box plot", "z-score", "z score", "iqr", "histogram", "scatter"] },
+      { text: "Mentions a possible cause (error or real rare event)", keywords: ["error", "mistake", "rare", "legitimate", "real", "glitch"] },
+    ],
+  },
+  {
+    id: "m3-o5", module: 3, type: "open", kind: "theory",
+    prompt: "What does the standard deviation tell you about a dataset?",
+    modelAnswer: "It measures how spread out the values are around the mean, in the same units as the data. A small standard deviation means the values are clustered close to the mean, and a large one means they are spread over a wide range.",
+    keyPoints: [
+      { text: "Measures spread / variability around the mean", keywords: ["spread", "variab", "dispers", "from the mean", "around the mean", "deviat"] },
+      { text: "Small SD = values close to the mean", keywords: ["small", "low", "close", "cluster"] },
+      { text: "Large SD = values spread out", keywords: ["large", "high", "wide", "spread out"] },
+    ],
+  },
+  {
+    id: "m3-o6", module: 3, type: "open", kind: "theory",
+    prompt: "What does a boxplot show, and how are outliers displayed in it?",
+    modelAnswer: "A boxplot summarizes a distribution with the five-number summary: the minimum, Q1, the median (the line in the box), Q3 and the maximum. The box is the IQR (the middle 50%) and the whiskers extend to about 1.5 × IQR. Outliers are shown as individual points (dots) beyond the whiskers.",
+    keyPoints: [
+      { text: "Median shown as the line in the box", keywords: ["median"] },
+      { text: "Quartiles / box = IQR (middle 50%)", keywords: ["quartile", "q1", "q3", "iqr", "50%", "box"] },
+      { text: "Outliers are points beyond the whiskers", keywords: ["beyond", "outside", "dot", "point", "whisker"] },
+    ],
+  },
 ];
 
 if (typeof module !== "undefined") module.exports = QUESTIONS;
