@@ -2,7 +2,7 @@
 // Schema:
 //   mc:   { id, module, type: "mc", kind: "theory"|"code", prompt, code?, options[4], answer (index), explanation }
 //   open: { id, module, type: "open", kind, prompt, code?, modelAnswer, keyPoints: [{ text, keywords[] }] }
-// kind "code" = reading a data table or SPSS output (shown in the `code` block).
+// kind "code" = reading a data table or a test result (shown in the `code` block).
 // Options are shuffled at runtime, so never write "all/none of the above".
 
 const QUESTIONS = [
@@ -127,7 +127,7 @@ const QUESTIONS = [
     prompt: "Why can duplicate records be a problem?",
     options: [
       "They skew the results by counting the same case twice",
-      "They make the dataset impossible to open in Excel or SPSS",
+      "They make the dataset impossible to open in Excel or Sheets",
       "They always create missing values in other columns",
       "They change the data type of the column",
     ],
@@ -664,7 +664,7 @@ H1: Students who study more hours per day score higher on the exam.`,
   {
     id: "m2-c1", module: 2, type: "mc", kind: "code",
     prompt: "Little's MCAR test gives this result. What should you conclude?",
-    code: `Little's MCAR test:  Chi-Square = 12.4   df = 10   Sig. = .259`,
+    code: `Little's MCAR test:  Chi-square = 12.4   df = 10   p = 0.259`,
     options: [
       "Fail to reject H₀: the data can be treated as MCAR",
       "Reject H₀: the missing data is not MCAR",
@@ -677,7 +677,7 @@ H1: Students who study more hours per day score higher on the exam.`,
   {
     id: "m2-c2", module: 2, type: "mc", kind: "code",
     prompt: "Little's MCAR test gives this result. What is the best next step?",
-    code: `Little's MCAR test:  Chi-Square = 41.8   df = 12   Sig. = .000`,
+    code: `Little's MCAR test:  Chi-square = 41.8   df = 12   p < 0.001`,
     options: [
       "Use multiple imputation or a model-based method",
       "Use mean imputation because the data is MCAR",
@@ -701,8 +701,8 @@ E04        55,000     0.7`,
   },
   {
     id: "m2-c4", module: 2, type: "mc", kind: "code",
-    prompt: "In this SPSS Variable View, which variable is ORDINAL?",
-    code: `Name        Values / Units
+    prompt: "In this list of variables, which one is ORDINAL?",
+    code: `Variable    Values / Units
 Gender      1 = Male, 2 = Female
 Education   1 = High school, 2 = Bachelor, 3 = Master
 Age         years
@@ -713,8 +713,8 @@ Temp_C      degrees Celsius`,
   },
   {
     id: "m2-c5", module: 2, type: "mc", kind: "code",
-    prompt: "Using the same Variable View, which variable is on a RATIO scale?",
-    code: `Name        Values / Units
+    prompt: "In the same list of variables, which one is on a RATIO scale?",
+    code: `Variable    Values / Units
 Gender      1 = Male, 2 = Female
 Education   1 = High school, 2 = Bachelor, 3 = Master
 Age         years
@@ -1086,7 +1086,7 @@ Calgary    610`,
   },
   {
     id: "m3-c1", module: 3, type: "mc", kind: "code",
-    prompt: "What does this SPSS output suggest about the shape of the salary distribution?",
+    prompt: "What do these descriptive statistics suggest about the shape of the salary distribution?",
     code: `Descriptive Statistics: Salary
 N           200
 Mean        68,400
@@ -1112,11 +1112,9 @@ Std. Dev.   31,200`,
   },
   {
     id: "m3-c3", module: 3, type: "mc", kind: "code",
-    prompt: "What does \"75 → 50\" mean in this SPSS output?",
-    code: `Percentiles: Delivery_Time (minutes)
-25    30
-50    42
-75    50`,
+    prompt: "What does \"75th: 50\" mean in these results?",
+    code: `Delivery time (minutes), percentiles:
+25th: 30     50th: 42     75th: 50`,
     options: [
       "75% of deliveries took 50 minutes or less",
       "50% of deliveries took 75 minutes or less",
@@ -1464,7 +1462,7 @@ Class B     75      15`,
     prompt: "What is another name for a contingency table?",
     options: ["Cross-tabulation (crosstab)", "Scatterplot matrix", "Frequency polygon", "Correlation matrix"],
     answer: 0,
-    explanation: "A crosstab shows how often each combination of two categorical variables occurs. In SPSS it is under Crosstabs.",
+    explanation: "A crosstab shows how often each combination of two categorical variables occurs.",
   },
   {
     id: "m4-29", module: 4, type: "mc", kind: "theory",
@@ -1530,7 +1528,7 @@ Class B     75      15`,
   },
   {
     id: "m4-35", module: 4, type: "mc", kind: "theory",
-    prompt: "Which type of test is the DEFAULT and most commonly used in SPSS correlation analysis?",
+    prompt: "Which type of test is the DEFAULT and most commonly used choice in correlation analysis?",
     options: ["Two-tailed test", "One-tailed test", "Chi-square test", "Z-score test"],
     answer: 0,
     explanation: "Two-tailed tests detect a relationship in either direction and are the conservative default.",
@@ -1575,12 +1573,9 @@ Class B     75      15`,
   },
   {
     id: "m4-c1", module: 4, type: "mc", kind: "code",
-    prompt: "What does this SPSS output show?",
-    code: `Correlations                       Study_Hours   Exam_Score
-Study_Hours   Pearson Correlation     1            .68**
-              Sig. (2-tailed)                      .000
-              N                       120           120
-**. Correlation is significant at the 0.01 level (2-tailed).`,
+    prompt: "What does this result show?",
+    code: `Pearson correlation: Study_Hours vs Exam_Score
+r = 0.68     p < 0.001     N = 120`,
     options: [
       "A positive, statistically significant relationship",
       "A negative, statistically significant relationship",
@@ -1588,29 +1583,13 @@ Study_Hours   Pearson Correlation     1            .68**
       "Proof that studying more causes higher scores",
     ],
     answer: 0,
-    explanation: "r = .68 is positive and fairly strong, and p < .01 makes it significant. Correlation still isn't causation.",
-  },
-  {
-    id: "m4-c2", module: 4, type: "mc", kind: "code",
-    prompt: "In the same output, what does Sig. (2-tailed) = .000 mean?",
-    code: `Study_Hours   Pearson Correlation     1            .68**
-              Sig. (2-tailed)                      .000`,
-    options: [
-      "p < .001: very unlikely to be due to chance",
-      "The correlation between the variables is 0",
-      "There is no relationship between the variables",
-      "0% of the data points are outliers",
-    ],
-    answer: 0,
-    explanation: "SPSS rounds very small p-values to .000, which means p < .001.",
+    explanation: "r = 0.68 is positive and fairly strong, and p < 0.05 makes it significant. Correlation still isn't causation.",
   },
   {
     id: "m4-c3", module: 4, type: "mc", kind: "code",
-    prompt: "How should you interpret this SPSS output?",
-    code: `Spearman's rho          Satisfaction   Wait_Time_Rank
-Correlation Coefficient     1             -.15
-Sig. (2-tailed)                            .210
-N                          60               60`,
+    prompt: "How should you interpret this result?",
+    code: `Spearman's rho: Satisfaction vs Wait_Time_Rank
+rho = -0.15     p = 0.210     N = 60`,
     options: [
       "Weak negative and not significant",
       "Strong negative and significant",
@@ -1618,14 +1597,14 @@ N                          60               60`,
       "Moderate negative and significant",
     ],
     answer: 0,
-    explanation: "ρ = −.15 is weak and negative, and p = .210 > .05, so it is not statistically significant.",
+    explanation: "ρ = −0.15 is weak and negative, and p = 0.210 > 0.05, so it is not statistically significant.",
   },
   {
     id: "m4-c4", module: 4, type: "mc", kind: "code",
-    prompt: "What can you conclude from this SPSS output?",
-    code: `Chi-Square Tests        Value    df   Asymp. Sig. (2-sided)
-Pearson Chi-Square      14.62     2   .001
-Symmetric Measures: Cramér's V = .27`,
+    prompt: "What can you conclude from this result?",
+    code: `Chi-square test of independence: Region vs Preferred_Brand
+Chi-square = 14.62     df = 2     p = 0.001
+Cramér's V = 0.27`,
     options: [
       "There is a significant association between the variables",
       "There is no association between the two variables",
@@ -1633,13 +1612,13 @@ Symmetric Measures: Cramér's V = .27`,
       "The correlation coefficient is 14.62",
     ],
     answer: 0,
-    explanation: "p = .001 < .05 means the association is significant. Cramér's V = .27 measures how strong it is.",
+    explanation: "p = 0.001 < 0.05 means the association is significant. Cramér's V = 0.27 measures how strong it is.",
   },
   {
     id: "m4-c5", module: 4, type: "mc", kind: "code",
-    prompt: "What can you conclude from this SPSS output?",
-    code: `Chi-Square Tests        Value    df   Asymp. Sig. (2-sided)
-Pearson Chi-Square       1.69     2   .430`,
+    prompt: "What can you conclude from this result?",
+    code: `Chi-square test of independence: Gender vs Payment_Method
+Chi-square = 1.69     df = 2     p = 0.430`,
     options: [
       "No significant association between the variables",
       "A significant association between the variables",
@@ -1647,47 +1626,21 @@ Pearson Chi-Square       1.69     2   .430`,
       "The test is invalid and must be repeated",
     ],
     answer: 0,
-    explanation: "p = .430 > .05, so we fail to reject independence.",
+    explanation: "p = 0.430 > 0.05, so we fail to reject independence.",
   },
   {
     id: "m4-c6", module: 4, type: "mc", kind: "code",
-    prompt: "SPSS prints this footnote under a Chi-square test. What should you do?",
-    code: `a. 3 cells (50.0%) have expected count less than 5.
-   The minimum expected count is 1.80.`,
+    prompt: "Before trusting a Chi-square result, you check the expected counts. What should you do?",
+    code: `Contingency table check:
+3 of 6 cells (50%) have an expected count below 5.`,
     options: [
       "Combine categories or use Fisher's Exact Test",
-      "Ignore it, because the footnote is not important",
+      "Ignore it, because expected counts do not matter",
       "Report the result as significant anyway",
       "Switch to Pearson's correlation instead",
     ],
     answer: 0,
-    explanation: "The rule is that at least 80% of cells need an expected count of 5 or more. With 50% below 5, the assumption is violated.",
-  },
-  {
-    id: "m4-c7", module: 4, type: "mc", kind: "code",
-    prompt: "In SPSS, which menu path runs a Pearson or Spearman correlation?",
-    code: `Analyze > ...`,
-    options: [
-      "Analyze > Correlate > Bivariate",
-      "Analyze > Descriptive Statistics > Crosstabs",
-      "Analyze > Descriptive Statistics > Frequencies",
-      "Analyze > Compare Means > Means",
-    ],
-    answer: 0,
-    explanation: "Correlations are run under Correlate > Bivariate. Chi-square is under Descriptive Statistics > Crosstabs.",
-  },
-  {
-    id: "m4-c8", module: 4, type: "mc", kind: "code",
-    prompt: "In SPSS, which menu path runs a Chi-square test of independence?",
-    code: `Analyze > ...`,
-    options: [
-      "Analyze > Descriptive Statistics > Crosstabs",
-      "Analyze > Correlate > Bivariate",
-      "Analyze > Descriptive Statistics > Descriptives",
-      "Analyze > Regression > Linear",
-    ],
-    answer: 0,
-    explanation: "The Chi-square test is an option inside Crosstabs (Statistics > Chi-square).",
+    explanation: "Chi-square needs an expected count of at least 5 in at least 80% of the cells. With 50% below 5, the assumption is violated.",
   },
   {
     id: "m4-o1", module: 4, type: "open", kind: "theory",
@@ -1900,11 +1853,9 @@ Pearson r = -0.70     p = 0.004     N = 85`,
   },
   {
     id: "m4-c11", module: 4, type: "mc", kind: "code",
-    prompt: "How should you interpret this SPSS output?",
-    code: `Kendall's tau_b            Rank_A    Rank_B
-Correlation Coefficient      1        .52
-Sig. (2-tailed)                       .081
-N                           12         12`,
+    prompt: "How should you interpret this result?",
+    code: `Kendall's tau: Rank_A vs Rank_B
+tau = 0.52     p = 0.081     N = 12`,
     options: [
       "Moderate positive, but not statistically significant",
       "Strong positive and statistically significant",
@@ -1912,7 +1863,7 @@ N                           12         12`,
       "No relationship at all between the rankings",
     ],
     answer: 0,
-    explanation: "τ = .52 is moderate and positive, but p = .081 > .05, so it is not significant. With only 12 cases, this could be chance.",
+    explanation: "τ = 0.52 is moderate and positive, but p = 0.081 > 0.05, so it is not significant. With only 12 cases, this could be chance.",
   },
   {
     id: "m4-o5", module: 4, type: "open", kind: "theory",
