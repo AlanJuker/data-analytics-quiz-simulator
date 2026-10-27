@@ -53,7 +53,7 @@ function renderSetup(settings = { modules: MODULES.map(([m]) => m), format: "qui
       <h2>Set up your practice quiz</h2>
       <p class="muted">The default matches Quiz 1: 15 multiple-choice and 3 short-answer questions in 40 minutes,
       submitted automatically when time runs out. You can move freely between questions. About 1 in 5 multiple-choice
-      questions asks you to read SPSS output or a data table. You grade your short answers against a rubric after you submit.</p>
+      questions asks you to interpret a test result or a data table. You grade your short answers against a rubric after you submit.</p>
       <form id="setup">
         <fieldset><legend>Modules</legend><div class="chips">
           ${MODULES.map(([m, l]) => chip("checkbox", "module", m, l, settings.modules.includes(m))).join("")}

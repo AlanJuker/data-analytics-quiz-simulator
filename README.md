@@ -1,6 +1,6 @@
 # Data Analytics Quiz Simulator
 
-A practice quiz for **Principles of Data Analytics, Modules 1–4**. By default it mimics the real **Quiz 1**: 15 multiple-choice and 3 short-answer questions, a 40-minute timer and automatic submission when time runs out. Questions are drawn at random from a bank of 210, every attempt is scored, and every question comes with an explanation.
+A practice quiz for **Principles of Data Analytics, Modules 1–4**. By default it mimics the real **Quiz 1**: 15 multiple-choice and 3 short-answer questions, a 40-minute timer and automatic submission when time runs out. Questions are drawn at random from a bank of 207, every attempt is scored, and every question comes with an explanation.
 
 **Live:** https://alanjuker.github.io/data-analytics-quiz-simulator/
 
@@ -14,7 +14,7 @@ A practice quiz for **Principles of Data Analytics, Modules 1–4**. By default 
 ## How a quiz works
 
 - **Formats:** Quiz 1 (15 MC + 3 short answer, the default), Quick (8 + 2) or Long (24 + 6). The "exam pace" timer gives 40 minutes for 18 questions and scales with the other formats. You can move freely between questions, as in the real quiz.
-- **Mix:** about 1 in 5 multiple-choice questions asks you to read a data table or SPSS output. Questions come in this order: theory, then output interpretation, then the short answers.
+- **Mix:** about 1 in 5 multiple-choice questions asks you to interpret a test result (e.g., r and p) or a data table. Questions come in this order: theory, then output interpretation, then the short answers.
 - **Style:** the questions test understanding, not memorisation. You identify the concept, choose the right test or chart, or interpret a result, and there is no arithmetic. Short-answer questions ask one thing each and can be answered in 2–3 sentences.
 - **Setup:** choose the modules, the format and whether the timer is on.
 - **During the quiz:** a question navigator, flags, and keyboard shortcuts (`1`–`4` / `A`–`D` to answer, `←` `→` to move, `F` to flag).
@@ -56,8 +56,8 @@ Append an object to `QUESTIONS` in `questions.js`:
 
 ```js
 {
-  id: "m4-40", module: 4, type: "mc", kind: "theory",   // kind: "theory" | "code" (table/SPSS output)
-  prompt: "…", code: "optional table or SPSS output",
+  id: "m4-40", module: 4, type: "mc", kind: "theory",   // kind: "theory" | "code" (data table / test result)
+  prompt: "…", code: "optional data table or test result",
   options: ["correct", "distractor", "distractor", "distractor"],
   answer: 0,                                            // index into options
   explanation: "Why the answer is correct.",

@@ -1,6 +1,6 @@
 // Pure quiz logic: selection, shuffling and scoring. No DOM access, so it runs in Node tests too.
 
-const CODE_SHARE = 0.2; // 80% theory, 20% data/SPSS output interpretation ("code" kind)
+const CODE_SHARE = 0.2; // 80% theory, 20% reading a data table or test result ("code" kind)
 
 function shuffle(items, rand = Math.random) {
   const a = items.slice();
