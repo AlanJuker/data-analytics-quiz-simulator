@@ -50,7 +50,7 @@ if (typeof document !== "undefined") {
   const HISTORY_KEY = "pdamidterm.history";
   const DRAFT_KEY = "pdamidterm.draft";
   const LETTERS = "abcdefgh";
-  let state = null; // { items, index, startedAt, deadline, minutes, timerId }
+  let state = null; // { items, index, startedAt, timerId, finishedAt, saved }
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   const fmt = (sec) => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
@@ -64,7 +64,7 @@ if (typeof document !== "undefined") {
   function saveDraft() {
     if (!state) return;
     store.set(DRAFT_KEY, { ids: state.items.map((it) => it.s.id), answers: state.items.map((it) => it.answers), index: state.index,
-      startedAt: state.startedAt, deadline: state.deadline, minutes: state.minutes });
+      startedAt: state.startedAt });
   }
 
   // ───────── Setup ─────────
@@ -85,11 +85,8 @@ if (typeof document !== "undefined") {
         Answer in your own words, in full sentences, using the numbers in the exhibit. After you submit, you compare each answer with a model
         answer and tick the rubric points you covered; keyword matches are pre-ticked for you to confirm. Each question is worth 25 points.
         Before you start, read the <a href="study-guide.html#framework">answer framework</a>.</p>
+        <p class="muted small">A clock starts when you begin and shows how long you have been working.</p>
         <form id="setup">
-          <fieldset><legend>Timer (set it to your exam's actual time limit)</legend><div class="chips">
-            ${[[60, "60 min"], [90, "90 min"], [120, "120 min"], [0, "Off"]]
-              .map(([v, l]) => `<label class="chip"><input type="radio" name="minutes" value="${v}" ${v === 90 ? "checked" : ""}> ${l}</label>`).join("")}
-          </div></fieldset>
           <div class="row">
             <button class="primary" type="submit">Start a new exam</button>
             ${draft ? `<button type="button" data-act="resume">Resume unfinished exam</button>` : ""}
@@ -107,11 +104,9 @@ if (typeof document !== "undefined") {
       </section>` : ""}`;
   }
 
-  function startExam(minutes) {
+  function startExam() {
     const last = store.get(HISTORY_KEY, [])[0]?.ids ?? [];
-    const now = Date.now();
-    state = { items: buildExam(SCENARIOS, Math.random, last), index: 0, startedAt: now, minutes,
-      deadline: minutes ? now + minutes * 60_000 : null };
+    state = { items: buildExam(SCENARIOS, Math.random, last), index: 0, startedAt: Date.now() };
     state.timerId = setInterval(tick, 1000);
     saveDraft();
     renderQuestion();
@@ -124,24 +119,18 @@ if (typeof document !== "undefined") {
       return s && { s, answers: d.answers[i], points: s.parts.map((p) => p.keyPoints.map(() => false)) };
     });
     if (!items || items.some((it) => !it)) { store.del(DRAFT_KEY); return renderSetup(); }
-    state = { items, index: d.index, startedAt: d.startedAt, deadline: d.deadline, minutes: d.minutes };
-    if (state.deadline && Date.now() >= state.deadline) return finish(true);
+    state = { items, index: d.index, startedAt: d.startedAt };
     state.timerId = setInterval(tick, 1000);
     renderQuestion();
   }
 
   // ───────── Exam ─────────
-  function timerText() {
-    if (!state.deadline) return `⏱ ${fmt(Math.floor((Date.now() - state.startedAt) / 1000))}`;
-    return `⏳ ${fmt(Math.max(0, Math.ceil((state.deadline - Date.now()) / 1000)))} left`;
-  }
+  // Elapsed time since the exam started; there is no time limit.
+  const timerText = () => `⏱ ${fmt(Math.floor((Date.now() - state.startedAt) / 1000))}`;
 
   function tick() {
-    if (state.deadline && Date.now() >= state.deadline) return finish(true);
     const el = document.getElementById("timer");
-    if (!el) return;
-    el.textContent = timerText();
-    el.classList.toggle("low", !!state.deadline && state.deadline - Date.now() < 10 * 60_000);
+    if (el) el.textContent = timerText();
   }
 
   function navClass(it, i) {
@@ -189,13 +178,12 @@ if (typeof document !== "undefined") {
   function submit() {
     const blank = state.items.reduce((n, it) => n + it.s.parts.length - answeredParts(it), 0);
     if (blank && !confirm(`${blank} part${blank > 1 ? "s are" : " is"} still blank. Submit anyway?`)) return;
-    finish(false);
+    finish();
   }
 
-  function finish(timeUp) {
+  function finish() {
     clearInterval(state.timerId);
     state.finishedAt = Date.now();
-    state.timeUp = timeUp;
     suggestAll(state.items);
     store.del(DRAFT_KEY);
     renderSelfGrade();
@@ -205,7 +193,7 @@ if (typeof document !== "undefined") {
   function renderSelfGrade() {
     app.innerHTML = `
       <section class="card">
-        <h2>${state.timeUp ? "Time is up. " : ""}Grade your answers</h2>
+        <h2>Grade your answers</h2>
         <p class="muted">For each part, compare your answer with the model answer and tick each rubric point you genuinely covered.
         Points matched by keywords are pre-ticked; untick any you did not really explain. A blank part scores 0.</p>
       </section>
@@ -249,7 +237,7 @@ if (typeof document !== "undefined") {
       <section class="card">
         <h2>Your result</h2>
         <div class="score">${g.score}<span class="muted" style="font-size:1.4rem"> / ${g.max}</span></div>
-        <p class="muted">${minutes} minute${minutes === 1 ? "" : "s"}${state.timeUp ? " · submitted automatically when time ran out" : ""}.
+        <p class="muted">Time taken: ${minutes} minute${minutes === 1 ? "" : "s"}.
         Practice scores show which skills to review; they do not predict your exact midterm grade.</p>
         <h3>By question</h3>
         <div class="bars">${state.items.map((it, i) => bar(`Q${i + 1} · ${CLUSTERS[it.s.cluster]}`, g.perQuestion[i], POINTS_PER_QUESTION)).join("")}</div>
@@ -265,7 +253,7 @@ if (typeof document !== "undefined") {
   // ───────── Events ─────────
   app.addEventListener("submit", (e) => {
     e.preventDefault();
-    startExam(Number(new FormData(e.target).get("minutes")));
+    startExam();
   });
 
   app.addEventListener("input", (e) => {
