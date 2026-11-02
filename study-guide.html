@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midterm Study Guide</title>
+  <meta name="description" content="Study guide for the Principles of Data Analytics midterm, Modules 1-4: answer framework, module essentials, test chooser and conclusion templates.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="guide">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Site"><a href="index.html">Quiz 1 practice</a><a href="midterm.html">Midterm simulator</a><a href="study-guide.html" aria-current="page">Study guide</a></nav>
+    <h1>Midterm Study Guide</h1>
+    <p class="subtitle">Principles of Data Analytics · Modules 1–4</p>
+  </header>
+
+  <main>
+    <nav class="card toc" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#exam">The midterm at a glance</a></li>
+        <li><a href="#framework">Answer framework for scenario questions</a></li>
+        <li><a href="#m1">Module 1 · Introduction to data analytics</a></li>
+        <li><a href="#m2">Module 2 · Data collection &amp; preparation</a></li>
+        <li><a href="#m3">Module 3 · Statistical measurement &amp; visualization</a></li>
+        <li><a href="#m4">Module 4 · Measures of association</a></li>
+        <li><a href="#quality">Quick reference · data quality, missing values, outliers</a></li>
+        <li><a href="#levels">Quick reference · measurement levels</a></li>
+        <li><a href="#choose">Choosing and justifying a test</a></li>
+        <li><a href="#sig">Statistical significance vs strength</a></li>
+        <li><a href="#causation">Association vs causation</a></li>
+        <li><a href="#communicate">Communicating conclusions</a></li>
+        <li><a href="#checklist">Final review checklist</a></li>
+      </ol>
+    </nav>
+
+    <section class="card" id="exam">
+      <h2>1. The midterm at a glance</h2>
+      <p>The midterm has <strong>four questions based on applied scenarios</strong> from Modules 1–4. You will be given analytical
+      information (a data extract, summary statistics or test output) and asked to <strong>interpret it and make evidence-based decisions</strong>.
+      Marks come from applying concepts to the case, not from reciting definitions or copying numbers.</p>
+      <table>
+        <thead><tr><th>Skill named in the announcement</th><th>What a good answer does</th><th>Modules</th><th>Guide</th></tr></thead>
+        <tbody>
+          <tr><td>Evaluate data quality</td><td>Names the specific problem in the exhibit, the quality dimension it breaks, its consequence and the fix</td><td>2</td><td><a href="#quality">§7</a></td></tr>
+          <tr><td>Identify measurement levels</td><td>Classifies each variable (nominal, ordinal, interval, ratio) and says what that level allows</td><td>2–3</td><td><a href="#levels">§8</a></td></tr>
+          <tr><td>Choose and justify an approach</td><td>Picks the summary, chart or test from the variables' levels and the question, and says why the alternatives fit worse</td><td>3–4</td><td><a href="#choose">§9</a></td></tr>
+          <tr><td>Consider assumptions</td><td>Checks the test's assumptions against the case and gives the alternative when one is violated</td><td>4</td><td><a href="#choose">§9</a></td></tr>
+          <tr><td>Significance vs strength</td><td>Reports p (is it likely real?) and the coefficient (how strong?) separately</td><td>4</td><td><a href="#sig">§10</a></td></tr>
+          <tr><td>Association vs causation</td><td>Uses "associated with", names a plausible confounder, says what design could support causation</td><td>4</td><td><a href="#causation">§11</a></td></tr>
+          <tr><td>Communicate clear conclusions</td><td>States direction, strength, significance and a limitation in plain language, with a next step</td><td>1, 3, 4</td><td><a href="#communicate">§12</a></td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">Practice with the <a href="midterm.html">midterm simulator</a>: each attempt has four scenarios that together cover every row of this table.</p>
+    </section>
+
+    <section class="card" id="framework">
+      <h2>2. Answer framework for scenario questions</h2>
+      <p>Use the same six moves for every scenario. Not every part asks for all six, but thinking through them stops you from missing marks.</p>
+      <ol class="steps">
+        <li><strong>Frame.</strong> Restate the decision and the variables. Which is the independent variable (IV) and which is the dependent variable (DV)? Is it a population or a sample?</li>
+        <li><strong>Check the data.</strong> Look for quality problems in the exhibit: duplicates, impossible values, inconsistent codes or formats, missing values (and their type), outliers, outdated or irrelevant data, sampling bias.</li>
+        <li><strong>Classify.</strong> Give the measurement level of each variable involved, because it decides what you may calculate.</li>
+        <li><strong>Choose and justify.</strong> Name the summary, chart or test, then say why it fits (variable levels, question asked) and why the obvious alternative does not.</li>
+        <li><strong>Check assumptions.</strong> List the test's assumptions, compare them with the case, and switch method or fix the data if one fails.</li>
+        <li><strong>Interpret and conclude.</strong> Report direction, strength (the coefficient) and significance (p) separately. Use association language, name a confounder or limitation, and recommend a next step.</li>
+      </ol>
+      <h3>Worked mini-example</h3>
+      <pre>A gym surveyed 60 members: hours of exercise per week and stress rating
+(1 = very low ... 5 = very high). Spearman ρ = −.41, p = .001, n = 60.</pre>
+      <p class="model">This full-mark style answer covers all six moves.</p>
+      <div class="model-answer">Exercise hours are ratio and the stress rating is ordinal, so Pearson's r is not appropriate. Spearman's ρ fits because it uses ranks, measures monotonic relationships and needs no normality. ρ = −.41 shows a moderate, negative relationship: members who exercise more tend to report lower stress. With p = .001 (&lt; .05), the result is statistically significant, so it is unlikely to be due to chance alone. The data are correlational, so they do not show that exercise reduces stress: members with less demanding jobs may have both more free time to exercise and lower stress. A study that randomly assigns an exercise program would be needed to test cause.</div>
+    </section>
+
+    <section class="card" id="m1">
+      <h2>3. Module 1 · Introduction to data analytics</h2>
+      <h3>Core ideas</h3>
+      <ul>
+        <li><strong>Data analysis</strong> examines, cleans, transforms and interprets raw data to find patterns, trends and relationships that support decisions.</li>
+        <li><strong>Data lifecycle:</strong> research question &amp; hypothesis → data generation/collection → storage → processing (cleaning, normalization, transformation) → analysis → visualization &amp; interpretation (→ decision-making).</li>
+        <li><strong>Five benefits:</strong> informed decision-making, predictive capabilities, enhanced performance and efficiency, personalization and customer service, risk management.</li>
+        <li><strong>Cleaning functions:</strong> remove irrelevant data, correct errors, handle missing data, standardize formats, identify and remove duplicates. Tools: Excel/Google Sheets, OpenRefine, pandas (Python), R.</li>
+      </ul>
+      <h3>Hypotheses</h3>
+      <ul>
+        <li>A hypothesis is a testable statement about the relationship between variables. It guides which variables to collect and which method to use.</li>
+        <li>Steps: clear research question → define the IV and DV → explore data or literature → write an "if…then" hypothesis → make it specific, measurable and falsifiable → align it with the business goal.</li>
+        <li><strong>H₀</strong> (null): no difference or relationship. <strong>H₁</strong> (alternative): there is one (directional only if predicted in advance).</li>
+      </ul>
+      <p class="tip"><strong>In a scenario:</strong> you may be asked to place a step in the lifecycle (cleaning is <em>processing</em>), to identify the IV and DV, or to write H₀ and H₁ for the case.</p>
+    </section>
+
+    <section class="card" id="m2">
+      <h2>4. Module 2 · Data collection &amp; preparation</h2>
+      <h3>Sources and types</h3>
+      <ul>
+        <li><strong>Primary data</strong> are collected by you for this question (surveys, interviews, experiments): tailored, but slower and costlier. <strong>Secondary data</strong> were collected for another purpose (reports, government statistics, company systems): quick and cheap, but they may not fit the question or be timely.</li>
+        <li><strong>Quantitative</strong> data are numeric and measurable (test hypotheses, generalize). <strong>Qualitative</strong> data are non-numeric (text, images) and explain the "why" and "how".</li>
+        <li><strong>Data structures:</strong> time-series (one entity over time), cross-sectional (many entities at one time, a snapshot), panel (many entities over time, which helps study change and causal questions).</li>
+      </ul>
+      <h3>Variable roles</h3>
+      <table>
+        <thead><tr><th>Variable</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Independent (IV)</td><td>The factor manipulated or believed to influence the outcome</td></tr>
+          <tr><td>Dependent (DV)</td><td>The outcome measured</td></tr>
+          <tr><td>Controlled</td><td>Kept constant so it cannot influence the result</td></tr>
+          <tr><td>Extraneous</td><td>Not of interest, but could influence the result if not controlled (a source of confounding)</td></tr>
+          <tr><td>Moderating</td><td>Changes the <em>strength or direction</em> of the IV → DV relationship</td></tr>
+          <tr><td>Mediating</td><td>Explains <em>how</em> the IV affects the DV (the mechanism in between)</td></tr>
+        </tbody>
+      </table>
+      <h3>Preparing data</h3>
+      <ul>
+        <li><strong>Duplicates:</strong> identical or near-identical records. Remove or merge them, or they skew results.</li>
+        <li><strong>Inconsistencies:</strong> the same entity coded differently (F / Female / f, mixed date formats). Standardize them.</li>
+        <li><strong>Encoding categories:</strong> label encoding gives integers but can imply a false order for nominal data. One-hot encoding (0/1 columns) suits nominal data. Ordinal encoding keeps a natural order. Binary encoding and frequency encoding are further options.</li>
+        <li><strong>Scaling:</strong> min–max normalization (0–1) is sensitive to outliers. Z-score standardization (mean 0, SD 1) keeps the shape and suits comparing relative positions.</li>
+        <li><strong>Outliers and missing values:</strong> see the quick reference in <a href="#quality">§7</a>.</li>
+        <li><strong>Sampling:</strong> a sample should be representative. Random or stratified sampling reduces bias; surveying only easy-to-reach or active people creates sampling (selection) bias.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="m3">
+      <h2>5. Module 3 · Statistical measurement &amp; visualization</h2>
+      <h3>Describing vs generalizing</h3>
+      <ul>
+        <li><strong>Descriptive statistics</strong> summarize the data you have (mean, median, mode, range, variance, SD, charts). <strong>Inferential statistics</strong> use a sample to draw conclusions about a population (estimation, confidence intervals, hypothesis tests, regression).</li>
+        <li><strong>Population</strong> = the whole group of interest. <strong>Sample</strong> = the subset studied, which should be representative.</li>
+      </ul>
+      <h3>Center, spread, shape</h3>
+      <ul>
+        <li><strong>Mean</strong> uses every value but is pulled by outliers. <strong>Median</strong> is the middle value and is robust to outliers. <strong>Mode</strong> is the most frequent value and the only measure of center for nominal data.</li>
+        <li><strong>Range</strong> = max − min, the quickest but crudest measure of spread. <strong>Variance</strong> is the average squared deviation from the mean. <strong>SD</strong> = √variance, in the data's own units. <strong>IQR</strong> = Q3 − Q1, the middle 50%, robust to outliers.</li>
+        <li><strong>Right-skewed</strong> (long tail to the right): mean &gt; median &gt; mode, as with income or delivery times. <strong>Left-skewed:</strong> mean &lt; median &lt; mode. For skewed data report the median and IQR.</li>
+        <li><strong>Boxplot</strong> = minimum, Q1, median, Q3, maximum. Whiskers reach 1.5 × IQR; points beyond them are outliers. A median off-center in the box, or unequal whiskers, signals skew.</li>
+      </ul>
+      <h3>Choosing and judging charts</h3>
+      <table>
+        <thead><tr><th>Purpose</th><th>Chart</th></tr></thead>
+        <tbody>
+          <tr><td>Compare categories</td><td>Bar chart (clustered or 100% stacked to compare groups of different sizes)</td></tr>
+          <tr><td>Parts of a whole (few categories)</td><td>Pie or stacked bar</td></tr>
+          <tr><td>Distribution, outliers</td><td>Histogram, boxplot</td></tr>
+          <tr><td>Change over time</td><td>Line or area chart</td></tr>
+          <tr><td>Relationship between two numeric variables</td><td>Scatter plot</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Do:</strong> choose the right chart, keep it simple, label axes clearly, use color for meaning (colorblind-safe), stay consistent, highlight the key point, and use honest scales.
+      <strong>Don't:</strong> truncate axes to exaggerate differences, overuse color, clutter, ignore the audience, use the wrong chart type, or skip data checks.
+      Visualization serves four purposes: idea generation, idea illustration, visual discovery and everyday data visualization.</p>
+    </section>
+
+    <section class="card" id="m4">
+      <h2>6. Module 4 · Measures of association</h2>
+      <ul>
+        <li><strong>Association</strong> means that changes in one variable correspond to changes in another. It does <strong>not</strong> imply causation.</li>
+        <li>Ways to measure it: a <strong>correlation coefficient</strong> (−1 to +1: strength and direction), <strong>covariance</strong> (direction only, not standardized), and a <strong>contingency table with a chi-square test</strong> (categorical variables).</li>
+        <li><strong>Parametric tests</strong> (Pearson, t-test, ANOVA) assume interval or ratio data and a known, usually normal, distribution. They are more powerful when the assumptions hold. <strong>Non-parametric tests</strong> (Spearman, Kendall, chi-square) suit ordinal data, non-normal data, small samples or outliers.</li>
+        <li><strong>Pearson's r</strong> measures a linear relationship between two continuous variables. Assumptions: linearity (check a scatterplot), continuous interval or ratio data, no extreme outliers (r is very sensitive to them), and approximate normality for the significance test (less critical when n &gt; 30).</li>
+        <li><strong>Spearman's ρ</strong> measures a monotonic relationship with ordinal data or non-normal continuous data. It needs no normality and is robust to outliers.</li>
+        <li><strong>Kendall's τ</strong> measures a monotonic relationship between ranked variables. It is preferred for small samples or many tied ranks, and it is more conservative.</li>
+        <li><strong>Chi-square test of independence</strong> tests whether two categorical variables are associated. It compares observed counts with the counts expected if the variables were independent (E = row total × column total / grand total). Assumptions: categorical count data, independent observations (each case in one cell), expected count ≥ 5 in at least 80% of cells. Otherwise combine categories, or use Fisher's exact test for 2×2 tables.</li>
+        <li><strong>Cramér's V</strong> measures the strength of a chi-square association: 0 = none, 1 = perfect.</li>
+        <li><strong>One- vs two-tailed:</strong> two-tailed is the default. Use one-tailed only if the direction was predicted <em>before</em> data collection; switching after seeing the results is p-hacking and inflates Type I error.</li>
+        <li><strong>SPSS:</strong> Analyze → Correlate → Bivariate (Pearson, Spearman, Kendall). Analyze → Descriptive Statistics → Crosstabs (chi-square, Cramér's V).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="quality">
+      <h2>7. Quick reference · data quality, missing values, outliers</h2>
+      <table>
+        <thead><tr><th>Dimension</th><th>Question to ask</th><th>Red flag in an exhibit</th></tr></thead>
+        <tbody>
+          <tr><td>Relevance</td><td>Does it answer this question?</td><td>Accounting data used for a marketing question</td></tr>
+          <tr><td>Accuracy</td><td>Are the values correct?</td><td>Age 245; rating 6 on a 1–5 scale</td></tr>
+          <tr><td>Completeness</td><td>Are key values missing?</td><td>18% of income missing</td></tr>
+          <tr><td>Timeliness</td><td>Is it current?</td><td>2019 data for a 2026 decision</td></tr>
+          <tr><td>Consistency</td><td>Do records agree?</td><td>F / Female / f; mixed currencies or date formats; age vs birth date mismatch</td></tr>
+          <tr><td>Reliability</td><td>Is the source trustworthy?</td><td>Unknown source; self-selected respondents</td></tr>
+        </tbody>
+      </table>
+      <h3>Missing values</h3>
+      <table>
+        <thead><tr><th>Type</th><th>Missingness depends on…</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td>MCAR</td><td>Nothing (purely random)</td><td>Listwise or pairwise deletion, mean or median imputation</td></tr>
+          <tr><td>MAR</td><td>Other <em>observed</em> variables (e.g., age)</td><td>Multiple imputation or regression imputation</td></tr>
+          <tr><td>MNAR</td><td>The missing value itself, or something unobserved (e.g., disengaged people skip the engagement survey)</td><td>Imputation is risky; use complex modelling, report the limitation, run a sensitivity analysis</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Little's MCAR test: H₀ = data are MCAR. If p ≤ .05, reject it and use model-based methods. Mean imputation underestimates variance; flagging (an indicator variable) records which values were imputed.</p>
+      <h3>Outliers</h3>
+      <ul>
+        <li><strong>Detect:</strong> IQR rule (below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR), z-score beyond ±3, boxplot dots, histogram gaps, distant scatterplot points.</li>
+        <li><strong>Decide first:</strong> is it an error (correct or remove it), a different population, or a rare but real event (keep it)?</li>
+        <li><strong>Treat real outliers:</strong> log or √x transformation for right-skewed data with valid large values; winsorization for a few extreme values that are not analytically important; reciprocal (1/x) for highly skewed timing data. Or report robust statistics (median, IQR, Spearman).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="levels">
+      <h2>8. Quick reference · measurement levels</h2>
+      <table>
+        <thead><tr><th>Level</th><th>Properties</th><th>Examples</th><th>Center</th><th>Spread</th><th>Association</th></tr></thead>
+        <tbody>
+          <tr><td>Nominal</td><td>Categories, no order</td><td>Gender, region, device</td><td>Mode</td><td>Frequencies / %</td><td>Chi-square, Cramér's V</td></tr>
+          <tr><td>Ordinal</td><td>Ordered, unequal gaps</td><td>Satisfaction 1–5, job level, education level, ranks</td><td>Median (mode)</td><td>IQR, percentiles</td><td>Spearman, Kendall</td></tr>
+          <tr><td>Interval</td><td>Equal gaps, no true zero</td><td>Temperature °C, calendar year</td><td>Mean (median if skewed)</td><td>SD, variance</td><td>Pearson (if assumptions hold)</td></tr>
+          <tr><td>Ratio</td><td>Equal gaps and a true zero</td><td>Age, income, minutes, sales, hours</td><td>Mean (median if skewed)</td><td>SD, variance, IQR</td><td>Pearson (if assumptions hold)</td></tr>
+        </tbody>
+      </table>
+      <p class="tip"><strong>Trap:</strong> a variable coded with numbers is not automatically interval or ratio. A 1–5 rating is ordinal, and a zip code is nominal. Ratio allows "twice as much" statements; interval does not (20 °C is not twice as hot as 10 °C).</p>
+    </section>
+
+    <section class="card" id="choose">
+      <h2>9. Choosing and justifying a test</h2>
+      <svg class="diagram" viewBox="0 0 760 330" role="img" aria-label="Choose the association test from the measurement level of both variables">
+        <defs><marker id="dg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="dg-head"/></marker></defs>
+        <text x="24" y="28" class="dg-title">Choose the test from the measurement level of both variables</text>
+        <rect x="250" y="48" width="260" height="44" rx="8" class="dg-box"/>
+        <text x="380" y="75" class="dg-text" text-anchor="middle">What are your two variables?</text>
+        <path d="M330 92 V120 H150 V146" class="dg-line" marker-end="url(#dg-arrow)"/>
+        <path d="M430 92 V120 H560 V146" class="dg-line" marker-end="url(#dg-arrow)"/>
+        <text x="150" y="114" class="dg-note" text-anchor="middle">both categorical (counts)</text>
+        <text x="560" y="114" class="dg-note" text-anchor="middle">both ordinal or numeric</text>
+        <rect x="24" y="148" width="252" height="84" rx="8" class="dg-box dg-accent"/>
+        <text x="150" y="172" class="dg-text dg-strong" text-anchor="middle">Chi-square test of independence</text>
+        <text x="150" y="194" class="dg-small" text-anchor="middle">Strength: Cramér's V (0 to 1)</text>
+        <text x="150" y="214" class="dg-small" text-anchor="middle">Check: expected ≥ 5 in 80% of cells</text>
+        <rect x="420" y="148" width="280" height="62" rx="8" class="dg-box"/>
+        <text x="560" y="172" class="dg-text" text-anchor="middle">Interval/ratio, linear, roughly normal,</text>
+        <text x="560" y="192" class="dg-text" text-anchor="middle">no extreme outliers?</text>
+        <path d="M480 210 V246 H400 V262" class="dg-line" marker-end="url(#dg-arrow)"/>
+        <path d="M640 210 V246 H640 V262" class="dg-line" marker-end="url(#dg-arrow)"/>
+        <text x="434" y="240" class="dg-note" text-anchor="middle">yes</text>
+        <text x="664" y="240" class="dg-note">no / ordinal</text>
+        <rect x="320" y="264" width="160" height="50" rx="8" class="dg-box dg-accent"/>
+        <text x="400" y="294" class="dg-text dg-strong" text-anchor="middle">Pearson's r</text>
+        <rect x="500" y="264" width="236" height="50" rx="8" class="dg-box dg-accent"/>
+        <text x="618" y="285" class="dg-text dg-strong" text-anchor="middle">Spearman's ρ (monotonic)</text>
+        <text x="618" y="304" class="dg-small" text-anchor="middle">Kendall's τ: small n or many ties</text>
+      </svg>
+      <table>
+        <thead><tr><th></th><th>Pearson's r</th><th>Spearman's ρ</th><th>Kendall's τ</th><th>Chi-square</th></tr></thead>
+        <tbody>
+          <tr><td>Data</td><td>Continuous (interval/ratio)</td><td>Ordinal or non-normal continuous</td><td>Ordinal / ranked</td><td>Categorical counts</td></tr>
+          <tr><td>Relationship</td><td>Linear</td><td>Monotonic</td><td>Monotonic</td><td>Association</td></tr>
+          <tr><td>Normality needed</td><td>Yes (for the p-value)</td><td>No</td><td>No</td><td>No</td></tr>
+          <tr><td>Outlier sensitivity</td><td>High</td><td>Low</td><td>Very low</td><td>Not applicable</td></tr>
+          <tr><td>Strength measure</td><td>r</td><td>ρ</td><td>τ</td><td>Cramér's V</td></tr>
+          <tr><td>If assumptions fail</td><td>Use Spearman (or fix the error)</td><td>Kendall if n is small or ties are many</td><td>—</td><td>Combine categories, Fisher's exact (2×2)</td></tr>
+        </tbody>
+      </table>
+      <p class="tip"><strong>How to justify (the pattern markers look for):</strong> "<em>Variable X is [level] and Y is [level], and the question asks whether they are related, so [test] fits because [reason]. [Obvious alternative] is not suitable because [assumption it violates].</em>"</p>
+    </section>
+
+    <section class="card" id="sig">
+      <h2>10. Statistical significance vs strength</h2>
+      <ul>
+        <li><strong>Significance (p-value)</strong> answers "Is the relationship likely to be real rather than chance?" If p &lt; .05, reject H₀ (no relationship). The p-value is evidence against H₀, not a measure of size or importance.</li>
+        <li><strong>Strength (the coefficient)</strong> answers "How strong is it?" For r, ρ and τ, use |r| ≈ .30 for weak, ≈ .50 for moderate and ≥ .70 for strong. The sign gives the direction. Cramér's V runs from 0 (none) to 1 (perfect).</li>
+        <li>Large samples make tiny effects significant; small samples can leave moderate effects non-significant. <strong>Always report both.</strong></li>
+      </ul>
+      <table class="matrix">
+        <thead><tr><th></th><th>Strong / moderate coefficient</th><th>Weak coefficient</th></tr></thead>
+        <tbody>
+          <tr><th>p &lt; .05</th><td><strong>Real and meaningful.</strong> e.g., r = .62, p &lt; .001 → "a strong, significant positive relationship"</td><td><strong>Real but small.</strong> e.g., r = .09, p &lt; .001, n = 2,000 → "significant but very weak, little practical importance"</td></tr>
+          <tr><th>p ≥ .05</th><td><strong>Possibly real, not proven.</strong> e.g., r = .52, p = .08, n = 12 → "moderate but not significant; the sample is too small to rule out chance"</td><td><strong>No evidence.</strong> e.g., V = .07, p = .84 → "no evidence of an association (which is not proof of none)"</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="causation">
+      <h2>11. Association vs causation</h2>
+      <p>A significant correlation or chi-square shows that variables move together. It does not show that one causes the other. Common reasons:</p>
+      <ul>
+        <li><strong>Confounding (extraneous) variable:</strong> a third factor drives both. For example, shift type affects both sleep and sick days, and store size affects both ad budget and sales.</li>
+        <li><strong>Reverse causation:</strong> the outcome may drive the "cause". High-selling stores may receive bigger ad budgets.</li>
+        <li><strong>Selection effects:</strong> people choose their own group. Motivated employees both take more training and perform better.</li>
+        <li><strong>Chance:</strong> especially with many tests or small samples.</li>
+      </ul>
+      <p><strong>Stronger evidence for cause</strong> comes from a randomized controlled experiment or A/B test, a clear time order (cause before effect), and controlling for confounders (comparing within groups). Panel data that follow the same units over time also help.</p>
+      <table>
+        <thead><tr><th>Say</th><th>Don't say</th></tr></thead>
+        <tbody>
+          <tr><td>"X is associated with Y"</td><td>"X causes / drives / leads to Y"</td></tr>
+          <tr><td>"Customers who … tend to …"</td><td>"Increasing X will increase Y"</td></tr>
+          <tr><td>"This may reflect [confounder]; an experiment would be needed to test cause"</td><td>"This proves…"</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="communicate">
+      <h2>12. Communicating conclusions</h2>
+      <h3>Sentence templates</h3>
+      <div class="model-answer"><strong>Correlation:</strong> "There is a [weak / moderate / strong], [positive / negative] [linear / monotonic] relationship between X and Y (r / ρ / τ = __, p = __, n = __). [It is / It is not] statistically significant at .05. Because the data are correlational, this does not show that X causes Y; [confounder] may explain part of it."</div>
+      <div class="model-answer"><strong>Chi-square:</strong> "There [is / is no] statistically significant association between A and B (χ²(df) = __, p = __). Cramér's V = __ indicates a [weak / moderate / strong] association."</div>
+      <div class="model-answer"><strong>Recommendation:</strong> "Based on this evidence, we recommend [action]. Before [big decision], [validate with an experiment / collect more recent data / fix the data issue]."</div>
+      <h3>What a full-mark answer contains</h3>
+      <ul class="checks">
+        <li>The specific numbers from the exhibit, not generic theory</li>
+        <li>Direction, strength and significance, each stated separately</li>
+        <li>A justification for every choice (why this, why not the alternative)</li>
+        <li>At least one assumption or limitation tied to the case</li>
+        <li>Association wording and a plausible confounder</li>
+        <li>A clear, actionable conclusion in plain language</li>
+      </ul>
+      <h3>Common mistakes</h3>
+      <ul>
+        <li>Calling a significant result "strong", or a non-significant one "proof of no relationship"</li>
+        <li>Using a mean or Pearson's r for ordinal ratings</li>
+        <li>Running Pearson with a clear outlier or a curved scatterplot</li>
+        <li>Deleting outliers without checking whether they are errors</li>
+        <li>Mean-imputing data that are MAR or MNAR</li>
+        <li>Ignoring the chi-square expected-count rule</li>
+        <li>Switching to one-tailed after seeing the results</li>
+        <li>Generalizing from a biased or non-random sample</li>
+      </ul>
+    </section>
+
+    <section class="card" id="checklist">
+      <h2>13. Final review checklist</h2>
+      <ul class="checks">
+        <li>I can name the six data-quality dimensions and spot each one in a table.</li>
+        <li>I can tell MCAR, MAR and MNAR apart from a description and give the right treatment.</li>
+        <li>I can apply the IQR rule and explain how to treat a real outlier.</li>
+        <li>I can classify any variable as nominal, ordinal, interval or ratio and say what that allows.</li>
+        <li>I can choose the mean or median from the shape of the data and justify it.</li>
+        <li>I can pick the right chart and spot a misleading one.</li>
+        <li>I can choose Pearson, Spearman, Kendall or chi-square, and list each one's assumptions.</li>
+        <li>I can interpret r / ρ / τ / V with p, keeping strength and significance separate.</li>
+        <li>I can explain why an association is not causation and name a confounder.</li>
+        <li>I can write a two-sentence conclusion with numbers, a limitation and a next step.</li>
+      </ul>
+      <p><a class="button-link" href="midterm.html">Take a practice midterm →</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">Study aid, not official course material. Content summarizes the Module 1–4 readings and the midterm announcement.</footer>
+</body>
+</html>

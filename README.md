@@ -11,6 +11,19 @@ A practice quiz for **Principles of Data Analytics, Modules 1–4**. By default 
 | 3 · Statistics & visualization | Descriptive vs inferential, population vs sample, mean/median/mode, skewness, spread, boxplots, chart choice, visualization do's and don'ts |
 | 4 · Measures of association | Association vs causation, confounding variables, parametric vs non-parametric, Pearson, Spearman, Kendall, Chi-square, Cramér's V, p-values, one- vs two-tailed tests, choosing the right test (incl. t-test, ANOVA, Mann–Whitney U, Kruskal–Wallis), Session 4 activities |
 
+## Midterm simulator and study guide
+
+- **[Midterm simulator](midterm.html)** follows the midterm announcement: **four applied-scenario questions** on Modules 1–4. Each attempt draws one scenario per area: data quality & preparation; describing & visualizing data; choosing & justifying a test; and interpreting results & drawing conclusions. Each scenario has an exhibit (data extract, summary statistics or test output) and four free-text parts. They cover data quality, measurement levels, choosing an approach, assumptions, significance vs strength, association vs causation and clear conclusions. After you submit, you grade yourself against model answers and rubrics (keyword matches are pre-ticked), and you get a score out of 100 with a breakdown by question and skill. The timer is adjustable (60/90/120 min or off), and unfinished exams are saved in the browser.
+- **[Study guide](study-guide.html)** covers:
+  - an answer framework for scenario questions;
+  - essentials for each of Modules 1–4;
+  - quick references (data quality, missing values, outliers, measurement levels);
+  - a test-chooser diagram;
+  - significance vs strength, and association vs causation;
+  - conclusion templates and a final checklist.
+
+The scenario bank lives in `midterm-bank.js` (12 scenarios, 3 per area); the logic and UI are in `midterm.js`.
+
 ## How a quiz works
 
 - **Formats:** Quiz 1 (15 MC + 3 short answer, the default), Quick (8 + 2) or Long (24 + 6). The "exam pace" timer gives 40 minutes for 18 questions and scales with the other formats. You can move freely between questions, as in the real quiz.
@@ -47,6 +60,10 @@ styles.css        light/dark theme, responsive layout
 questions.js      question bank (edit here to add questions)
 quiz.js           pure logic: selection, shuffling, scoring
 app.js            UI: setup → quiz → self-grading → results
+midterm.html      midterm simulator page
+midterm-bank.js   scenario bank (4 areas × 3 scenarios)
+midterm.js        midterm logic + UI
+study-guide.html  study guide page
 test/             node:test suite
 ```
 

@@ -175,3 +175,50 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .bar-row { grid-template-columns: 110px 1fr 48px; }
   .score { font-size: 2.4rem; }
 }
+
+/* Site navigation (shared by all pages) */
+.site-nav { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-bottom: 10px; font-size: .9rem; }
+.site-nav a { color: var(--muted); text-decoration: none; padding: 2px 0; border-bottom: 2px solid transparent; }
+.site-nav a:hover { color: var(--accent); }
+.site-nav a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+a { color: var(--accent); }
+
+/* Midterm simulator */
+.nav button.partly { background: var(--warn-soft); }
+.part { border-top: 1px solid var(--border); padding-top: 14px; margin-top: 14px; }
+.part-prompt { display: block; margin: 0 0 6px; font-weight: 500; }
+.badge.skill { display: inline-block; margin-bottom: 8px; background: var(--good-soft); color: var(--good); }
+.part textarea { min-height: 120px; }
+.skill-list { padding-left: 18px; margin: 0 0 12px; }
+
+/* Study guide */
+.guide main section { scroll-margin-top: 12px; }
+.toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 28px; }
+.toc li { margin-bottom: 4px; break-inside: avoid; }
+.steps li, .guide ul li { margin-bottom: 6px; }
+.tip { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; }
+.model { margin: 8px 0 4px; }
+.guide .model-answer { margin-bottom: 10px; }
+.checks { list-style: none; padding: 0; }
+.checks li::before { content: "✓ "; color: var(--good); font-weight: 700; }
+.matrix th, .matrix td { vertical-align: top; padding: 8px 6px; }
+.button-link { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; padding: 9px 16px; border-radius: 8px; }
+.guide td, .guide th { vertical-align: top; }
+.table-wrap, .guide section { overflow-x: auto; }
+.diagram { width: 100%; height: auto; margin: 4px 0 14px; }
+.dg-title { font-size: 15px; font-weight: 600; fill: var(--text); }
+.dg-text { font-size: 13px; fill: var(--text); }
+.dg-strong { font-weight: 600; }
+.dg-small, .dg-note { font-size: 11.5px; fill: var(--muted); }
+.dg-box { fill: none; stroke: var(--muted); stroke-width: 1.25; }
+.dg-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.dg-line { fill: none; stroke: var(--muted); stroke-width: 1.25; }
+.dg-head { fill: var(--muted); }
+
+@media (max-width: 560px) { .toc ol { columns: 1; } }
+
+@media print {
+  .site-nav, .site-footer, .button-link { display: none; }
+  body { background: #fff; color: #000; }
+  .card { border: 0; padding: 0; break-inside: avoid-page; }
+}
