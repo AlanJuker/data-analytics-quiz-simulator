@@ -90,11 +90,12 @@ if (typeof document !== "undefined") {
         answer and tick the rubric points you covered; keyword matches are pre-ticked for you to confirm. Each question is worth 25 points.
         Before you start, read the <a href="study-guide.html#framework">answer framework</a>.</p>
         <p class="muted small">A clock starts when you begin and shows how long you have been working.
-        Short on time? <strong>Practice one case</strong> gives you a single random scenario (25 points), choosing ones you have not practised yet.</p>
+        <strong>Quick (1 case)</strong> gives you a single random scenario (25 points), choosing ones you have not practised yet.
+        <strong>Full exam (4 cases)</strong> follows the real midterm format.</p>
         <form id="setup">
           <div class="row">
-            <button class="primary" type="submit">Start a new exam</button>
-            <button type="button" data-act="quick">Practice one case</button>
+            <button class="primary" type="submit">Quick (1 case)</button>
+            <button type="button" data-act="full">Full exam (4 cases)</button>
             ${draft ? `<button type="button" data-act="resume">Resume unfinished exam</button>` : ""}
           </div>
         </form>
@@ -263,7 +264,7 @@ if (typeof document !== "undefined") {
   // ───────── Events ─────────
   app.addEventListener("submit", (e) => {
     e.preventDefault();
-    startExam();
+    startExam(true);
   });
 
   app.addEventListener("input", (e) => {
@@ -290,7 +291,7 @@ if (typeof document !== "undefined") {
     else if (act === "results") renderResults();
     else if (act === "regrade") renderSelfGrade();
     else if (act === "restart") renderSetup();
-    else if (act === "quick") startExam(true);
+    else if (act === "full") startExam();
     else if (act === "resume") resumeExam();
     else if (act === "clear-history" && confirm("Clear your saved attempts?")) { store.del(HISTORY_KEY); renderSetup(); }
   });
