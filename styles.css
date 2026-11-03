@@ -215,7 +215,18 @@ a { color: var(--accent); }
 .dg-line { fill: none; stroke: var(--muted); stroke-width: 1.25; }
 .dg-head { fill: var(--muted); }
 
+/* Theory recap */
+.big-idea { border-left: 4px solid var(--accent); padding: 2px 0 2px 12px; margin: 0 0 14px; }
+.flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.flow li { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; margin: 0; }
+.recall details { border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; margin-bottom: 6px; }
+.recall summary { cursor: pointer; font-weight: 500; }
+.recall details p { margin: 8px 0 2px; }
+.dg-median { stroke: var(--accent); stroke-width: 3; }
+.dg-dot { fill: var(--warn); }
+
 @media (max-width: 560px) { .toc ol { columns: 1; } }
+@media (max-width: 760px) { .flow { grid-template-columns: 1fr 1fr; } }
 
 @media print {
   .site-nav, .site-footer, .button-link { display: none; }

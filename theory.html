@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Theory Recap</title>
+  <meta name="description" content="Short recap of the Principles of Data Analytics theory for Modules 1-4, with recall questions and a formula sheet.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📗</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="guide">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Site"><a href="index.html">Quiz 1 practice</a><a href="midterm.html">Midterm simulator</a><a href="theory.html" aria-current="page">Theory recap</a><a href="study-guide.html">Study guide</a></nav>
+    <h1>Theory Recap</h1>
+    <p class="subtitle">Principles of Data Analytics · Modules 1–4 · the readings in short</p>
+  </header>
+
+  <main>
+    <nav class="card toc" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#big-picture">How the four modules fit together</a></li>
+        <li><a href="#m1">Module 1 · Introduction to data analytics</a></li>
+        <li><a href="#m2">Module 2 · Data collection &amp; preparation</a></li>
+        <li><a href="#m3">Module 3 · Statistical measurement &amp; visualization</a></li>
+        <li><a href="#m4">Module 4 · Measures of association</a></li>
+        <li><a href="#formulas">Formula sheet</a></li>
+      </ol>
+      <p class="small muted">Each module takes a few minutes to read. At the end of each one, answer the recall questions out loud before you open them. For exam technique and answer templates, see the <a href="study-guide.html">study guide</a>.</p>
+    </nav>
+
+    <section class="card" id="big-picture">
+      <h2>1. How the four modules fit together</h2>
+      <ol class="flow">
+        <li><strong>Module 1 · Why and how.</strong> Analytics turns data into decisions through a lifecycle that starts with a question and a hypothesis.</li>
+        <li><strong>Module 2 · Get the data right.</strong> Know where data come from and what type they are, then clean them before you trust them.</li>
+        <li><strong>Module 3 · Describe and show.</strong> Summarize center, spread and shape, and pick an honest chart.</li>
+        <li><strong>Module 4 · Relate variables.</strong> Test whether two variables are associated, and remember that association is not causation.</li>
+      </ol>
+    </section>
+
+    <section class="card" id="m1">
+      <h2>2. Module 1 · Introduction to data analytics</h2>
+      <p class="big-idea"><strong>Big idea:</strong> data analytics turns raw data into insights that support decisions. It follows a lifecycle that begins with a clear question and a testable hypothesis.</p>
+
+      <h3>What data analysis is</h3>
+      <ul>
+        <li><strong>Data analysis</strong> examines, cleans, transforms and interprets raw data. It uses statistical and analytical techniques to find patterns, trends and relationships.</li>
+        <li>It is used in every sector. <strong>Healthcare:</strong> predicting epidemics, patient care, hospital resources. <strong>Finance:</strong> risk assessment, fraud detection, customer segmentation. <strong>Retail:</strong> inventory, customer satisfaction, personalized marketing.</li>
+        <li><strong>Data analytics vs data science:</strong> analytics examines existing data to answer specific business questions (what happened and why). Data science is broader: it builds models and algorithms, often to predict.</li>
+      </ul>
+
+      <h3>The data lifecycle</h3>
+      <ol class="steps">
+        <li><strong>Research question &amp; hypothesis:</strong> define the problem and write a testable hypothesis.</li>
+        <li><strong>Data generation or collection:</strong> data come from sensors, digital platforms, transactions, surveys or research.</li>
+        <li><strong>Data storage:</strong> keep data secure, structured and easy to access. Small data fit in Excel, medium data in a database (MySQL), and big data in a cloud data warehouse (Snowflake, Amazon Redshift).</li>
+        <li><strong>Data processing:</strong> cleaning, normalization and transformation. This is where data quality is ensured.</li>
+        <li><strong>Data analysis:</strong> apply techniques, from simple statistics to machine learning, to find insights, patterns and trends.</li>
+        <li><strong>Visualization &amp; interpretation:</strong> charts make the findings understandable to decision-makers.</li>
+        <li><strong>Decision-making:</strong> act, evaluate the result, then ask the next question. It is a cycle.</li>
+      </ol>
+      <p class="tip"><strong>Class example (late students):</strong> the question is "Why are students late?" Collect arrival time, transport type and distance, and store them in Excel. Clean the data, compare the average delay by transport, and show it as a bar chart. Decision: move the class start time or recommend earlier buses.</p>
+
+      <h3>Five benefits of data analytics</h3>
+      <table>
+        <tbody>
+          <tr><td><strong>Informed decision-making</strong></td><td>Decisions rest on evidence instead of intuition. This is the most important benefit.</td></tr>
+          <tr><td><strong>Predictive capabilities</strong></td><td>Anticipate trends, customer behavior and risks, so the organization can act proactively instead of reacting.</td></tr>
+          <tr><td><strong>Performance &amp; efficiency</strong></td><td>Find inefficiencies in operations or the supply chain, which streamlines processes and cuts costs.</td></tr>
+          <tr><td><strong>Personalization &amp; customer service</strong></td><td>Tailor products to customer preferences, which raises satisfaction and loyalty.</td></tr>
+          <tr><td><strong>Risk management</strong></td><td>Use historical data to spot risks and plan mitigation, which is key in finance, healthcare and cybersecurity.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Data cleaning &amp; preparation tools</h3>
+      <ul>
+        <li>The tools perform five functions:
+          <ul>
+            <li><strong>Remove irrelevant data</strong> (employee birthdays in a sales analysis).</li>
+            <li><strong>Correct errors</strong> (typos in product names, wrong sales figures).</li>
+            <li><strong>Handle missing data</strong> (impute or remove).</li>
+            <li><strong>Standardize formats</strong> (one date format).</li>
+            <li><strong>Identify and remove duplicates.</strong></li>
+          </ul>
+        </li>
+        <li>Examples of tools:
+          <ul>
+            <li><strong>Excel / Google Sheets:</strong> find &amp; replace, sort, filter, conditional formatting.</li>
+            <li><strong>OpenRefine:</strong> larger datasets, bulk transformations, linking datasets.</li>
+            <li><strong>pandas (Python):</strong> missing data, merges, pivot tables.</li>
+            <li><strong>R:</strong> statistical programming.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>Hypotheses</h3>
+      <ul>
+        <li>A <strong>hypothesis</strong> is a tentative, testable statement about the relationship between two or more variables. It turns a research question into something you can measure.</li>
+        <li>It <strong>guides the design of the analysis</strong>: which variables to extract, which method fits, and whether the goal is explanatory, predictive or exploratory.</li>
+        <li><strong>H₀ (null):</strong> there is no difference or relationship. <strong>H₁ (alternative):</strong> there is one.</li>
+      </ul>
+      <p>Six steps, with the course's email example:</p>
+      <ol class="steps">
+        <li><strong>Clear research question:</strong> "What influences whether customers click on promotional emails?"</li>
+        <li><strong>Define the variables:</strong> the IV (the cause you believe in) is the subject line type, and the DV (the outcome) is the click-through rate.</li>
+        <li><strong>Preliminary research or data exploration:</strong> look for trends, patterns or gaps.</li>
+        <li><strong>Write it as an if–then statement:</strong> "Emails with personalized subject lines will have a higher click-through rate than non-personalized ones." H₀: subject line type makes no difference to click-through.</li>
+        <li><strong>Make it specific, measurable and falsifiable:</strong> name the population, variables and outcome; use observable data; make sure it could be proven false.</li>
+        <li><strong>Align it with the goal:</strong> ask how the decision would change if the hypothesis is confirmed or rejected.</li>
+      </ol>
+
+      <h3>Recall questions</h3>
+      <div class="recall">
+        <details><summary>List the lifecycle stages in order.</summary><p>Question &amp; hypothesis → collection → storage → processing → analysis → visualization &amp; interpretation → decision-making (then a new question).</p></details>
+        <details><summary>In which stage does data cleaning happen?</summary><p>Data processing (with normalization and transformation).</p></details>
+        <details><summary>Which three properties make a hypothesis good?</summary><p>It is specific, measurable and falsifiable, and it should be aligned with the business goal.</p></details>
+        <details><summary>Write H₀ and H₁ for "Does a loyalty app increase monthly spending?"</summary><p>H₀: there is no difference in monthly spending between app users and non-users. H₁: app users spend more per month.</p></details>
+        <details><summary>A bank uses past transactions to flag fraud. Which benefit is that?</summary><p>Risk management (it also uses predictive capabilities).</p></details>
+        <details><summary>Which tool fits bulk clean-up of a large, messy dataset without writing code?</summary><p>OpenRefine.</p></details>
+      </div>
+    </section>
+
+    <section class="card" id="m2">
+      <h2>3. Module 2 · Data collection &amp; preparation</h2>
+      <p class="big-idea"><strong>Big idea:</strong> an analysis is only as good as its data. Know where the data came from and what kind they are, check their quality, and clean them before analysis.</p>
+
+      <h3>Where data come from</h3>
+      <table>
+        <thead><tr><th></th><th>Primary data</th><th>Secondary data</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Collected</strong></td><td>By you, for this question</td><td>By someone else, for another purpose</td></tr>
+          <tr><td><strong>Examples</strong></td><td>Surveys, interviews, experiments</td><td>Reports, academic journals, government statistics, company records</td></tr>
+          <tr><td><strong>Pros</strong></td><td>Tailored to the question</td><td>Fast and cheap</td></tr>
+          <tr><td><strong>Cons</strong></td><td>Slow and costly</td><td>May not fit the question exactly; may be outdated</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><strong>Quantitative</strong> data are numbers you can count or measure (height, test scores). They are used to find patterns, test hypotheses, predict and generalize.</li>
+        <li><strong>Qualitative</strong> data are non-numeric (text, images, audio, interview answers). They explain the "why" and "how" behind behavior.</li>
+      </ul>
+
+      <h3>Measurement scales (NOIR)</h3>
+      <p>Each level adds one property to the one before it. The level decides which statistics and tests you may use.</p>
+      <table>
+        <thead><tr><th>Scale</th><th>Meaning</th><th>Order</th><th>Equal gaps</th><th>True zero</th><th>Center</th><th>Spread</th><th>Tests</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Nominal</strong></td><td>Categories, no order</td><td>✗</td><td>✗</td><td>✗</td><td>Mode</td><td>–</td><td>χ²</td><td>Blood type, region, payment method</td></tr>
+          <tr><td><strong>Ordinal</strong></td><td>Ordered, but gaps are not equal</td><td>✓</td><td>✗</td><td>✗</td><td>Median</td><td>Semi-interquartile range</td><td>Rank correlations (Spearman, Kendall)</td><td>Satisfaction 1–5, education level</td></tr>
+          <tr><td><strong>Interval</strong></td><td>Equal gaps, but zero is arbitrary</td><td>✓</td><td>✓</td><td>✗</td><td>Mean</td><td>SD, variance, coefficient of variation</td><td>t, F</td><td>Temperature in °C, calendar year</td></tr>
+          <tr><td><strong>Ratio</strong></td><td>Equal gaps and a true zero, so ratios make sense</td><td>✓</td><td>✓</td><td>✓</td><td>Arithmetic or geometric mean</td><td>SD, variance, coefficient of variation</td><td>t, F</td><td>Income, age, weight, time</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Types of variables</h3>
+      <p>Running example: "Does a sales training program increase monthly sales?"</p>
+      <table>
+        <thead><tr><th>Variable</th><th>Meaning</th><th>In the example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Independent (IV)</strong></td><td>Manipulated, or believed to influence the outcome</td><td>Training (yes / no)</td></tr>
+          <tr><td><strong>Dependent (DV)</strong></td><td>The outcome measured</td><td>Monthly sales</td></tr>
+          <tr><td><strong>Controlled</strong></td><td>Kept constant so it cannot affect the result</td><td>Same products and sales period for everyone</td></tr>
+          <tr><td><strong>Extraneous</strong></td><td>Not of interest, but could affect the result if not controlled</td><td>Store location, season</td></tr>
+          <tr><td><strong>Moderating</strong></td><td>Changes the <em>strength or direction</em> of the IV → DV link</td><td>Experience: training helps new staff more than veterans</td></tr>
+          <tr><td><strong>Mediating</strong></td><td>Explains <em>how</em> the IV affects the DV (the mechanism in between)</td><td>Training → more confidence → more sales</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Data structures</h3>
+      <table>
+        <thead><tr><th></th><th>Time-series</th><th>Cross-sectional</th><th>Panel</th></tr></thead>
+        <tbody>
+          <tr><td><strong>What</strong></td><td>One entity, many time points</td><td>Many entities, one time point (a snapshot)</td><td>Many entities, many time points</td></tr>
+          <tr><td><strong>Goal</strong></td><td>Trends, cycles, seasonality, forecasting</td><td>Differences and relationships at one moment</td><td>Change over time and differences between entities; supports causal questions</td></tr>
+          <tr><td><strong>Typical methods</strong></td><td>ARIMA, exponential smoothing, time-series regression</td><td>Linear regression, classification, clustering</td><td>Fixed effects, random effects, multilevel models</td></tr>
+          <tr><td><strong>Complexity</strong></td><td>Moderate</td><td>Low</td><td>High</td></tr>
+          <tr><td><strong>Example</strong></td><td>One store's daily sales over 3 years</td><td>500 customers surveyed in March</td><td>The same 200 employees surveyed every year</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Sampling</h3>
+      <ul>
+        <li>A <strong>sample</strong> is a subset of the population that must be <strong>representative</strong> of it.</li>
+        <li>A <strong>sampling plan</strong> defines the population, the method (random or stratified sampling) and the sample size. A larger sample is more precise but costs more, so the size balances precision and cost.</li>
+        <li><strong>Sampling bias</strong> happens when some groups are more likely to be included than others: convenience samples, volunteers (self-selection), only active users, or people who did not respond. Random or stratified selection reduces it.</li>
+      </ul>
+
+      <h3>Data quality: six dimensions</h3>
+      <table>
+        <thead><tr><th>Dimension</th><th>Meaning</th><th>Example of a problem</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Relevance</strong></td><td>Related to the research question</td><td>Employee birthdays in a sales analysis</td></tr>
+          <tr><td><strong>Accuracy</strong></td><td>Correct, precise, free of errors</td><td>Age 245; a typo in a product name</td></tr>
+          <tr><td><strong>Completeness</strong></td><td>No missing values for critical variables</td><td>20% of incomes blank</td></tr>
+          <tr><td><strong>Timeliness</strong></td><td>Current and up to date</td><td>2019 prices used for a 2026 decision</td></tr>
+          <tr><td><strong>Consistency</strong></td><td>No contradictions inside the data</td><td>Age does not match date of birth; F / Female / f</td></tr>
+          <tr><td><strong>Reliability</strong></td><td>Comes from a trustworthy source</td><td>An unknown website instead of a government agency</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">Assessing quality is an ongoing process during collection and preparation, not a one-time check.</p>
+
+      <h3>Cleaning</h3>
+      <ul>
+        <li><strong>Data cleaning</strong> finds and fixes data that are incorrect, incomplete, irrelevant, duplicated or badly formatted.</li>
+        <li><strong>Errors:</strong> typos, data-entry mistakes and impossible values. Left in, they skew results and lead to wrong conclusions.</li>
+        <li><strong>Duplicates:</strong> identical or near-identical records. Find them with matching algorithms, conditional checks or manual review, then remove or merge them.</li>
+        <li><strong>Inconsistencies:</strong> the same thing recorded differently (spelling, date format, codes). Standardize them.</li>
+        <li><strong>Converting formats &amp; structures:</strong> text files into structured tables, text to numbers, wide ↔ long format, so the data fit the tool.</li>
+      </ul>
+
+      <h3>Encoding categorical data</h3>
+      <table>
+        <thead><tr><th>Method</th><th>How it works</th><th>Use it for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Label</strong></td><td>A unique integer for each category</td><td>Careful: it implies a false order for nominal data</td></tr>
+          <tr><td><strong>One-hot</strong></td><td>One 0/1 column per category</td><td>Nominal data (no false order)</td></tr>
+          <tr><td><strong>Ordinal</strong></td><td>Integers that keep the natural order (low = 1, medium = 2, high = 3)</td><td>Ordinal data</td></tr>
+          <tr><td><strong>Binary</strong></td><td>Label first, then write the label in binary digits, one column per digit</td><td>A compromise between label and one-hot</td></tr>
+          <tr><td><strong>Frequency (count)</strong></td><td>Replace each category with how often it occurs</td><td>When frequency itself is a useful signal</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Normalization vs standardization</h3>
+      <p>Both put variables with different units or ranges (dollars, kilometers, counts) on a common scale, so large numbers do not dominate the analysis.</p>
+      <ul>
+        <li><strong>Min–max normalization:</strong> x′ = (x − min) / (max − min), which gives values from 0 to 1. It is <strong>sensitive to outliers</strong>: one extreme value squeezes all the others into a narrow band.</li>
+        <li><strong>Z-score standardization:</strong> z = (x − mean) / SD, which gives mean 0 and SD 1. It <strong>keeps the shape</strong> of the distribution and shows how many SDs a value is from the mean, which is good for comparing relative positions and spotting outliers.</li>
+      </ul>
+
+      <h3>Outliers</h3>
+      <ul>
+        <li>An <strong>outlier</strong> is an extreme value, far from the rest. Possible causes are a measurement or data-entry error, a system glitch, or a rare but real event. Outliers distort means, SDs, correlations and regression results.</li>
+        <li>Ways to <strong>detect</strong> them:
+          <ul>
+            <li><strong>IQR rule:</strong> below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR.</li>
+            <li><strong>Z-score:</strong> beyond ±3.</li>
+            <li><strong>Boxplot:</strong> dots beyond the whiskers.</li>
+            <li><strong>Histogram:</strong> isolated bars or gaps.</li>
+            <li><strong>Scatterplot:</strong> distant points (bivariate outliers).</li>
+          </ul>
+        </li>
+        <li>To <strong>treat</strong> a real outlier, reduce its impact without deleting it:
+          <ul>
+            <li><strong>Log (log x):</strong> reduces right skew and compresses large values. It only works for positive values, so use log(x + 1) if there are zeros.</li>
+            <li><strong>Square root (√x):</strong> a milder version of the log.</li>
+            <li><strong>Reciprocal (1/x):</strong> the strongest; used for highly skewed timing or duration data.</li>
+            <li><strong>Winsorization:</strong> caps extreme values at a chosen percentile.</li>
+          </ul>
+        </li>
+      </ul>
+      <table>
+        <thead><tr><th>Situation</th><th>Preferred treatment</th></tr></thead>
+        <tbody>
+          <tr><td>Right-skewed data with valid large values</td><td>Log or square root</td></tr>
+          <tr><td>A few extreme values that are not analytically important</td><td>Winsorization</td></tr>
+          <tr><td>Highly skewed timing or duration data</td><td>Reciprocal</td></tr>
+          <tr><td>Multivariate models that are sensitive to distortion</td><td>Treat the outliers before modelling</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Missing values</h3>
+      <p>Values go missing through skipped survey questions, data-entry errors, system faults or merging databases. Missing data reduce statistical power, bias estimates and make results less generalizable. <strong>First diagnose why the data are missing</strong>, because that decides the treatment.</p>
+      <table>
+        <thead><tr><th>Type</th><th>Missingness depends on…</th><th>Example</th><th>Treatment</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MCAR</strong> (completely at random)</td><td>Nothing: no relationship with any variable</td><td>A server outage randomly loses some responses</td><td>Listwise or pairwise deletion, mean or median imputation</td></tr>
+          <tr><td><strong>MAR</strong> (at random)</td><td>Other <em>observed</em> variables, not the value itself</td><td>Older respondents skip an online-usage question more often (age is recorded)</td><td>Multiple imputation or regression imputation</td></tr>
+          <tr><td><strong>MNAR</strong> (not at random)</td><td>The missing value itself, or unobserved data</td><td>High earners refuse to report their income</td><td>Complex modelling; imputation is risky</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li><strong>Little's MCAR test:</strong> H₀ = the data are MCAR. If p &gt; .05, you fail to reject H₀, so simple methods may be fine. If p ≤ .05, the data are not MCAR, so use multiple imputation or model-based methods.</li>
+        <li>Imputation methods:
+          <ul>
+            <li><strong>Mean or median:</strong> simple and fast, but underestimates variance. Best for MCAR.</li>
+            <li><strong>Regression:</strong> keeps the relationships between variables, but is still a single imputation. Best for MAR.</li>
+            <li><strong>Multiple:</strong> statistically robust and accounts for uncertainty, but more complex. Best for MAR or MCAR.</li>
+            <li><strong>Flagging (indicator method):</strong> adds a 0/1 column that marks which values were missing.</li>
+          </ul>
+        </li>
+        <li><strong>Listwise deletion</strong> drops the whole case. <strong>Pairwise deletion</strong> uses every available value for each analysis.</li>
+      </ul>
+
+      <h3>Recall questions</h3>
+      <div class="recall">
+        <details><summary>Customer satisfaction is rated 1–5. Which level is it, and what does that allow?</summary><p>Ordinal: report the median (or mode) and use Spearman or Kendall, not the mean or Pearson.</p></details>
+        <details><summary>Why is temperature in °C interval and not ratio?</summary><p>0 °C does not mean "no temperature", so ratios are meaningless: 20 °C is not twice as hot as 10 °C.</p></details>
+        <details><summary>What is the difference between a moderator and a mediator?</summary><p>A moderator changes how strong the IV → DV relationship is (or its direction). A mediator is the mechanism in the middle that explains how the IV affects the DV.</p></details>
+        <details><summary>The same 300 households are surveyed every year for 5 years. What data structure is that?</summary><p>Panel data: many entities over many time points.</p></details>
+        <details><summary>How should you encode "payment method" (cash / card / app)?</summary><p>One-hot encoding, because it is nominal. Label encoding would imply a false order.</p></details>
+        <details><summary>Q1 = 20 and Q3 = 40. Is a value of 75 an outlier?</summary><p>Yes. IQR = 20, so the upper fence = 40 + 1.5 × 20 = 70, and 75 &gt; 70.</p></details>
+        <details><summary>High earners skip the income question. Which type of missingness is that?</summary><p>MNAR: the missingness depends on the missing value itself, so imputation is risky.</p></details>
+        <details><summary>Little's test gives p = .21. What do you conclude?</summary><p>Fail to reject H₀. The data are consistent with MCAR, so simple methods (deletion, mean or median imputation) may be appropriate.</p></details>
+        <details><summary>Why is min–max scaling a poor choice when there are outliers?</summary><p>The outlier becomes the max (or min), so all other values get squeezed into a narrow band. Z-scores handle this better.</p></details>
+      </div>
+    </section>
+
+    <section class="card" id="m3">
+      <h2>4. Module 3 · Statistical measurement &amp; visualization</h2>
+      <p class="big-idea"><strong>Big idea:</strong> summarize data by their center, spread and shape, show them with the right chart, and know whether you are describing a sample or making inferences about a population.</p>
+
+      <h3>Descriptive vs inferential statistics</h3>
+      <table>
+        <thead><tr><th></th><th>Descriptive</th><th>Inferential</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Goal</strong></td><td>Summarize the data you have</td><td>Generalize from a sample to a population</td></tr>
+          <tr><td><strong>Tools</strong></td><td>Mean, median, mode; range, variance, SD; histograms, pie charts, boxplots</td><td>Estimation (point estimates, confidence intervals); hypothesis tests (t-test, chi-square); predictive modelling (regression, ANOVA); sampling (random, stratified)</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Population</strong> = the whole group of interest. <strong>Sample</strong> = a manageable subset chosen to represent it. The difference is scope, and statistical inference lets you draw conclusions about the population from the sample.</p>
+
+      <h3>Center (central tendency)</h3>
+      <ul>
+        <li><strong>Mean:</strong> the sum divided by n. It is the balance point (deviations from it add up to zero) and uses every value, but outliers pull it, so it is poor for skewed data.</li>
+        <li><strong>Median:</strong> the middle of the ordered values. With odd n it is the middle value; with even n, the average of the two middle values. It is <strong>robust to outliers</strong>.</li>
+        <li><strong>Mode:</strong> the most frequent value. A dataset can have no mode, one, or several (multimodal). It is the <strong>only measure of center for nominal data</strong>.</li>
+        <li><strong>Which one to use:</strong> mean for symmetric numeric data, median for skewed data or data with outliers, median (or mode) for ordinal data, mode for nominal data.</li>
+      </ul>
+
+      <h3>Shape (skewness)</h3>
+      <table>
+        <thead><tr><th></th><th>Symmetric</th><th>Right-skewed (positive)</th><th>Left-skewed (negative)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Tail</strong></td><td>Balanced</td><td>Long tail to the right (high values)</td><td>Long tail to the left (low values)</td></tr>
+          <tr><td><strong>Order</strong></td><td>Mean ≈ median ≈ mode</td><td>Mode &lt; median &lt; mean</td><td>Mean &lt; median &lt; mode</td></tr>
+          <tr><td><strong>Example</strong></td><td>Adult heights</td><td>Income, house prices, delivery times</td><td>Scores on an easy exam</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">Skewness affects which measures of center and spread you report and which tests are appropriate.</p>
+
+      <h3>Spread (dispersion)</h3>
+      <ul>
+        <li><strong>Range</strong> = max − min. It is quick, but it uses only the two extremes and ignores everything in between.</li>
+        <li><strong>Variance</strong> is the average squared distance from the mean.</li>
+        <li><strong>Standard deviation (SD)</strong> = √variance, back in the data's own units. A small SD means values sit close to the mean; a large SD means they are widely spread.</li>
+        <li><strong>IQR</strong> = Q3 − Q1, the middle 50% of the data. It is robust to outliers.</li>
+      </ul>
+
+      <h3>Boxplots</h3>
+      <svg class="diagram" viewBox="0 0 640 160" role="img" aria-label="Boxplot with minimum, Q1, median, Q3, maximum and an outlier labelled">
+        <text x="80" y="30" class="dg-small" text-anchor="middle">Minimum</text>
+        <text x="200" y="30" class="dg-small" text-anchor="middle">Q1 (25th pct)</text>
+        <text x="360" y="30" class="dg-small" text-anchor="middle">Q3 (75th pct)</text>
+        <text x="520" y="30" class="dg-small" text-anchor="middle">Maximum</text>
+        <text x="590" y="52" class="dg-small" text-anchor="middle">Outlier</text>
+        <path d="M80 68V92M80 80H200M360 80H520M520 68V92" class="dg-line"/>
+        <rect x="200" y="55" width="160" height="50" class="dg-box dg-accent"/>
+        <path d="M260 55V105" class="dg-median"/>
+        <circle cx="590" cy="80" r="5" class="dg-dot"/>
+        <text x="440" y="72" class="dg-small" text-anchor="middle">whisker ≤ 1.5 × IQR</text>
+        <text x="260" y="122" class="dg-text" text-anchor="middle">Median (Q2)</text>
+        <path d="M200 130V138H360V130" class="dg-line"/>
+        <text x="280" y="154" class="dg-small" text-anchor="middle">IQR = Q3 − Q1 (middle 50%)</text>
+      </svg>
+      <ul>
+        <li>A boxplot shows the <strong>five-number summary</strong>: minimum, Q1, median, Q3 and maximum. The minimum and maximum are the most extreme values that are not outliers.</li>
+        <li>The box spans the IQR. The whiskers reach up to 1.5 × IQR, and points beyond them are outliers.</li>
+        <li><strong>Reading skew:</strong> a median that is off-center in the box, or whiskers of unequal length, means the data are skewed. In the figure the median is nearer Q1 and the right whisker is longer, so the data are right-skewed.</li>
+        <li>An outlier can come from a recording or data-entry error, from a different population, or from a rare but real event.</li>
+      </ul>
+
+      <h3>Visualization</h3>
+      <ul>
+        <li>Data visualization has <strong>four purposes</strong> (Harvard Business Review, 2016):
+          <ul>
+            <li><strong>Idea generation:</strong> rough visuals in brainstorming that align a team.</li>
+            <li><strong>Idea illustration:</strong> explaining a process (Gantt charts, waterfall charts, org charts).</li>
+            <li><strong>Visual discovery:</strong> analysts spotting trends and patterns.</li>
+            <li><strong>Everyday data visualization:</strong> telling the story behind new insights.</li>
+          </ul>
+        </li>
+        <li>Chart types:
+          <ul>
+            <li><strong>Table:</strong> exact values, but overwhelming with too much detail.</li>
+            <li><strong>Bar chart:</strong> comparing categories.</li>
+            <li><strong>Pie or stacked bar:</strong> parts of a whole.</li>
+            <li><strong>Histogram:</strong> a distribution, good for spotting outliers.</li>
+            <li><strong>Line or area chart:</strong> change over time.</li>
+            <li><strong>Scatter plot:</strong> the relationship between two numeric variables.</li>
+          </ul>
+        </li>
+        <li><strong>Do:</strong> choose the right chart, keep it simple, label clearly, use color for meaning (colorblind-safe), stay consistent, highlight what matters, and use honest scales and axes.</li>
+        <li><strong>Don't:</strong> use misleading or truncated scales, overuse color, clutter, ignore the audience, pick the wrong chart type, skip data checks, or mix design styles.</li>
+        <li><strong>Best practices:</strong> set the context (compare with a benchmark, such as the industry's email open rate), know your audience, choose effective visuals, and keep it simple.</li>
+      </ul>
+
+      <h3>Recall questions</h3>
+      <div class="recall">
+        <details><summary>Incomes have mean $82k and median $55k. What shape is that, and what should you report?</summary><p>Right-skewed (mean &gt; median). Report the median and the IQR.</p></details>
+        <details><summary>Why is the mode the only measure of center for "favorite brand"?</summary><p>It is nominal: categories have no order and no arithmetic, so a median or mean is impossible.</p></details>
+        <details><summary>In a boxplot, the right whisker is much longer than the left. What does that tell you?</summary><p>The data are right-skewed: there is a long tail of high values.</p></details>
+        <details><summary>Descriptive or inferential? (a) "Our 200 surveyed customers average 3.8 visits." (b) "All customers probably average 3.5–4.1 visits."</summary><p>(a) is descriptive: it summarizes the sample. (b) is inferential: it is a confidence interval for the population.</p></details>
+        <details><summary>Which chart fits monthly revenue over two years?</summary><p>A line chart (change over time).</p></details>
+        <details><summary>A bar chart's y-axis starts at 95 to compare 96% with 98%. What is wrong?</summary><p>The axis is truncated, so a small difference looks huge. Bars should start at zero.</p></details>
+        <details><summary>Why is the range a weak measure of spread?</summary><p>It uses only the two most extreme values, so a single outlier changes it, and it says nothing about the values in between.</p></details>
+      </div>
+    </section>
+
+    <section class="card" id="m4">
+      <h2>5. Module 4 · Measures of association</h2>
+      <p class="big-idea"><strong>Big idea:</strong> measure whether two variables move together, and choose the test from the data type and its assumptions. Report strength and significance separately, and never read association as causation.</p>
+
+      <h3>Association vs causation</h3>
+      <ul>
+        <li><strong>Association:</strong> changes in one variable correspond to changes in another. It does <strong>not</strong> mean one causes the other.</li>
+        <li>An association can come from a <strong>third (confounding) variable</strong>, or simply from coincidence.
+          <ul>
+            <li><strong>Ice cream and drownings:</strong> both rise in summer because hot weather drives both. Eating ice cream does not cause drowning.</li>
+            <li><strong>Class activity (social media and GPA):</strong> a campus ban on social media did not raise GPA, because study time was the more plausible driver and social media was only indirectly associated with GPA. More tests are needed before claiming causation.</li>
+          </ul>
+        </li>
+        <li>There are three ways to measure association:
+          <ul>
+            <li><strong>Correlation coefficient:</strong> −1 to +1, giving both strength and direction.</li>
+            <li><strong>Covariance:</strong> direction only. It is not standardized, so it is hard to interpret on its own.</li>
+            <li><strong>Contingency table + chi-square test:</strong> for categorical variables.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>Parametric vs non-parametric tests</h3>
+      <ul>
+        <li><strong>Parametric</strong> tests assume a known distribution (usually normal) and interval or ratio data. Examples are Pearson's r, the t-test and ANOVA. They are <strong>more powerful when their assumptions hold</strong>.</li>
+        <li><strong>Non-parametric</strong> tests have no strict distribution assumptions. They suit ordinal data, non-normal data, small samples or data with outliers. Examples are Spearman's ρ, Kendall's τ and chi-square.</li>
+        <li class="small muted">The t-test and ANOVA are covered later in the course.</li>
+      </ul>
+
+      <h3>Pearson's r (parametric)</h3>
+      <ul>
+        <li>Pearson's r measures the strength and direction of a <strong>linear</strong> relationship between two continuous (interval or ratio) variables.</li>
+        <li>Its assumptions:
+          <ul>
+            <li><strong>Linearity:</strong> check with a scatterplot and trendline.</li>
+            <li><strong>Continuous data:</strong> interval or ratio, not ordinal or categorical.</li>
+            <li><strong>No extreme outliers:</strong> r uses squared deviations, so a single point can distort it.</li>
+            <li><strong>Normality:</strong> needed for the significance test, not for calculating r, and less important when n &gt; 30 (Central Limit Theorem).</li>
+          </ul>
+        </li>
+        <li>If an assumption is violated, use Spearman or Kendall instead.</li>
+        <li>How to interpret it:
+          <ol>
+            <li><strong>Observe r:</strong> +1 is a perfect positive relationship, −1 a perfect negative one, and 0 means no linear relationship.</li>
+            <li><strong>Analyze:</strong> p &lt; .05 (two-tailed) means it is statistically significant. For strength, |r| ≥ .70 is strong, ≈ .50 moderate and ≈ .30 weak.</li>
+          </ol>
+        </li>
+      </ul>
+
+      <h3>Statistical significance</h3>
+      <ul>
+        <li>H₀ says there is no correlation in the population. The <strong>p-value</strong> is how likely a result at least this strong would be if H₀ were true. A small p means strong evidence against H₀.</li>
+        <li>If p &lt; .05, reject H₀: the result is <strong>statistically significant</strong>, so it is unlikely to be due to chance alone and you can be more confident it holds in the population. Common cut-offs are .01, .05 and .10.</li>
+        <li><strong>Significance ≠ strength.</strong> p tells you whether the relationship is likely real; the coefficient tells you how strong it is. With a huge sample a tiny r can be significant, and with a small sample a large r may not be.</li>
+      </ul>
+
+      <h3>Spearman's ρ and Kendall's τ (non-parametric)</h3>
+      <ul>
+        <li><strong>Monotonic</strong> means the variables consistently move in the same (or opposite) direction, but not necessarily at a constant rate. All linear relationships are monotonic, but not all monotonic ones are linear.</li>
+        <li><strong>Spearman's ρ</strong> measures the strength and direction of a monotonic relationship. The data must be at least ordinal, or continuous but not normal. It has no normality requirement and is less sensitive to outliers than Pearson's r, because it uses ranks.</li>
+        <li><strong>Kendall's τ</strong> measures a monotonic association between ranked variables. It is best for <strong>small samples or many tied ranks</strong>, and it is more conservative and robust than ρ. Its values tend to be smaller than ρ for the same data.</li>
+        <li>Both range from −1 to +1, and p &lt; .05 means significant.</li>
+      </ul>
+
+      <h3>Chi-square test of independence (categorical)</h3>
+      <ul>
+        <li>The chi-square test asks whether <strong>two categorical variables</strong> (nominal or ordinal) are associated, using counts in a contingency table (crosstab). Examples: gender × voting preference, education × employment status, region × purchase preference.</li>
+        <li>Its assumptions:
+          <ul>
+            <li><strong>Categorical counts:</strong> frequencies, not percentages or averages.</li>
+            <li><strong>Independent observations:</strong> each case falls in exactly one cell, with no repeated measures.</li>
+            <li><strong>Expected count ≥ 5 in at least 80% of cells.</strong> If more than 20% of cells have an expected count below 5, combine categories or use Fisher's exact test (2×2 tables).</li>
+          </ul>
+        </li>
+        <li>How it works: it compares the observed counts (O) with the counts expected if the variables were independent (E = row total × column total / grand total). χ² = Σ (O − E)² / E, so a bigger χ² means a bigger gap from independence. If p &lt; .05, the association is significant.</li>
+        <li><strong>Cramér's V</strong> is the effect size: V = √(χ² / (n(k − 1))), where k is the smaller of the number of rows or columns. It runs from 0 (no association) to 1 (perfect). Chi-square tells you <em>whether</em> there is an association; V tells you <em>how strong</em> it is.</li>
+      </ul>
+
+      <h3>The four tests side by side</h3>
+      <table>
+        <thead><tr><th></th><th>Pearson's r</th><th>Spearman's ρ</th><th>Kendall's τ</th><th>Chi-square</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Data</strong></td><td>Continuous</td><td>Ordinal (or non-normal continuous)</td><td>Ordinal / ranks</td><td>Categorical counts</td></tr>
+          <tr><td><strong>Relationship</strong></td><td>Linear</td><td>Monotonic</td><td>Monotonic</td><td>Association (not correlation)</td></tr>
+          <tr><td><strong>Normality?</strong></td><td>Yes (for the p-value)</td><td>No</td><td>No</td><td>No</td></tr>
+          <tr><td><strong>Outlier-sensitive?</strong></td><td>Yes</td><td>Low</td><td>Very low</td><td>Not applicable</td></tr>
+          <tr><td><strong>Best when</strong></td><td>Linear, normal, no outliers</td><td>Ordinal, skewed or outliers</td><td>Small n or many ties</td><td>Two categorical variables</td></tr>
+          <tr><td><strong>Strength</strong></td><td>r</td><td>ρ</td><td>τ</td><td>Cramér's V</td></tr>
+        </tbody>
+      </table>
+
+      <h3>One-tailed vs two-tailed tests</h3>
+      <ul>
+        <li>A <strong>two-tailed</strong> test is the default. It tests for a relationship in either direction (H₁: r ≠ 0). Use it when the question is "Is there a relationship?", when the analysis is exploratory, or when no direction was predicted beforehand.</li>
+        <li>A <strong>one-tailed</strong> test checks only one predicted direction (for example, "Study hours will be positively correlated with exam scores"). Use it only if theory supports the direction <strong>and you stated it before collecting the data</strong>.</li>
+        <li>How to read a one-tailed result:
+          <ul>
+            <li>First check that the correlation goes in the predicted direction.</li>
+            <li>If it does, compare the one-tailed p (statistical software shows both p-values, so there is no need to divide by 2) with .05.</li>
+            <li>If it goes the opposite way, the result is not significant and the hypothesis is not supported.</li>
+          </ul>
+        </li>
+        <li>Cautions:
+          <ul>
+            <li>Choosing the direction after seeing the data is <strong>p-hacking</strong>.</li>
+            <li>A one-tailed test cannot detect an effect in the opposite direction.</li>
+            <li>Misused, it inflates the Type I error (false positives).</li>
+            <li>Results are less generalizable, many fields expect two-tailed tests, and the choice must be reported clearly.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>Recall questions</h3>
+      <div class="recall">
+        <details><summary>r = .62, p = .001, n = 40. Interpret it.</summary><p>A moderate-to-strong positive linear relationship that is statistically significant (p &lt; .05). It is still an association, not proof of causation.</p></details>
+        <details><summary>r = .08, p &lt; .001, n = 5,000. Is it important?</summary><p>It is statistically significant but very weak. The large sample makes a tiny effect significant, so it has little practical value.</p></details>
+        <details><summary>Which test fits satisfaction (1–5) vs visits per month?</summary><p>Spearman's ρ (one variable is ordinal), or Kendall's τ if the sample is small or there are many ties.</p></details>
+        <details><summary>Which test fits gender × preferred product, and how do you report strength?</summary><p>A chi-square test of independence, with Cramér's V for strength.</p></details>
+        <details><summary>In a 2×2 table, two of the four cells have an expected count below 5. What now?</summary><p>50% of cells is more than the allowed 20%, so the chi-square assumption fails. Use Fisher's exact test.</p></details>
+        <details><summary>Social media use and GPA are negatively correlated. Why can't you say social media lowers GPA?</summary><p>The data are correlational. A confounder such as study time may drive both. Showing cause needs an experiment or further tests.</p></details>
+        <details><summary>You predicted a positive correlation (one-tailed), but r = −.40. What do you conclude?</summary><p>The one-tailed test is not significant and the hypothesis is not supported, because the relationship runs in the opposite direction.</p></details>
+        <details><summary>Correlation vs covariance?</summary><p>Covariance gives only the direction and is not standardized. Correlation is standardized from −1 to +1, so it also shows strength.</p></details>
+      </div>
+    </section>
+
+    <section class="card" id="formulas">
+      <h2>6. Formula sheet</h2>
+      <table>
+        <thead><tr><th>Formula</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td>Mean x̄ = Σx / n</td><td>Center of symmetric numeric data</td></tr>
+          <tr><td>Range = max − min</td><td>Quick total spread</td></tr>
+          <tr><td>IQR = Q3 − Q1</td><td>Spread of the middle 50%</td></tr>
+          <tr><td>Fences: Q1 − 1.5 × IQR and Q3 + 1.5 × IQR</td><td>IQR outlier rule</td></tr>
+          <tr><td>Population variance σ² = Σ(x − μ)² / N; σ = √σ²</td><td>Spread of a whole population</td></tr>
+          <tr><td>Sample variance s² = Σ(x − x̄)² / (n − 1); s = √s²</td><td>Spread of a sample</td></tr>
+          <tr><td>z = (x − x̄) / s</td><td>Standardizing; |z| &gt; 3 is an outlier</td></tr>
+          <tr><td>x′ = (x − min) / (max − min)</td><td>Min–max normalization to 0–1</td></tr>
+          <tr><td>E = row total × column total / grand total</td><td>Expected count for chi-square</td></tr>
+          <tr><td>χ² = Σ (O − E)² / E</td><td>Chi-square statistic</td></tr>
+          <tr><td>V = √(χ² / (n(k − 1)))</td><td>Cramér's V (k = smaller of rows or columns)</td></tr>
+          <tr><td>|r| ≈ .30 weak, ≈ .50 moderate, ≥ .70 strong; p &lt; .05 significant</td><td>Reading r, ρ and τ</td></tr>
+        </tbody>
+      </table>
+      <p><a class="button-link" href="midterm.html">Practice with the midterm simulator →</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">Study aid, not official course material. Summarizes the Module 1–4 readings, the Week 2 group work and the Session 4 activities.</footer>
+</body>
+</html>

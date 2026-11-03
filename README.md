@@ -14,6 +14,7 @@ A practice quiz for **Principles of Data Analytics, Modules 1–4**. By default 
 ## Midterm simulator and study guide
 
 - **[Midterm simulator](midterm.html)** follows the midterm announcement: **four applied-scenario questions** on Modules 1–4. Each attempt draws one scenario per area: data quality & preparation; describing & visualizing data; choosing & justifying a test; and interpreting results & drawing conclusions. Each scenario has an exhibit (data extract, summary statistics or test output) and four free-text parts. They cover data quality, measurement levels, choosing an approach, assumptions, significance vs strength, association vs causation and clear conclusions. After you submit, you grade yourself against model answers and rubrics (keyword matches are pre-ticked), and you get a score out of 100 with a breakdown by question and skill. A clock starts automatically when an exam begins and shows the time elapsed (there is no time limit), and unfinished exams are saved in the browser.
+- **[Theory recap](theory.html)** is a short version of the Module 1–4 readings: the big idea and key terms of each module, comparison tables, a boxplot diagram, recall questions with hidden answers, and a formula sheet.
 - **[Study guide](study-guide.html)** covers:
   - an answer framework for scenario questions;
   - essentials for each of Modules 1–4;
@@ -64,6 +65,7 @@ midterm.html      midterm simulator page
 midterm-bank.js   scenario bank (4 areas × 3 scenarios)
 midterm.js        midterm logic + UI
 study-guide.html  study guide page
+theory.html       theory recap page
 test/             node:test suite
 ```
 
