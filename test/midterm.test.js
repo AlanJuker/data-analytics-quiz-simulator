@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { SCENARIOS, CLUSTERS, SKILLS } = require("../midterm-bank.js");
-const { buildExam, partScore, gradeExam, suggestAll, POINTS_PER_QUESTION } = require("../midterm.js");
+const { buildExam, buildCase, partScore, gradeExam, suggestAll, POINTS_PER_QUESTION } = require("../midterm.js");
 const { suggestPoints } = require("../quiz.js");
 
 test("scenario bank is well formed", () => {
@@ -40,6 +40,15 @@ test("an exam has one scenario per cluster, in order, avoiding the last attempt"
   const exam = buildExam(SCENARIOS, () => 0.5, ["A1", "B1", "C1", "D1"]);
   assert.deepEqual(exam.map((it) => it.s.cluster), Object.keys(CLUSTERS));
   assert.ok(exam.every((it) => !["A1", "B1", "C1", "D1"].includes(it.s.id)));
+});
+
+test("a quick case is one scenario, preferring ones not yet practised", () => {
+  const done = SCENARIOS.slice(1).map((s) => s.id);
+  const one = buildCase(SCENARIOS, Math.random, done);
+  assert.equal(one.length, 1);
+  assert.equal(one[0].s.id, SCENARIOS[0].id);
+  assert.equal(buildCase(SCENARIOS, Math.random, SCENARIOS.map((s) => s.id)).length, 1, "falls back to the whole bank");
+  assert.equal(gradeExam(one).max, POINTS_PER_QUESTION);
 });
 
 test("scoring gives partial credit and nothing for blank parts", () => {

@@ -1,20 +1,24 @@
 /* global SCENARIOS, CLUSTERS */
-// Midterm simulator: 4 applied scenarios (one per cluster), free-text answers, rubric self-grading.
+// Midterm simulator: 4 applied scenarios (one per cluster) or a single quick case, free-text answers, rubric self-grading.
 // Pure logic first (also used by the Node tests), then the UI, which only runs in a browser.
 
 const lib = typeof module !== "undefined" ? require("./quiz.js") : { shuffle, suggestPoints };
 const POINTS_PER_QUESTION = 25;
 
+const newItem = (s) => ({ s, answers: s.parts.map(() => ""), points: s.parts.map((p) => p.keyPoints.map(() => false)) });
+const pick = (pool, rand, avoid) => {
+  const fresh = pool.filter((s) => !avoid.includes(s.id));
+  return lib.shuffle(fresh.length ? fresh : pool, rand)[0];
+};
+
 // One scenario per cluster, in the bank's cluster order; prefers scenarios not in `avoid` (the last attempt).
 function buildExam(bank, rand = Math.random, avoid = []) {
   const clusters = [...new Set(bank.map((s) => s.cluster))];
-  return clusters.map((cluster) => {
-    const pool = bank.filter((s) => s.cluster === cluster);
-    const fresh = pool.filter((s) => !avoid.includes(s.id));
-    const s = lib.shuffle(fresh.length ? fresh : pool, rand)[0];
-    return { s, answers: s.parts.map(() => ""), points: s.parts.map((p) => p.keyPoints.map(() => false)) };
-  });
+  return clusters.map((cluster) => newItem(pick(bank.filter((s) => s.cluster === cluster), rand, avoid)));
 }
+
+// Quick practice: one random scenario from any cluster, preferring ones not in `avoid` (already practised).
+const buildCase = (bank, rand = Math.random, avoid = []) => [newItem(pick(bank, rand, avoid))];
 
 // Part score in [0, 1]: share of rubric points ticked; a blank answer earns nothing.
 function partScore(item, j) {
@@ -42,7 +46,7 @@ const suggestAll = (items) => items.forEach((it) => {
   it.points = it.s.parts.map((p, j) => (it.answers[j].trim() ? lib.suggestPoints(p, it.answers[j]) : p.keyPoints.map(() => false)));
 });
 
-if (typeof module !== "undefined") module.exports = { buildExam, partScore, questionScore, gradeExam, suggestAll, POINTS_PER_QUESTION };
+if (typeof module !== "undefined") module.exports = { buildExam, buildCase, partScore, questionScore, gradeExam, suggestAll, POINTS_PER_QUESTION };
 
 // ───────────────────────────── UI ─────────────────────────────
 if (typeof document !== "undefined") {
@@ -85,10 +89,12 @@ if (typeof document !== "undefined") {
         Answer in your own words, in full sentences, using the numbers in the exhibit. After you submit, you compare each answer with a model
         answer and tick the rubric points you covered; keyword matches are pre-ticked for you to confirm. Each question is worth 25 points.
         Before you start, read the <a href="study-guide.html#framework">answer framework</a>.</p>
-        <p class="muted small">A clock starts when you begin and shows how long you have been working.</p>
+        <p class="muted small">A clock starts when you begin and shows how long you have been working.
+        Short on time? <strong>Practice one case</strong> gives you a single random scenario (25 points), choosing ones you have not practised yet.</p>
         <form id="setup">
           <div class="row">
             <button class="primary" type="submit">Start a new exam</button>
+            <button type="button" data-act="quick">Practice one case</button>
             ${draft ? `<button type="button" data-act="resume">Resume unfinished exam</button>` : ""}
           </div>
         </form>
@@ -104,9 +110,11 @@ if (typeof document !== "undefined") {
       </section>` : ""}`;
   }
 
-  function startExam() {
-    const last = store.get(HISTORY_KEY, [])[0]?.ids ?? [];
-    state = { items: buildExam(SCENARIOS, Math.random, last), index: 0, startedAt: Date.now() };
+  function startExam(quick = false) {
+    const history = store.get(HISTORY_KEY, []);
+    const items = quick ? buildCase(SCENARIOS, Math.random, history.flatMap((h) => h.ids))
+      : buildExam(SCENARIOS, Math.random, history[0]?.ids ?? []);
+    state = { items, index: 0, startedAt: Date.now() };
     state.timerId = setInterval(tick, 1000);
     saveDraft();
     renderQuestion();
@@ -200,6 +208,8 @@ if (typeof document !== "undefined") {
       ${state.items.map((it, i) => `
         <section class="card">
           <h2>Q${i + 1} · ${esc(it.s.title)}</h2>
+          <p>${esc(it.s.context)}</p>
+          <pre>${esc(it.s.exhibit)}</pre>
           ${it.s.parts.map((p, j) => `
             <div class="part">
               <p class="part-prompt"><strong>(${LETTERS[j]})</strong> ${esc(p.prompt)} <span class="badge skill">${esc(p.skill)}</span></p>
@@ -280,6 +290,7 @@ if (typeof document !== "undefined") {
     else if (act === "results") renderResults();
     else if (act === "regrade") renderSelfGrade();
     else if (act === "restart") renderSetup();
+    else if (act === "quick") startExam(true);
     else if (act === "resume") resumeExam();
     else if (act === "clear-history" && confirm("Clear your saved attempts?")) { store.del(HISTORY_KEY); renderSetup(); }
   });
