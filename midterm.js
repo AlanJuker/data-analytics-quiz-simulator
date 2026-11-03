@@ -20,6 +20,13 @@ function buildExam(bank, rand = Math.random, avoid = []) {
 // Quick practice: one random scenario from any cluster, preferring ones not in `avoid` (already practised).
 const buildCase = (bank, rand = Math.random, avoid = []) => [newItem(pick(bank, rand, avoid))];
 
+// Ids drawn so far this round. Once every scenario has been drawn a new round starts, keeping only the
+// most recent id so the first case of the new round is not an immediate repeat.
+function nextRound(bank, seen) {
+  const valid = seen.filter((id) => bank.some((s) => s.id === id));
+  return valid.length >= bank.length ? valid.slice(-1) : valid;
+}
+
 // Part score in [0, 1]: share of rubric points ticked; a blank answer earns nothing.
 function partScore(item, j) {
   if (!item.answers[j].trim()) return 0;
@@ -46,13 +53,14 @@ const suggestAll = (items) => items.forEach((it) => {
   it.points = it.s.parts.map((p, j) => (it.answers[j].trim() ? lib.suggestPoints(p, it.answers[j]) : p.keyPoints.map(() => false)));
 });
 
-if (typeof module !== "undefined") module.exports = { buildExam, buildCase, partScore, questionScore, gradeExam, suggestAll, POINTS_PER_QUESTION };
+if (typeof module !== "undefined") module.exports = { buildExam, buildCase, nextRound, partScore, questionScore, gradeExam, suggestAll, POINTS_PER_QUESTION };
 
 // ───────────────────────────── UI ─────────────────────────────
 if (typeof document !== "undefined") {
   const app = document.getElementById("app");
   const HISTORY_KEY = "pdamidterm.history";
   const DRAFT_KEY = "pdamidterm.draft";
+  const SEEN_KEY = "pdamidterm.seen";
   const LETTERS = "abcdefgh";
   let state = null; // { items, index, startedAt, timerId, finishedAt, saved }
 
@@ -77,6 +85,7 @@ if (typeof document !== "undefined") {
     state = null;
     const history = store.get(HISTORY_KEY, []);
     const draft = store.get(DRAFT_KEY, null);
+    const seen = store.get(SEEN_KEY, []).filter((id) => SCENARIOS.some((s) => s.id === id)).length;
     app.innerHTML = `
       <section class="card">
         <h2>Midterm simulator</h2>
@@ -90,8 +99,9 @@ if (typeof document !== "undefined") {
         answer and tick the rubric points you covered; keyword matches are pre-ticked for you to confirm. Each question is worth 25 points.
         Before you start, read the <a href="study-guide.html#framework">answer framework</a>.</p>
         <p class="muted small">A clock starts when you begin and shows how long you have been working.
-        <strong>Quick (1 case)</strong> gives you a single random scenario (25 points), choosing ones you have not practised yet.
-        <strong>Full exam (4 cases)</strong> follows the real midterm format.</p>
+        <strong>Quick (1 case)</strong> gives you a single scenario (25 points). <strong>Full exam (4 cases)</strong> follows the real midterm format.
+        Every start draws cases you have not seen yet, so you work through the whole bank of ${SCENARIOS.length} cases before any repeats.</p>
+        <p><strong>Cases seen this round: ${seen} of ${SCENARIOS.length}</strong>${seen >= SCENARIOS.length ? " · Complete! The next case starts a new round." : ""}</p>
         <form id="setup">
           <div class="row">
             <button class="primary" type="submit">Quick (1 case)</button>
@@ -112,9 +122,9 @@ if (typeof document !== "undefined") {
   }
 
   function startExam(quick = false) {
-    const history = store.get(HISTORY_KEY, []);
-    const items = quick ? buildCase(SCENARIOS, Math.random, history.flatMap((h) => h.ids))
-      : buildExam(SCENARIOS, Math.random, history[0]?.ids ?? []);
+    const seen = nextRound(SCENARIOS, store.get(SEEN_KEY, []));
+    const items = (quick ? buildCase : buildExam)(SCENARIOS, Math.random, seen);
+    store.set(SEEN_KEY, [...new Set([...seen, ...items.map((it) => it.s.id)])]);
     state = { items, index: 0, startedAt: Date.now() };
     state.timerId = setInterval(tick, 1000);
     saveDraft();

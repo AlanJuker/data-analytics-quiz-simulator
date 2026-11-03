@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { SCENARIOS, CLUSTERS, SKILLS } = require("../midterm-bank.js");
-const { buildExam, buildCase, partScore, gradeExam, suggestAll, POINTS_PER_QUESTION } = require("../midterm.js");
+const { buildExam, buildCase, nextRound, partScore, gradeExam, suggestAll, POINTS_PER_QUESTION } = require("../midterm.js");
 const { suggestPoints } = require("../quiz.js");
 
 test("scenario bank is well formed", () => {
@@ -49,6 +49,19 @@ test("a quick case is one scenario, preferring ones not yet practised", () => {
   assert.equal(one[0].s.id, SCENARIOS[0].id);
   assert.equal(buildCase(SCENARIOS, Math.random, SCENARIOS.map((s) => s.id)).length, 1, "falls back to the whole bank");
   assert.equal(gradeExam(one).max, POINTS_PER_QUESTION);
+});
+
+test("quick cases cover the whole bank before repeating, and a new round does not repeat the last case", () => {
+  let seen = [];
+  const drawn = [];
+  for (let i = 0; i < SCENARIOS.length + 1; i++) {
+    seen = nextRound(SCENARIOS, seen);
+    const id = buildCase(SCENARIOS, Math.random, seen)[0].s.id;
+    seen = [...new Set([...seen, id])];
+    drawn.push(id);
+  }
+  assert.equal(new Set(drawn.slice(0, SCENARIOS.length)).size, SCENARIOS.length);
+  assert.notEqual(drawn.at(-1), drawn.at(-2));
 });
 
 test("scoring gives partial credit and nothing for blank parts", () => {
