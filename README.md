@@ -1,6 +1,6 @@
 # Data Analytics Quiz Simulator
 
-A practice quiz for **Principles of Data Analytics, Modules 1–4**. By default it mimics the real **Quiz 1**: 15 multiple-choice and 3 short-answer questions, a 40-minute timer and automatic submission when time runs out. Questions are drawn at random from a bank of 207, every attempt is scored, and every question comes with an explanation.
+A practice quiz for **Principles of Data Analytics, Modules 1–8**. By default it mimics the real **Quiz 2**: 25 multiple-choice and 2 short-answer questions on Modules 5–8 (probability, hypothesis testing, ANOVA and non-parametric tests), a 30-minute timer and automatic submission when time runs out. The **Quiz 1** format (Modules 1–4, 15 + 3 questions in 40 minutes) is still available. Questions come from a bank of 387 (180 for Modules 5–8), every new quiz shows the questions you have seen least, every attempt is scored, and every question comes with an explanation.
 
 **Live:** https://alanjuker.github.io/data-analytics-quiz-simulator/
 
@@ -10,6 +10,10 @@ A practice quiz for **Principles of Data Analytics, Modules 1–4**. By default 
 | 2 · Data collection & preparation | Primary vs secondary, qualitative vs quantitative, measurement scales, variable types, time-series/cross-sectional/panel, data quality, encoding, scaling, outliers, missing data (MCAR/MAR/MNAR) |
 | 3 · Statistics & visualization | Descriptive vs inferential, population vs sample, mean/median/mode, skewness, spread, boxplots, chart choice, visualization do's and don'ts |
 | 4 · Measures of association | Association vs causation, confounding variables, parametric vs non-parametric, Pearson, Spearman, Kendall, Chi-square, Cramér's V, p-values, one- vs two-tailed tests, choosing the right test (incl. t-test, ANOVA, Mann–Whitney U, Kruskal–Wallis), Session 4 activities |
+| 5 · Probability for decision making | Probability basics, binomial (conditions, n × p), Poisson (λ, counts per interval), normal distribution, 68-95-99.7 rule, Central Limit Theorem, z-scores and the Z-table, limits of the normal distribution and how to handle them |
+| 6 · Hypothesis testing | H₀ vs Ha, one- vs two-tailed tests, critical values, p-value vs critical value approach, z-test vs t-test, Type I/II errors, α, β and power, one-sample, independent (Levene's test, Welch) and paired t-tests from the class activity, confidence intervals |
+| 7 · ANOVA | Why ANOVA instead of many t-tests, F-ratio, between vs within variance, assumptions (residual normality, Levene's test, Welch's ANOVA), post hoc tests, one-way vs two-way ANOVA, main and interaction effects, η² |
+| 8 · Non-parametric tests | Parametric vs non-parametric, ranks, Mann–Whitney U, Wilcoxon signed-rank, Kruskal–Wallis, Friedman, Scheirer–Ray–Hare and ART ANOVA, choosing the right test, reading their outputs |
 
 ## Midterm simulator and study guide
 
@@ -27,7 +31,8 @@ The scenario bank lives in `midterm-bank.js` (12 scenarios, 3 per area); the log
 
 ## How a quiz works
 
-- **Formats:** Quiz 1 (15 MC + 3 short answer, the default), Quick (8 + 2) or Long (24 + 6). The "exam pace" timer gives 40 minutes for 18 questions and scales with the other formats. You can move freely between questions, as in the real quiz.
+- **Formats:** Quiz 2 (25 MC + 2 short answer, the default, with Modules 5–8 selected), Quiz 1 (15 + 3), Quick (8 + 2) or Long (24 + 6). The "exam pace" timer keeps the real quiz's time per question: 30 minutes for 27 questions when any of Modules 5–8 is selected, otherwise 40 minutes for 18. It submits the quiz when time runs out. You can move freely between questions, as in the real quiz.
+- **Always a different quiz:** questions you have seen least come first, so 12 Quiz 2 attempts cover all 180 Module 5–8 questions. A quiz counts as seen as soon as it starts, and the next one never repeats any of its questions. The setup screen shows how many questions of the selected modules you have seen.
 - **Mix:** about 1 in 5 multiple-choice questions asks you to interpret a test result (e.g., r and p) or a data table. Questions come in this order: theory, then output interpretation, then the short answers.
 - **Style:** the questions test understanding, not memorisation. You identify the concept, choose the right test or chart, or interpret a result, and there is no arithmetic. Short-answer questions ask one thing each and can be answered in 2–3 sentences.
 - **Setup:** choose the modules, the format and whether the timer is on.
@@ -51,7 +56,7 @@ npm start          # python3 -m http.server 8000 → http://localhost:8000
 npm test           # node --test (Node 20+)
 ```
 
-The tests check that the question bank is well formed, that the Quiz 1 format has exactly 15 + 3 questions in the right order, that each module can fill the long format on its own, that grading still matches after the options are shuffled, and that short answers get the right partial credit. CI runs them on every push.
+The tests check that the question bank is well formed, that every Module 5–8 model answer earns full marks under its rubric, that the Quiz 1 and Quiz 2 formats have the right number of questions in the right order, that 12 Quiz 2 attempts cover Modules 5–8, that two quizzes in a row never share a question, that each module can fill the long format on its own, that grading still matches after the options are shuffled, and that short answers get the right partial credit. CI runs them on every push.
 
 ## Project structure
 
@@ -68,6 +73,8 @@ study-guide.html  study guide page
 theory.html       theory recap page
 test/             node:test suite
 ```
+
+When you change a script or `styles.css`, bump the `?v=` version on their links in `index.html`. GitHub Pages lets browsers cache each file for 10 minutes, so without it a browser can mix a new file with an old one.
 
 ### Adding a question
 
@@ -87,7 +94,7 @@ Short-answer questions use `type: "open"` with `modelAnswer` and `keyPoints: [{ 
 
 ## Disclaimer
 
-This is an unofficial study aid. The questions are written from the Module 1–4 readings and the Session 4 activities, and they are not the professor's actual quiz.
+This is an unofficial study aid. The questions are written from the Module 1–8 readings, the Session 4 activities and the Module 6–8 class activities, and they are not the professor's actual quiz.
 
 ## License
 

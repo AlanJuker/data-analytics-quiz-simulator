@@ -1,7 +1,7 @@
 {
   "name": "data-analytics-quiz-simulator",
   "version": "1.0.0",
-  "description": "Practice quiz simulator for Principles of Data Analytics Modules 1-4, in the Quiz 1 format (15 MC + 3 short answer, 40 min).",
+  "description": "Practice quiz simulator for Principles of Data Analytics Modules 1-8, in the Quiz 2 format (25 MC + 2 short answer, 30 min) and the Quiz 1 format.",
   "private": true,
   "license": "MIT",
   "scripts": {
