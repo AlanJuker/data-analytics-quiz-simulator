@@ -1,4 +1,4 @@
-// Question bank for Principles of Data Analytics, Modules 1-4.
+// Question bank for Principles of Data Analytics, Modules 1-8 (Quiz 1: Modules 1-4, Quiz 2: Modules 5-8).
 // Schema:
 //   mc:   { id, module, type: "mc", kind: "theory"|"code", prompt, code?, options[4], answer (index), explanation }
 //   open: { id, module, type: "open", kind, prompt, code?, modelAnswer, keyPoints: [{ text, keywords[] }] }
@@ -1936,6 +1936,1467 @@ tau = 0.52     p = 0.081     N = 12`,
       { text: "Median shown as the line in the box", keywords: ["median"] },
       { text: "Quartiles / box = IQR (middle 50%)", keywords: ["quartile", "q1", "q3", "iqr", "50%", "box"] },
       { text: "Outliers are points beyond the whiskers", keywords: ["beyond", "outside", "dot", "point", "whisker"] },
+    ],
+  },
+  // ───────────────────────── Module 5: Probability for Decision Making ─────────────────────────
+  {
+    id: "m5-01", module: 5, type: "mc", kind: "theory",
+    prompt: "Probability gives every event a value between 0 and 1. What does a probability of 0 mean?",
+    options: ["The event is impossible", "The event is certain", "The event is as likely as not", "The event is rare but possible"],
+    answer: 0,
+    explanation: "0 means the event cannot happen and 1 means it is certain. Values in between measure how likely it is.",
+  },
+  {
+    id: "m5-02", module: 5, type: "mc", kind: "theory",
+    prompt: "To compute the probability of a single event, what do you need to determine first?",
+    options: ["The total number of possible outcomes", "The average of all past outcomes", "The standard deviation of the outcomes", "The most frequent outcome so far"],
+    answer: 0,
+    explanation: "The probability of an event compares the outcomes that count as the event with all the possible outcomes, so you first need the total number of possible outcomes.",
+  },
+  {
+    id: "m5-03", module: 5, type: "mc", kind: "theory",
+    prompt: "In 'The Last Banana' game, two dice are rolled and only the highest number counts. Player 1 wins with 1–4 and Player 2 wins with 5 or 6. Why does Player 2 have the better chance?",
+    options: ["Player 2 needs only one die to show a 5 or 6", "5 and 6 are rolled more often than other numbers", "Player 2 wins on more of the six numbers", "The game is fair, so neither has an advantage"],
+    answer: 0,
+    explanation: "Player 1 wins only if BOTH dice show 1–4, which happens 16 times out of 36. Player 2 wins in the other 20 cases, because one high die is enough.",
+  },
+  {
+    id: "m5-04", module: 5, type: "mc", kind: "theory",
+    prompt: "Which situation fits a binomial distribution?",
+    options: ["Counting how many of 20 customers click an ad", "Counting the calls a help desk gets per hour", "Measuring the heights of 200 adults", "Recording how long each delivery takes"],
+    answer: 0,
+    explanation: "Binomial = number of successes (click / no click) in a fixed number of independent trials (20 customers). Calls per hour is Poisson; heights and times are continuous.",
+  },
+  {
+    id: "m5-05", module: 5, type: "mc", kind: "theory",
+    prompt: "Which of these is NOT a condition for a binomial experiment?",
+    options: ["The outcome is measured on a continuous scale", "Each trial has only two possible outcomes", "The probability of success stays the same", "The trials are independent of each other"],
+    answer: 0,
+    explanation: "A binomial experiment needs a fixed number of trials, two outcomes per trial, a constant probability of success and independent trials. It counts successes, so it is discrete, not continuous.",
+  },
+  {
+    id: "m5-06", module: 5, type: "mc", kind: "theory",
+    prompt: "In a binomial experiment, what does 'a fixed number of trials (n)' mean?",
+    options: ["The number of attempts is set in advance", "The number of successes is set in advance", "Every trial must give the same outcome", "The experiment stops at the first success"],
+    answer: 0,
+    explanation: "You know in advance exactly how many times the event will be attempted, e.g. 50 items inspected. The number of successes is what you are counting.",
+  },
+  {
+    id: "m5-07", module: 5, type: "mc", kind: "theory",
+    prompt: "A quality inspector checks 50 items for defects. What does 'independent trials' mean here?",
+    options: ["One item's result does not change another's chance", "Every item has a different chance of being defective", "Each item is inspected by a different person", "Each item can have more than two outcomes"],
+    answer: 0,
+    explanation: "Independence means the outcome of one trial does not influence another. A defective item does not make the next one more or less likely to be defective.",
+  },
+  {
+    id: "m5-08", module: 5, type: "mc", kind: "theory",
+    prompt: "Which scenario is best modelled with a Poisson distribution?",
+    options: ["The number of emails a store receives per hour", "Whether each of 10 coin tosses lands heads", "The weight of the packages shipped in a day", "The average exam score of a class"],
+    answer: 0,
+    explanation: "Poisson models how many times an event happens in a fixed interval of time or space. Coin tosses are binomial; weights and averages are continuous.",
+  },
+  {
+    id: "m5-09", module: 5, type: "mc", kind: "theory",
+    prompt: "In a Poisson distribution, what does λ (lambda) represent?",
+    options: ["The average number of events per interval", "The probability of success in one trial", "The maximum number of events possible", "The standard deviation of a bell curve"],
+    answer: 0,
+    explanation: "λ is the mean rate: the average number of events in the interval (e.g. 6 calls per hour). It is the only parameter of the Poisson distribution.",
+  },
+  {
+    id: "m5-10", module: 5, type: "mc", kind: "theory",
+    prompt: "Which feature distinguishes a Poisson distribution from a binomial one?",
+    options: ["There is no fixed upper limit on the count", "Each event has only two possible outcomes", "The data must follow a bell-shaped curve", "The probability changes after every event"],
+    answer: 0,
+    explanation: "A binomial count can never exceed n trials. A Poisson count has no theoretical upper limit: any number of events could happen in the interval.",
+  },
+  {
+    id: "m5-11", module: 5, type: "mc", kind: "theory",
+    prompt: "A call centre averages 30 calls per hour. You want probabilities for a 10-minute window. What should you do with λ?",
+    options: ["Rescale λ to the 10-minute window", "Keep λ = 30 because the rate is constant", "Switch to a binomial distribution", "Use the normal distribution instead"],
+    answer: 0,
+    explanation: "λ must match the interval you are asking about. 30 per hour becomes 5 per 10 minutes, and the probabilities are calculated with that rate.",
+  },
+  {
+    id: "m5-12", module: 5, type: "mc", kind: "theory",
+    prompt: "For count data to fit a Poisson model, which condition must hold?",
+    options: ["Events occur independently, at a constant rate", "Each count has an upper limit set in advance", "The counts can include negative values", "Events are more likely right after another one"],
+    answer: 0,
+    explanation: "Poisson data are counts of independent events that occur at a constant average rate, and two events happening at exactly the same time is negligible.",
+  },
+  {
+    id: "m5-13", module: 5, type: "mc", kind: "theory",
+    prompt: "A hospital counts emergency arrivals per night to plan staffing. Why is a Poisson model reasonable?",
+    options: ["Arrivals are counts per night, at a steady rate", "Each night has only two possible outcomes", "Arrival counts are continuous measurements", "The number of arrivals is fixed in advance"],
+    answer: 0,
+    explanation: "Arrivals per night are counts in a fixed interval, happening independently at a fairly constant average rate. Poisson is often used to plan resources like this.",
+  },
+  {
+    id: "m5-14", module: 5, type: "mc", kind: "theory",
+    prompt: "In a normal distribution, how are the mean, median and mode related?",
+    options: ["They are all equal", "The mean is larger than the median", "The mode is always the smallest", "They are unrelated to each other"],
+    answer: 0,
+    explanation: "The normal curve is perfectly symmetric around its centre, so the mean, median and mode are all the same value.",
+  },
+  {
+    id: "m5-15", module: 5, type: "mc", kind: "theory",
+    prompt: "Which two parameters fully define a normal distribution?",
+    options: ["The mean and the standard deviation", "The median and the interquartile range", "The sample size and the most common value", "The minimum and the maximum"],
+    answer: 0,
+    explanation: "The mean (μ) sets where the centre is, and the standard deviation (σ) sets how wide and tall the curve is.",
+  },
+  {
+    id: "m5-16", module: 5, type: "mc", kind: "theory",
+    prompt: "Two normal curves have the same mean, but curve B has a larger standard deviation. How does curve B look?",
+    options: ["Wider and flatter, with the same centre", "Narrower and taller, with the same centre", "Shifted to the right, with the same width", "Skewed to the right"],
+    answer: 0,
+    explanation: "A larger standard deviation spreads the values out, so the curve is wider and lower. The centre stays at the same mean.",
+  },
+  {
+    id: "m5-17", module: 5, type: "mc", kind: "theory",
+    prompt: "What does it mean that the tails of the normal curve are asymptotic?",
+    options: ["They approach the axis but never touch it", "They touch the axis at 3 standard deviations", "They rise again far from the mean", "They are longer on the right than the left"],
+    answer: 0,
+    explanation: "The tails get closer and closer to the horizontal axis but never reach it, extending infinitely in both directions.",
+  },
+  {
+    id: "m5-18", module: 5, type: "mc", kind: "theory",
+    prompt: "According to the 68-95-99.7 (empirical) rule, about what share of values in a normal distribution fall within 2 standard deviations of the mean?",
+    options: ["About 95%", "About 68%", "About 99.7%", "About 50%"],
+    answer: 0,
+    explanation: "About 68% fall within 1 SD, about 95% within 2 SD and about 99.7% within 3 SD of the mean.",
+  },
+  {
+    id: "m5-19", module: 5, type: "mc", kind: "theory",
+    prompt: "What does the Central Limit Theorem say about the distribution of sample means?",
+    options: ["It becomes approximately normal as n grows", "It always matches the shape of the population", "It becomes more spread out as n grows", "It equals the population mean in every sample"],
+    answer: 0,
+    explanation: "As the sample size increases, the sampling distribution of the mean approaches a normal distribution, whatever the shape of the population.",
+  },
+  {
+    id: "m5-20", module: 5, type: "mc", kind: "theory",
+    prompt: "Household incomes are strongly right-skewed. You take many random samples of 100 households and plot the sample means. What shape do you expect?",
+    options: ["Approximately normal (bell-shaped)", "Strongly right-skewed, like the incomes", "Strongly left-skewed", "Flat (uniform)"],
+    answer: 0,
+    explanation: "This is the Central Limit Theorem: with large enough samples, the means are approximately normal even when the population is skewed.",
+  },
+  {
+    id: "m5-21", module: 5, type: "mc", kind: "theory",
+    prompt: "According to the Central Limit Theorem, what happens to the spread of the sample means as the sample size increases?",
+    options: ["It gets smaller (σ/√n)", "It gets larger", "It stays equal to σ", "It drops to zero at n = 30"],
+    answer: 0,
+    explanation: "The standard deviation of the sample means (the standard error) is σ/√n, so larger samples give means that are closer to μ.",
+  },
+  {
+    id: "m5-22", module: 5, type: "mc", kind: "theory",
+    prompt: "What does a z-score measure?",
+    options: ["How many standard deviations a value is from the mean", "The percentage of values that lie below the mean", "The difference between the mean and the median", "How many values in the dataset lie above the mean"],
+    answer: 0,
+    explanation: "z = (X − μ) / σ: it standardises a value by expressing its distance from the mean in standard deviations.",
+  },
+  {
+    id: "m5-23", module: 5, type: "mc", kind: "theory",
+    prompt: "A student's exam score has a z-score of −1.5. What does this mean?",
+    options: ["It is 1.5 standard deviations below the mean", "It is 1.5 points below the class average", "It is 1.5% below the class average", "It is not valid, since z cannot be negative"],
+    answer: 0,
+    explanation: "The sign shows the direction (negative = below the mean) and the size shows the distance in standard deviations.",
+  },
+  {
+    id: "m5-24", module: 5, type: "mc", kind: "theory",
+    prompt: "Why are z-scores useful for comparing a score on a 100-point test with a score on a 40-point test?",
+    options: ["They put both scores on the same standard scale", "They convert both scores into percentages", "They remove the need to know the mean", "They make both distributions symmetric"],
+    answer: 0,
+    explanation: "Standardising each score against its own mean and standard deviation makes results from different distributions comparable.",
+  },
+  {
+    id: "m5-25", module: 5, type: "mc", kind: "theory",
+    prompt: "A Z-table gives the probability that a value is LESS than z. How do you find the probability that a value is GREATER than z?",
+    options: ["Subtract the table value from 1", "Use the table value as it is", "Multiply the table value by 2", "Subtract the table value from 0.5"],
+    answer: 0,
+    explanation: "The total area under the curve is 1, so the area to the right of z is 1 minus the area to the left.",
+  },
+  {
+    id: "m5-26", module: 5, type: "mc", kind: "theory",
+    prompt: "How do you find the probability that a value falls BETWEEN two z-scores using a Z-table?",
+    options: ["Subtract the smaller table value from the larger", "Add the two table values to get the area", "Take the average of the two table values", "Multiply the two table values together"],
+    answer: 0,
+    explanation: "Each table value is the area to the left of that z. The area between them is the larger area minus the smaller one.",
+  },
+  {
+    id: "m5-27", module: 5, type: "mc", kind: "theory",
+    prompt: "Why is the normal distribution a poor model for the number of defects per batch (0, 1, 2, 3 …)?",
+    options: ["Defect counts are discrete, not continuous", "Defect counts always have a mean of zero", "A normal curve cannot have a mean above 1", "Counts are always symmetric around the mean"],
+    answer: 0,
+    explanation: "The normal distribution is for continuous data. For counts, a discrete distribution such as Poisson or binomial is more appropriate.",
+  },
+  {
+    id: "m5-28", module: 5, type: "mc", kind: "theory",
+    prompt: "Why can the normal distribution be risky for modelling stock market crashes?",
+    options: ["It underestimates the chance of extreme events", "It overestimates how often crashes happen", "It cannot model negative returns", "It only works with categorical data"],
+    answer: 0,
+    explanation: "The normal curve assumes values rarely stray far from the mean, so it underestimates 'tail events', which matters a lot in finance and insurance.",
+  },
+  {
+    id: "m5-29", module: 5, type: "mc", kind: "theory",
+    prompt: "Exam percentages can only range from 0 to 100. Which limitation of the normal distribution does this show?",
+    options: ["Normal tails are infinite, but scores are bounded", "Percentages cannot have a standard deviation", "Percentages are always too skewed to analyse", "The mean of percentages must be exactly 50"],
+    answer: 0,
+    explanation: "The normal distribution extends forever in both directions, but many real variables have a finite range, so it may need a transformation or a different model.",
+  },
+  {
+    id: "m5-30", module: 5, type: "mc", kind: "theory",
+    prompt: "Customer spending data are strongly right-skewed. Which step can make them closer to normal?",
+    options: ["Apply a log transformation", "Add more decimal places", "Remove every value above the mean", "Round every value to the nearest 10"],
+    answer: 0,
+    explanation: "Log or square-root transformations pull in the long right tail and can make skewed data closer to normal.",
+  },
+  {
+    id: "m5-31", module: 5, type: "mc", kind: "theory",
+    prompt: "Your data clearly do not fit a normal distribution, even after a transformation. What does the module recommend?",
+    options: ["Use a non-parametric method", "Use a z-test anyway", "Report only the mean", "Delete the values that are not normal"],
+    answer: 0,
+    explanation: "Non-parametric methods do not assume a specific distribution, so they are the safe choice when normality clearly fails.",
+  },
+  {
+    id: "m5-32", module: 5, type: "mc", kind: "theory",
+    prompt: "Why is it risky to rely on the Central Limit Theorem with a sample of 8 from a strongly skewed population?",
+    options: ["n = 8 is too small for the CLT to apply", "The CLT only applies to categorical data", "A skewed population has no defined mean", "The CLT needs a sample of exactly 30"],
+    answer: 0,
+    explanation: "The CLT only works when samples are large enough. With small samples from non-normal populations, the sample means may not be normal, so inferences can be wrong.",
+  },
+  {
+    id: "m5-c1", module: 5, type: "mc", kind: "code",
+    prompt: "Using this Z-table value, what is the probability that a value is MORE than 1 standard deviation above the mean?",
+    code: `z      P(Z < z)
+1.00   0.8413`,
+    options: ["0.1587", "0.8413", "0.3413", "0.6826"],
+    answer: 0,
+    explanation: "The table gives the area to the left (0.8413). The area to the right is 1 − 0.8413 = 0.1587.",
+  },
+  {
+    id: "m5-c2", module: 5, type: "mc", kind: "code",
+    prompt: "Delivery times are normally distributed. Using the 68-95-99.7 rule, about 95% of deliveries take between:",
+    code: `Delivery time (minutes)
+Mean = 30     Standard deviation = 5`,
+    options: ["20 and 40 minutes", "25 and 35 minutes", "15 and 45 minutes", "30 and 40 minutes"],
+    answer: 0,
+    explanation: "About 95% of values fall within 2 SD of the mean: 30 ± 2 × 5 = 20 to 40 minutes. (25–35 is 1 SD, about 68%.)",
+  },
+  {
+    id: "m5-c3", module: 5, type: "mc", kind: "code",
+    prompt: "Is the normal distribution a good model for monthly spending in this sample?",
+    code: `Monthly spending (N = 482)
+Mean      $184
+Median    $112
+Std. dev. $201
+Skewness  2.70`,
+    options: ["No: it is strongly right-skewed (mean ≫ median)", "Yes, because the sample is large", "Yes, because the mean is above the median", "No, because the standard deviation is positive"],
+    answer: 0,
+    explanation: "A normal distribution is symmetric (mean = median, skewness ≈ 0). Here the mean is far above the median and skewness is 2.70, so the data are strongly right-skewed.",
+  },
+  {
+    id: "m5-c4", module: 5, type: "mc", kind: "code",
+    prompt: "Which distributions best fit scenarios A, B and C?",
+    code: `A: number of website crashes per month
+B: number of 15 loan applicants who are approved
+C: time customers spend in a store`,
+    options: ["A Poisson, B binomial, C normal", "A binomial, B Poisson, C normal", "A normal, B binomial, C Poisson", "A Poisson, B normal, C binomial"],
+    answer: 0,
+    explanation: "Crashes per month are counts in an interval (Poisson). Approvals out of 15 applicants are successes in fixed trials (binomial). Time is continuous (normal).",
+  },
+  {
+    id: "m5-c5", module: 5, type: "mc", kind: "code",
+    prompt: "Relative to their own class, who did better?",
+    code: `Student  Test         Score  Class mean  Class SD
+Ana      Statistics    80       70          5
+Ben      Marketing     85       80         10`,
+    options: ["Ana: she is 2 SDs above her mean", "Ben: his raw score is higher", "Both did equally well relative to class", "Ben: his class has a bigger SD"],
+    answer: 0,
+    explanation: "Ana's z = (80 − 70) / 5 = 2.0; Ben's z = (85 − 80) / 10 = 0.5. Ana is much further above her class mean, even though her raw score is lower.",
+  },
+  {
+    id: "m5-c6", module: 5, type: "mc", kind: "code",
+    prompt: "How many clicks do you expect on average?",
+    code: `Binomial setting
+n = 200 visitors     p = 0.05 chance that a visitor clicks`,
+    options: ["10", "5", "20", "100"],
+    answer: 0,
+    explanation: "The mean of a binomial distribution is n × p = 200 × 0.05 = 10 clicks.",
+  },
+  {
+    id: "m5-c7", module: 5, type: "mc", kind: "code",
+    prompt: "What pattern does this table show?",
+    code: `  n    Std. error of the mean
+ 25            4.0
+100            2.0
+400            1.0`,
+    options: ["Larger samples give more precise estimates of the mean", "Larger samples make the population itself more variable", "The population SD falls as the sample grows", "Sample means move away from μ as n grows"],
+    answer: 0,
+    explanation: "The standard error is σ/√n, so it halves each time n quadruples. Bigger samples give sample means that sit closer to the population mean.",
+  },
+  {
+    id: "m5-o1", module: 5, type: "open", kind: "theory",
+    prompt: "What conditions must hold to use a binomial distribution? Give one business example.",
+    modelAnswer: "A binomial distribution needs a fixed number of trials (n), each with only two outcomes (success or failure), a constant probability of success (p) and independent trials. Example: out of 20 customers who see an online ad, counting how many click it.",
+    keyPoints: [
+      { text: "A fixed number of trials", keywords: ["fixed number", "fixed n", "set number", "number of trials"] },
+      { text: "Two outcomes per trial (success / failure)", keywords: ["two outcomes", "two possible", "success or failure", "success/failure", "binary"] },
+      { text: "Constant probability of success and independent trials", keywords: ["constant", "same probability", "independent"] },
+      { text: "Gives a business example", keywords: ["example", "e.g", "for instance", "click", "defect", "customer"] },
+    ],
+  },
+  {
+    id: "m5-o2", module: 5, type: "open", kind: "theory",
+    prompt: "How does a Poisson distribution differ from a binomial distribution?",
+    modelAnswer: "A binomial distribution counts the number of successes in a fixed number of independent trials, so the count can never exceed n. A Poisson distribution counts how many times an event happens in a fixed interval of time or space, using the average rate λ, and has no fixed upper limit. Example: clicks out of 20 visitors (binomial) vs calls per hour (Poisson).",
+    keyPoints: [
+      { text: "Binomial: successes in a fixed number of trials", keywords: ["fixed number of trials", "trials", "successes"] },
+      { text: "Poisson: events in a fixed interval of time or space", keywords: ["interval", "per hour", "time or space", "period"] },
+      { text: "Poisson uses an average rate (λ) and has no upper limit", keywords: ["no upper limit", "no limit", "unbounded", "lambda", "λ", "rate"] },
+    ],
+  },
+  {
+    id: "m5-o3", module: 5, type: "open", kind: "theory",
+    prompt: "State the Central Limit Theorem and explain why it matters.",
+    modelAnswer: "The Central Limit Theorem says that as the sample size grows, the distribution of sample means becomes approximately normal, regardless of the shape of the population (its mean is μ and its spread is σ/√n). It matters because it lets us use normal-based tools, such as z-tests, t-tests and confidence intervals, on large samples even when the data are skewed.",
+    keyPoints: [
+      { text: "Sample means become approximately normal as n grows", keywords: ["approximately normal", "becomes normal", "normal as", "bell"] },
+      { text: "Whatever the shape of the population", keywords: ["regardless", "any shape", "whatever", "skewed", "not normal"] },
+      { text: "Justifies normal-based inference (tests, confidence intervals) on large samples", keywords: ["test", "inference", "confidence", "large sample", "n > 30"] },
+    ],
+  },
+  {
+    id: "m5-o4", module: 5, type: "open", kind: "theory",
+    prompt: "Give two limitations of using the normal distribution for real data, and one way to deal with them.",
+    modelAnswer: "First, the normal distribution assumes symmetric data, so it fits skewed data such as incomes poorly. Second, it is sensitive to outliers and underestimates extreme (tail) events, which matters in finance. To deal with this, the analyst can apply a log transformation, use a better-suited distribution (such as Poisson for counts), or use a non-parametric method.",
+    keyPoints: [
+      { text: "Limitation: assumes symmetry, so skewed data fit poorly", keywords: ["skew", "symmetr", "asymmetr"] },
+      { text: "Another limitation: outliers, extreme/tail events, discrete or bounded data", keywords: ["outlier", "extreme", "tail", "discrete", "count", "bounded", "range"] },
+      { text: "A remedy: transformation, another distribution or a non-parametric method", keywords: ["transform", "log", "non-parametric", "nonparametric", "poisson", "binomial", "trim"] },
+    ],
+  },
+  {
+    id: "m5-o5", module: 5, type: "open", kind: "theory",
+    prompt: "What does a z-score tell you, and why is it useful?",
+    modelAnswer: "A z-score tells you how many standard deviations a value is from the mean: positive means above the mean and negative means below it. It is useful because it standardises values, so you can compare scores from different scales and look up probabilities in a Z-table.",
+    keyPoints: [
+      { text: "Number of standard deviations from the mean", keywords: ["standard deviation", "sd", "std"] },
+      { text: "The sign shows above (+) or below (−) the mean", keywords: ["above", "below", "negative", "positive"] },
+      { text: "Useful to compare different scales or find probabilities (Z-table)", keywords: ["compare", "different scale", "z-table", "probabilit", "standardi"] },
+    ],
+  },
+  {
+    id: "m5-o6", module: 5, type: "open", kind: "theory",
+    prompt: "A bank branch serves an average of 18 customers per hour, and customers arrive independently. Which probability distribution would you use to plan staffing, and why?",
+    modelAnswer: "A Poisson distribution, because we are counting how many customers arrive in a fixed interval (one hour). Arrivals are independent and happen at a known average rate, λ = 18 per hour, and there is no fixed upper limit on the count.",
+    keyPoints: [
+      { text: "Chooses the Poisson distribution", keywords: ["poisson"] },
+      { text: "Counts events in a fixed interval of time", keywords: ["count", "per hour", "interval", "fixed period"] },
+      { text: "Independent events at a constant average rate (λ)", keywords: ["rate", "λ", "lambda", "independent", "average"] },
+    ],
+  },
+  // ───────────────────────── Module 6: Hypothesis Testing ─────────────────────────
+  {
+    id: "m6-01", module: 6, type: "mc", kind: "theory",
+    prompt: "What is the main purpose of the null hypothesis in hypothesis testing?",
+    options: ["To give a baseline that the results are measured against", "To prove that the alternative hypothesis is false", "To confirm the research hypothesis without testing", "To show the effect of chance on the sample size"],
+    answer: 0,
+    explanation: "H₀ is the baseline ('no effect, no difference'). The test asks whether the data are unusual enough, if H₀ were true, to reject it.",
+  },
+  {
+    id: "m6-02", module: 6, type: "mc", kind: "theory",
+    prompt: "Which statement is a null hypothesis?",
+    options: ["Mean salary is the same for men and women", "Men earn more on average than women", "Mean salary differs between men and women", "Women earn less on average than men"],
+    answer: 0,
+    explanation: "The null hypothesis states no difference or no relationship. The other three are alternative hypotheses (one two-tailed, two one-tailed).",
+  },
+  {
+    id: "m6-03", module: 6, type: "mc", kind: "theory",
+    prompt: "A test rejects H₀. What can you correctly conclude?",
+    options: ["The data give evidence in favour of Ha", "Ha has been proven true", "H₀ has been proven true", "The sample was collected incorrectly"],
+    answer: 0,
+    explanation: "Rejecting H₀ does not prove Ha. It means there is enough evidence to support it with these data; replication strengthens the support.",
+  },
+  {
+    id: "m6-04", module: 6, type: "mc", kind: "theory",
+    prompt: "A test gives p = 0.30 with α = 0.05. What is the correct wording of the decision?",
+    options: ["Fail to reject H₀ (not enough evidence)", "Accept H₀: there is definitely no effect", "Reject H₀: the effect is significant", "Accept Ha: the effect is proven"],
+    answer: 0,
+    explanation: "p > α, so we fail to reject H₀. This does not prove H₀ is true; the data just do not give enough evidence of an effect.",
+  },
+  {
+    id: "m6-05", module: 6, type: "mc", kind: "theory",
+    prompt: "A drug company claims its drug raises recovery by exactly 20%. A researcher wants to know if the true effect is different from 20%, in either direction. Which alternative hypothesis fits?",
+    options: ["Ha: μ ≠ 20%", "Ha: μ < 20%", "Ha: μ > 20%", "Ha: μ = 20%"],
+    answer: 0,
+    explanation: "'Different, in either direction' is non-directional, so it is a two-tailed test with Ha: μ ≠ 20%. (μ = 20% is H₀.)",
+  },
+  {
+    id: "m6-06", module: 6, type: "mc", kind: "theory",
+    prompt: "A regulator suspects the drug raises recovery by LESS than the claimed 20%. Which test is this?",
+    options: ["A left-tailed test (Ha: μ < 20%)", "A right-tailed test (Ha: μ > 20%)", "A two-tailed test (Ha: μ ≠ 20%)", "No test, because H₀ is the claim"],
+    answer: 0,
+    explanation: "The suspicion has a direction (less than), so the test is one-tailed, in the left tail.",
+  },
+  {
+    id: "m6-07", module: 6, type: "mc", kind: "theory",
+    prompt: "In a one-tailed test at α = 0.05, where is the rejection region?",
+    options: ["All 5% in one tail of the distribution", "2.5% in each tail", "In the centre of the distribution", "5% in each tail"],
+    answer: 0,
+    explanation: "A one-tailed test puts all of α in the tail of the predicted direction. A two-tailed test splits it, 2.5% in each tail.",
+  },
+  {
+    id: "m6-08", module: 6, type: "mc", kind: "theory",
+    prompt: "When should you decide between a one-tailed and a two-tailed test?",
+    options: ["Before collecting the data, based on the hypothesis", "After seeing which group has the higher mean", "After the p-value has been calculated", "Only if the first test is not significant"],
+    answer: 0,
+    explanation: "The direction reflects the research question and design, so it must be chosen before the data are collected. Choosing after seeing the data is not valid.",
+  },
+  {
+    id: "m6-09", module: 6, type: "mc", kind: "theory",
+    prompt: "For a two-tailed z-test at α = 0.05, what are the critical values?",
+    options: ["±1.96", "±1.645", "±2.58", "±1.00"],
+    answer: 0,
+    explanation: "Splitting 5% into two tails of 2.5% gives ±1.96. A one-tailed test at α = 0.05 uses 1.645.",
+  },
+  {
+    id: "m6-10", module: 6, type: "mc", kind: "theory",
+    prompt: "Why is the critical z for a one-tailed test at α = 0.05 (1.645) smaller than for a two-tailed test (1.96)?",
+    options: ["All of α is in one tail, not split", "One-tailed tests use a larger α", "One-tailed tests use the t-distribution", "Two-tailed tests need larger samples"],
+    answer: 0,
+    explanation: "With 5% in a single tail, the cut-off sits closer to the centre than when each tail gets only 2.5%.",
+  },
+  {
+    id: "m6-11", module: 6, type: "mc", kind: "theory",
+    prompt: "What does a p-value represent?",
+    options: ["Chance of results this extreme if H₀ is true", "The probability that H₀ is true", "The probability that Ha is true", "The size of the difference between groups"],
+    answer: 0,
+    explanation: "The p-value is the probability of a test statistic at least as extreme as the observed one, assuming H₀ is true. It is not the probability that either hypothesis is true.",
+  },
+  {
+    id: "m6-12", module: 6, type: "mc", kind: "theory",
+    prompt: "With α = 0.05, which p-value leads you to reject H₀?",
+    options: ["p = 0.03", "p = 0.07", "p = 0.50", "p = 0.12"],
+    answer: 0,
+    explanation: "Reject H₀ when p ≤ α. Only 0.03 is at or below 0.05.",
+  },
+  {
+    id: "m6-13", module: 6, type: "mc", kind: "theory",
+    prompt: "What is the difference between a test statistic and a p-value?",
+    options: ["The statistic comes from the data; p is a probability", "They are two names for the same number", "The p-value is computed first, then the statistic", "The test statistic is a probability; p is a count"],
+    answer: 0,
+    explanation: "The test statistic (t, z, F) is a single number calculated from the sample. The p-value is a probability calculated from that statistic.",
+  },
+  {
+    id: "m6-14", module: 6, type: "mc", kind: "theory",
+    prompt: "In the critical value approach, when do you reject H₀?",
+    options: ["When the test statistic falls beyond the critical value", "When the p-value is larger than α", "When the test statistic equals zero", "When the sample mean equals the population mean"],
+    answer: 0,
+    explanation: "The critical value marks the edge of the rejection region. A test statistic beyond it is too extreme to be explained by chance under H₀.",
+  },
+  {
+    id: "m6-15", module: 6, type: "mc", kind: "theory",
+    prompt: "Why is the p-value approach often seen as more informative than the critical value approach?",
+    options: ["It shows how strong the evidence against H₀ is", "It does not require choosing a significance level", "It works without calculating a test statistic", "It always rejects H₀ more often"],
+    answer: 0,
+    explanation: "Both usually reach the same decision, but the p-value also tells you how strong the evidence is. The critical value approach only says inside or outside the rejection region.",
+  },
+  {
+    id: "m6-16", module: 6, type: "mc", kind: "theory",
+    prompt: "When is a z-test appropriate rather than a t-test?",
+    options: ["The population standard deviation is known", "The sample has fewer than 10 observations", "The data are ordinal rankings", "The two groups are paired"],
+    answer: 0,
+    explanation: "A z-test needs a known population σ (or a large sample, where the sample SD is a good estimate). Otherwise use a t-test.",
+  },
+  {
+    id: "m6-17", module: 6, type: "mc", kind: "theory",
+    prompt: "Why does a t-test use the t-distribution instead of the normal distribution?",
+    options: ["σ is estimated from the sample, adding uncertainty", "Because t-tests only work with categorical data", "Because it always produces a smaller p-value", "Because the t-distribution has no tails at all"],
+    answer: 0,
+    explanation: "When σ is unknown it is estimated from the sample, which adds variability. The t-distribution is more spread out to account for that, especially with small samples.",
+  },
+  {
+    id: "m6-18", module: 6, type: "mc", kind: "theory",
+    prompt: "With a small sample, how does the t-distribution compare with the normal distribution?",
+    options: ["It is more spread out, with heavier tails", "It is narrower, with lighter tails", "It is skewed to the right", "It is identical at every sample size"],
+    answer: 0,
+    explanation: "The t-distribution has heavier tails for small samples. As the degrees of freedom grow, it gets closer to the normal distribution.",
+  },
+  {
+    id: "m6-19", module: 6, type: "mc", kind: "theory",
+    prompt: "With a large sample (say n = 500), how do t-test and z-test results compare?",
+    options: ["They are very similar", "The t-test always rejects H₀ more often", "The z-test can no longer be used", "They give opposite conclusions"],
+    answer: 0,
+    explanation: "With large samples the t-distribution is practically the same as the normal distribution, so the two tests give very similar results.",
+  },
+  {
+    id: "m6-20", module: 6, type: "mc", kind: "theory",
+    prompt: "The critical value of a t-test depends on which of these?",
+    options: ["The degrees of freedom (from the sample size)", "The population standard deviation", "The value of the sample mean", "The number of variables in the dataset"],
+    answer: 0,
+    explanation: "The shape of the t-distribution, and therefore its critical values, depends on the degrees of freedom, which come from the sample size.",
+  },
+  {
+    id: "m6-21", module: 6, type: "mc", kind: "theory",
+    prompt: "A drug actually has no effect, but a study concludes that it works. What is this?",
+    options: ["A Type I error (false positive)", "A Type II error (false negative)", "A correct decision", "A sampling frame error"],
+    answer: 0,
+    explanation: "H₀ (no effect) was true but was rejected: a Type I error, whose probability is α.",
+  },
+  {
+    id: "m6-22", module: 6, type: "mc", kind: "theory",
+    prompt: "Which describes a Type II error?",
+    options: ["Failing to reject a false null hypothesis", "Rejecting a true null hypothesis", "Rejecting a false null hypothesis", "Failing to reject a true null hypothesis"],
+    answer: 0,
+    explanation: "A Type II error (false negative) misses a real effect: H₀ is false, but the test fails to reject it. Its probability is β.",
+  },
+  {
+    id: "m6-23", module: 6, type: "mc", kind: "theory",
+    prompt: "The significance level α is the probability of:",
+    options: ["Rejecting H₀ when it is actually true", "Failing to reject H₀ when it is false", "H₀ being true", "Detecting an effect that really exists"],
+    answer: 0,
+    explanation: "α is the Type I error rate: the risk you accept of rejecting a true H₀ (a false positive).",
+  },
+  {
+    id: "m6-24", module: 6, type: "mc", kind: "theory",
+    prompt: "What is the power of a test (1 − β)?",
+    options: ["The chance of detecting a real effect", "The chance of a false positive", "The chance that H₀ is true", "The size of the effect in the population"],
+    answer: 0,
+    explanation: "Power is the probability of correctly rejecting H₀ when it is false, i.e. of detecting an effect that truly exists.",
+  },
+  {
+    id: "m6-25", module: 6, type: "mc", kind: "theory",
+    prompt: "A researcher raises α from 0.05 to 0.10. What happens?",
+    options: ["More false alarms but more power", "Fewer false alarms and more power", "Fewer missed effects and less power", "No change, since α does not affect power"],
+    answer: 0,
+    explanation: "A higher α makes H₀ easier to reject: more Type I errors (false alarms), fewer Type II errors and higher power.",
+  },
+  {
+    id: "m6-26", module: 6, type: "mc", kind: "theory",
+    prompt: "In the security-guard analogy, a guard who is very quick to sound the alarm has:",
+    options: ["A high α: more false alarms, fewer misses", "A low α: fewer false alarms and more power", "A high β: many missed intruders", "Zero chance of making any error"],
+    answer: 0,
+    explanation: "Being quick to press the alarm is a high α: more raccoons trigger it (Type I errors), but fewer real break-ins are missed (higher power).",
+  },
+  {
+    id: "m6-27", module: 6, type: "mc", kind: "theory",
+    prompt: "Besides raising α, what is a common way to increase a test's power without more false positives?",
+    options: ["Increase the sample size", "Switch to a two-tailed test", "Lower the significance level", "Remove the null hypothesis"],
+    answer: 0,
+    explanation: "Larger samples reduce sampling error, so real effects are easier to detect (lower β) while α stays the same.",
+  },
+  {
+    id: "m6-28", module: 6, type: "mc", kind: "theory",
+    prompt: "Which pair of samples is independent?",
+    options: ["Customers of Store A and other customers of Store B", "Employees' sales before and after training", "The same patients' blood pressure on two days", "Twins, with one twin placed in each group"],
+    answer: 0,
+    explanation: "Independent samples come from separate groups, so one sample's values do not influence the other's. The other three are paired or matched designs.",
+  },
+  {
+    id: "m6-29", module: 6, type: "mc", kind: "theory",
+    prompt: "Why are before-and-after sales for the same employees treated as paired data?",
+    options: ["Each after value matches the same person's before value", "Because both periods last exactly the same 30 days", "Because the sample is larger than 30 employees", "Because sales are measured in dollars, not ranks"],
+    answer: 0,
+    explanation: "Each employee is measured twice and the two values are linked (matched by EmployeeID). That is what makes the design paired.",
+  },
+  {
+    id: "m6-30", module: 6, type: "mc", kind: "theory",
+    prompt: "Two independent groups have clearly unequal variances. Which test is recommended for comparing their means?",
+    options: ["Welch's t-test", "Pooled t-test assuming equal variances", "Paired-samples t-test", "One-sample z-test"],
+    answer: 0,
+    explanation: "Welch's t-test does not assume equal variances. The pooled (equal variances) t-test should only be used when the variances are similar.",
+  },
+  {
+    id: "m6-31", module: 6, type: "mc", kind: "theory",
+    prompt: "When testing whether two population means differ, what is the hypothesized mean difference under H₀?",
+    options: ["Zero", "The difference between the two sample means", "The standard deviation of the pooled samples", "The larger of the two sample means"],
+    answer: 0,
+    explanation: "H₀: μ₁ = μ₂, which is the same as μ₁ − μ₂ = 0. So the hypothesized difference is 0.",
+  },
+  {
+    id: "m6-32", module: 6, type: "mc", kind: "theory",
+    prompt: "Which information should you report for a hypothesis test?",
+    options: ["Test statistic, p-value and decision on H₀", "Only whether the result was significant", "Only the sample mean of each group", "The raw data for every participant"],
+    answer: 0,
+    explanation: "A report states the test statistic, the p-value and whether H₀ was rejected, plus a plain-language conclusion.",
+  },
+  {
+    id: "m6-33", module: 6, type: "mc", kind: "theory",
+    prompt: "An analyst compares the average salary in a sample with a $75,000 benchmark. Which test fits?",
+    options: ["One-sample t-test", "Independent-samples t-test", "Paired-samples t-test", "One-way ANOVA"],
+    answer: 0,
+    explanation: "One sample mean compared with a known value (a benchmark) is a one-sample t-test.",
+  },
+  {
+    id: "m6-34", module: 6, type: "mc", kind: "theory",
+    prompt: "BEFORE seeing the data, a manager predicts that average salary is ABOVE $75,000. How should Ha be written?",
+    options: ["Ha: μ > 75,000", "Ha: μ ≠ 75,000", "Ha: μ < 75,000", "Ha: μ = 75,000"],
+    answer: 0,
+    explanation: "A direction predicted in advance gives a one-tailed (right-tailed) alternative, μ > 75,000.",
+  },
+  {
+    id: "m6-35", module: 6, type: "mc", kind: "theory",
+    prompt: "A researcher divides customers into age groups and draws a random sample from each group. What sampling strategy is this?",
+    options: ["Stratified sampling", "Cluster sampling", "Convenience sampling", "Simple random sampling"],
+    answer: 0,
+    explanation: "Stratified sampling splits the population into groups (strata) and samples randomly within each, so every group is represented.",
+  },
+  {
+    id: "m6-c1", module: 6, type: "mc", kind: "code",
+    prompt: "At α = 0.05, what do you conclude?",
+    code: `One-sample t-test          Test value = 75,000
+Variable       N    Mean      t      df   Sig. (2-tailed)
+AnnualSalary   60   79,850   2.41    59        .019`,
+    options: ["Mean salary differs significantly from $75,000", "Mean salary is not different from $75,000", "Every employee earns exactly $79,850", "The test is invalid because t is positive"],
+    answer: 0,
+    explanation: "p = .019 ≤ .05, so we reject H₀: μ = 75,000. The sample mean ($79,850) is significantly different from the benchmark.",
+  },
+  {
+    id: "m6-c2", module: 6, type: "mc", kind: "code",
+    prompt: "Which row should you read, and what is the decision at α = 0.05?",
+    code: `Independent-samples t-test: AnnualSalary by Gender
+Levene's test for equal variances: F = 7.84, Sig. = .006
+
+                              t      df     Sig. (2-tailed)
+Equal variances assumed       2.12   98         .037
+Equal variances not assumed   1.94   71.3       .056`,
+    options: ["Not assumed: p = .056, fail to reject H₀", "Assumed: p = .037, reject H₀ (significant)", "Assumed: p = .006, reject H₀ (significant)", "Not assumed: p = .006, reject H₀ (significant)"],
+    answer: 0,
+    explanation: "Levene's p = .006 < .05, so the variances are unequal: read the 'not assumed' (Welch) row. There p = .056 > .05, so we fail to reject H₀. Levene's p tests variances, not means.",
+  },
+  {
+    id: "m6-c3", module: 6, type: "mc", kind: "code",
+    prompt: "What does Levene's test tell you here?",
+    code: `Levene's test for equal variances: F = 0.42, Sig. = .519
+Equal variances assumed:      t = 2.65, Sig. (2-tailed) = .009
+Equal variances not assumed:  t = 2.63, Sig. (2-tailed) = .010`,
+    options: ["Variances are similar, so use the 'assumed' row", "Variances differ, so use the 'not assumed' row", "The two group means are equal", "The data are normally distributed"],
+    answer: 0,
+    explanation: "Levene's p = .519 > .05, so there is no evidence of unequal variances. Use the 'equal variances assumed' row (p = .009, significant).",
+  },
+  {
+    id: "m6-c4", module: 6, type: "mc", kind: "code",
+    prompt: "What does this output show?",
+    code: `Paired-samples t-test: Sales_After − Sales_Before (n = 25)
+Mean difference = 1,240    t = 3.18    df = 24    Sig. (2-tailed) = .004
+95% CI of the difference: [435, 2,045]`,
+    options: ["Sales changed significantly; the CI excludes 0", "No significant change, because the CI is wide", "Sales fell significantly after training", "The groups are independent, so the test is wrong"],
+    answer: 0,
+    explanation: "p = .004 < .05 and the 95% CI of the difference does not include 0, so sales changed significantly. The positive difference means they rose.",
+  },
+  {
+    id: "m6-c5", module: 6, type: "mc", kind: "code",
+    prompt: "What can you conclude?",
+    code: `Paired-samples t-test (n = 18)
+Mean difference = 3.2    95% CI [−1.4, 7.8]    Sig. (2-tailed) = .162`,
+    options: ["No significant difference: the CI includes 0", "A significant increase, since the mean difference is positive", "A significant decrease, since the CI has a negative value", "The test proves the two sets of scores are identical"],
+    answer: 0,
+    explanation: "p = .162 > .05 and the CI includes 0, so a true difference of zero is plausible. That is 'not significant', not proof that the scores are identical.",
+  },
+  {
+    id: "m6-c6", module: 6, type: "mc", kind: "code",
+    prompt: "Which cell is a Type II error?",
+    code: `                  H₀ is true    H₀ is false
+Reject H₀             A             B
+Fail to reject H₀     C             D`,
+    options: ["Cell D", "Cell A", "Cell B", "Cell C"],
+    answer: 0,
+    explanation: "D = failing to reject a false H₀ (a missed effect, Type II). A is a Type I error; B and C are correct decisions.",
+  },
+  {
+    id: "m6-c7", module: 6, type: "mc", kind: "code",
+    prompt: "What is the decision?",
+    code: `Right-tailed z-test, α = 0.05
+z statistic = 1.80      critical value = 1.645`,
+    options: ["Reject H₀: z is beyond the critical value", "Fail to reject H₀: z is below the 1.96 cut-off", "Fail to reject H₀: z is positive", "Reject H₀ only if p is above 0.05"],
+    answer: 0,
+    explanation: "In a right-tailed test the critical value is 1.645, and 1.80 > 1.645, so z falls in the rejection region. 1.96 is the two-tailed critical value.",
+  },
+  {
+    id: "m6-c8", module: 6, type: "mc", kind: "code",
+    prompt: "Which conclusion is the most careful?",
+    code: `Mean sales before training: $18,400
+Mean sales after training:  $19,640
+Paired t-test: t(24) = 3.18, p = .004`,
+    options: ["Sales rose significantly; other causes are possible", "The training is now proven to cause higher sales", "Sales did not change significantly", "Training lowered sales by $1,240"],
+    answer: 0,
+    explanation: "The rise is significant (p = .004), but without a control group other factors (season, market) could explain it. A test shows evidence of a change, not proof of the cause.",
+  },
+  {
+    id: "m6-o1", module: 6, type: "open", kind: "theory",
+    prompt: "Explain the difference between a Type I and a Type II error, with an example.",
+    modelAnswer: "A Type I error is rejecting H₀ when it is actually true, a false positive; its probability is α. A Type II error is failing to reject H₀ when it is false, a false negative; its probability is β. Example: concluding that a useless drug works is a Type I error, and concluding that an effective drug does not work is a Type II error.",
+    keyPoints: [
+      { text: "Type I: rejecting a true H₀ (false positive)", keywords: ["false positive", "rejecting a true", "reject a true", "reject h0 when it is true", "reject h₀ when it is true"] },
+      { text: "Type II: failing to reject a false H₀ (false negative)", keywords: ["false negative", "fail to reject a false", "failing to reject a false", "miss"] },
+      { text: "Gives an example", keywords: ["example", "e.g", "for instance", "drug"] },
+    ],
+  },
+  {
+    id: "m6-o2", module: 6, type: "open", kind: "theory",
+    prompt: "What is the difference between a one-tailed and a two-tailed test, and when is each used?",
+    modelAnswer: "A two-tailed test is used when the hypothesis does not predict a direction (Ha: μ ≠ value), so α is split between both tails. A one-tailed test is used when a direction is predicted (greater than or less than), so all of α sits in one tail. The choice must be made before collecting the data, based on the research question.",
+    keyPoints: [
+      { text: "Two-tailed: no direction predicted (≠), α split between both tails", keywords: ["no direction", "either direction", "≠", "split", "both tails"] },
+      { text: "One-tailed: a direction is predicted, all of α in one tail", keywords: ["direction", "greater", "less than", "one tail"] },
+      { text: "Decided before collecting the data", keywords: ["before"] },
+    ],
+  },
+  {
+    id: "m6-o3", module: 6, type: "open", kind: "theory",
+    prompt: "What does a p-value mean, and how do you use it to make a decision?",
+    modelAnswer: "The p-value is the probability of getting results at least as extreme as the observed ones if H₀ were true. We compare it with α (usually 0.05): if p ≤ α we reject H₀ and call the result statistically significant; otherwise we fail to reject H₀. A smaller p-value means stronger evidence against H₀.",
+    keyPoints: [
+      { text: "Probability of results at least this extreme if H₀ is true", keywords: ["if h0", "if h₀", "assuming h0", "assuming h₀", "null hypothesis is true", "h0 is true", "h₀ is true", "h₀ were true", "h0 were true"] },
+      { text: "Compare with α: p ≤ α → reject H₀", keywords: ["α", "alpha", "0.05", "significance level"] },
+      { text: "Smaller p = stronger evidence against H₀", keywords: ["strong", "evidence"] },
+    ],
+  },
+  {
+    id: "m6-o4", module: 6, type: "open", kind: "theory",
+    prompt: "When would you use a z-test instead of a t-test?",
+    modelAnswer: "Use a z-test when the population standard deviation is known, or when the sample is large (about n > 30), because then the sampling distribution of the mean is close to normal. Use a t-test when the population standard deviation is unknown and must be estimated from a small sample; with large samples the two give very similar results.",
+    keyPoints: [
+      { text: "z-test: population standard deviation known", keywords: ["known"] },
+      { text: "z-test: large sample (n > 30)", keywords: ["large", "30"] },
+      { text: "t-test: σ unknown / estimated from a small sample", keywords: ["unknown", "small", "estimate"] },
+    ],
+  },
+  {
+    id: "m6-o5", module: 6, type: "open", kind: "code",
+    prompt: "Which row of this output should be reported, and what is the conclusion at α = 0.05?",
+    code: `Independent-samples t-test: Delivery time (minutes) by Region
+Levene's test for equal variances: F = 9.12, Sig. = .003
+
+                              t      df     Sig. (2-tailed)   Mean difference
+Equal variances assumed       2.30   118        .023               4.1
+Equal variances not assumed   2.18   86.5       .032               4.1`,
+    modelAnswer: "Levene's test is significant (p = .003 < .05), so the variances are unequal and we read the 'equal variances not assumed' (Welch) row. There, t = 2.18 and p = .032, which is below .05, so we reject H₀. Mean delivery time differs significantly between the two regions, by about 4.1 minutes.",
+    keyPoints: [
+      { text: "Levene's p = .003 < .05 → variances are unequal", keywords: ["unequal", "not equal", "differ", ".003"] },
+      { text: "Reads the 'equal variances not assumed' (Welch) row", keywords: ["not assumed", "welch"] },
+      { text: "p = .032 < .05 → reject H₀: significant difference", keywords: ["reject", "significant", ".032"] },
+      { text: "Plain-language conclusion (regions differ by about 4.1 minutes)", keywords: ["4.1", "minutes", "region"] },
+    ],
+  },
+  {
+    id: "m6-o6", module: 6, type: "open", kind: "code",
+    prompt: "Does this output show that the training program was effective? Explain.",
+    code: `Paired-samples t-test (n = 25 employees)
+Mean sales before: $18,400      Mean sales after: $19,640
+Mean difference: $1,240      t(24) = 3.18      Sig. (2-tailed) = .004
+95% CI of the difference: [$435, $2,045]`,
+    modelAnswer: "Sales rose significantly: the mean increase was $1,240, p = .004 < .05, and the 95% CI [$435, $2,045] does not include 0. The test is paired because the same employees were measured before and after training. However, without a control group it does not prove that the training caused the rise: other factors, such as the season or market conditions, could explain it.",
+    keyPoints: [
+      { text: "Significant increase: p = .004 < .05 and the CI excludes 0", keywords: ["significant", ".004", "exclude", "does not include 0", "doesn't include 0", "not include zero"] },
+      { text: "Paired design: the same employees before and after", keywords: ["same employees", "paired", "same people", "before and after"] },
+      { text: "Caution: no control group, so the cause is not proven", keywords: ["control group", "other factor", "season", "caus", "not prove", "doesn't prove", "does not prove"] },
+    ],
+  },
+  // ───────────────────────── Module 7: ANOVA ─────────────────────────
+  {
+    id: "m7-01", module: 7, type: "mc", kind: "theory",
+    prompt: "What is the main purpose of a one-way ANOVA?",
+    options: ["To test whether the means of 3+ groups differ", "To test whether two variables are correlated", "To compare the variances within one group", "To compare the medians of two paired samples"],
+    answer: 0,
+    explanation: "ANOVA tests whether there are significant differences between the means of three or more independent groups.",
+  },
+  {
+    id: "m7-02", module: 7, type: "mc", kind: "theory",
+    prompt: "Why use one ANOVA instead of a t-test for every pair of groups?",
+    options: ["Multiple t-tests inflate the Type I error rate", "t-tests cannot compare group means at all", "ANOVA does not need any assumptions to hold", "t-tests only work when the data are paired"],
+    answer: 0,
+    explanation: "Each t-test carries a 5% false-positive risk, so many tests add up. One ANOVA keeps the error rate at α and is more efficient.",
+  },
+  {
+    id: "m7-03", module: 7, type: "mc", kind: "theory",
+    prompt: "In ANOVA, what does the F-ratio compare?",
+    options: ["Variance between groups to variance within groups", "The means of the two largest groups in the study", "The medians of all the groups in the study", "The total variance to the overall sample size"],
+    answer: 0,
+    explanation: "F = between-group variance / within-group variance. It asks whether the group means differ more than the natural spread inside the groups.",
+  },
+  {
+    id: "m7-04", module: 7, type: "mc", kind: "theory",
+    prompt: "What does a large F-ratio suggest?",
+    options: ["Group means differ more than chance explains", "The groups have very similar means", "The variance within groups is very large", "The sample size is too small"],
+    answer: 0,
+    explanation: "A large F means the between-group variance is large compared with the within-group (error) variance, so the differences are unlikely to be due to chance.",
+  },
+  {
+    id: "m7-05", module: 7, type: "mc", kind: "theory",
+    prompt: "What does between-group variance measure?",
+    options: ["How far the group means are from the overall mean", "How spread out the scores are inside each group", "The gap between the largest and smallest score", "How many groups are included in the study"],
+    answer: 0,
+    explanation: "Between-group variance reflects how much the group means differ from the grand mean, i.e. the effect of the independent variable.",
+  },
+  {
+    id: "m7-06", module: 7, type: "mc", kind: "theory",
+    prompt: "Within-group variance in ANOVA is also called:",
+    options: ["Error variance", "Treatment variance", "Interaction variance", "Effect size"],
+    answer: 0,
+    explanation: "Within-group variance is the spread inside each group that the treatment does not explain, so it is called error variance.",
+  },
+  {
+    id: "m7-07", module: 7, type: "mc", kind: "theory",
+    prompt: "What is the null hypothesis of a one-way ANOVA with three groups?",
+    options: ["All three group means are equal", "All three group means are different", "At least one group mean is different", "The group variances are different"],
+    answer: 0,
+    explanation: "H₀: μ₁ = μ₂ = μ₃. The alternative is that at least one mean differs.",
+  },
+  {
+    id: "m7-08", module: 7, type: "mc", kind: "theory",
+    prompt: "A one-way ANOVA is significant (p < .05). What does this tell you?",
+    options: ["At least one group mean differs", "All group means differ from each other", "Exactly two of the groups differ", "The group variances are equal"],
+    answer: 0,
+    explanation: "A significant F only says that not all means are equal. It does not say which groups differ; that needs a post hoc test.",
+  },
+  {
+    id: "m7-09", module: 7, type: "mc", kind: "theory",
+    prompt: "What is the purpose of a post hoc test after a significant ANOVA?",
+    options: ["To find which specific groups differ", "To check that the data are normal", "To calculate the F-ratio", "To decide whether to run the ANOVA"],
+    answer: 0,
+    explanation: "Post hoc tests (e.g. Tukey) make pairwise comparisons to show which groups differ, while controlling the Type I error.",
+  },
+  {
+    id: "m7-10", module: 7, type: "mc", kind: "theory",
+    prompt: "Which post hoc test does the module suggest when equal variances can be assumed?",
+    options: ["Tukey HSD", "Welch's t-test", "Levene's test", "Shapiro–Wilk test"],
+    answer: 0,
+    explanation: "Tukey's HSD is the usual post hoc test when the equal-variance assumption holds. Levene's and Shapiro–Wilk check assumptions; they are not post hoc tests.",
+  },
+  {
+    id: "m7-11", module: 7, type: "mc", kind: "theory",
+    prompt: "The normality assumption in ANOVA applies to which values?",
+    options: ["The residuals (errors)", "The group sizes", "The F-ratio", "The independent variable"],
+    answer: 0,
+    explanation: "ANOVA assumes the residuals (each score minus its group mean) are normally distributed.",
+  },
+  {
+    id: "m7-12", module: 7, type: "mc", kind: "theory",
+    prompt: "In ANOVA, what is a residual?",
+    options: ["A score minus the mean of its own group", "A group mean minus the overall mean", "The largest score in each group", "The number of observations per group"],
+    answer: 0,
+    explanation: "A residual is how far a person's actual score is from the average of their group.",
+  },
+  {
+    id: "m7-13", module: 7, type: "mc", kind: "theory",
+    prompt: "Which of these checks the normality assumption?",
+    options: ["A Shapiro–Wilk test or a Q-Q plot", "Levene's test of equal variances", "Tukey's post hoc comparisons", "The size of the F-ratio"],
+    answer: 0,
+    explanation: "Normality can be checked with Q-Q plots, the Shapiro–Wilk test or the Kolmogorov–Smirnov test. Levene's test checks equal variances.",
+  },
+  {
+    id: "m7-14", module: 7, type: "mc", kind: "theory",
+    prompt: "What does Levene's test check in an ANOVA?",
+    options: ["Whether the group variances are equal", "Whether the group means are equal", "Whether the residuals are normal", "Whether the groups are independent"],
+    answer: 0,
+    explanation: "Levene's test checks homogeneity of variance. p > .05 means the equal-variance assumption is met.",
+  },
+  {
+    id: "m7-15", module: 7, type: "mc", kind: "theory",
+    prompt: "In a one-way ANOVA, Levene's test shows that the group variances are unequal. What does this course use instead?",
+    options: ["Welch's ANOVA", "Two-way ANOVA", "A paired t-test", "Pearson correlation"],
+    answer: 0,
+    explanation: "Welch's ANOVA does not require equal variances. The course uses it instead of transforming the data.",
+  },
+  {
+    id: "m7-16", module: 7, type: "mc", kind: "theory",
+    prompt: "What can happen if the equal-variance assumption is violated but ignored?",
+    options: ["More Type I errors (false positives)", "Fewer Type I errors", "The F-ratio cannot be computed", "The results become more accurate"],
+    answer: 0,
+    explanation: "Unequal variances can distort the F-test and increase the risk of false positives, especially with unequal group sizes.",
+  },
+  {
+    id: "m7-17", module: 7, type: "mc", kind: "theory",
+    prompt: "How is the independence-of-observations assumption usually ensured?",
+    options: ["Through the study design, e.g. random assignment", "By running Levene's test on the group variances", "By applying a log transformation to the scores", "By increasing the number of groups compared"],
+    answer: 0,
+    explanation: "Independence is a design issue: each participant is measured once and assigned at random, so one observation does not influence another.",
+  },
+  {
+    id: "m7-18", module: 7, type: "mc", kind: "theory",
+    prompt: "What makes an ANOVA 'one-way'?",
+    options: ["It has one independent variable (factor)", "It has one group and one outcome", "It compares only one pair of groups", "It tests only one direction (one tail)"],
+    answer: 0,
+    explanation: "'One-way' means a single factor (with three or more levels) is tested for its effect on one dependent variable.",
+  },
+  {
+    id: "m7-19", module: 7, type: "mc", kind: "theory",
+    prompt: "A researcher studies how teaching method AND classroom environment affect test scores. Which test fits?",
+    options: ["Two-way ANOVA", "One-way ANOVA", "Independent-samples t-test", "Kruskal–Wallis test"],
+    answer: 0,
+    explanation: "Two factors on one continuous outcome is a two-way ANOVA, which tests both main effects and their interaction.",
+  },
+  {
+    id: "m7-20", module: 7, type: "mc", kind: "theory",
+    prompt: "In a two-way ANOVA, what does a significant interaction effect mean?",
+    options: ["The effect of one factor depends on the other", "Both factors have exactly the same effect", "The two factors are correlated with each other", "Neither factor has a main effect"],
+    answer: 0,
+    explanation: "An interaction means the effect of one independent variable changes depending on the level of the other one.",
+  },
+  {
+    id: "m7-21", module: 7, type: "mc", kind: "theory",
+    prompt: "What is a main effect in a two-way ANOVA?",
+    options: ["One factor's own effect, ignoring the other", "The combined effect of both factors together", "The largest difference between any two groups", "The effect of the dependent variable"],
+    answer: 0,
+    explanation: "A main effect is the effect of one factor on the outcome on its own, averaged over the levels of the other factor.",
+  },
+  {
+    id: "m7-22", module: 7, type: "mc", kind: "theory",
+    prompt: "Which method extends ANOVA to several dependent variables at once?",
+    options: ["MANOVA", "Two-way ANOVA", "Welch's ANOVA", "Kruskal–Wallis test"],
+    answer: 0,
+    explanation: "MANOVA (multivariate ANOVA) handles multiple response variables. Two-way ANOVA has two factors but still one dependent variable.",
+  },
+  {
+    id: "m7-23", module: 7, type: "mc", kind: "theory",
+    prompt: "What does eta-squared (η²) report in an ANOVA?",
+    options: ["Share of outcome variance explained by groups", "The probability that the null hypothesis is true", "The number of groups that were compared", "Whether the group variances are equal"],
+    answer: 0,
+    explanation: "η² is an effect size: the proportion of the variance in the dependent variable explained by the factor.",
+  },
+  {
+    id: "m7-24", module: 7, type: "mc", kind: "theory",
+    prompt: "Which types of variables does a one-way ANOVA need?",
+    options: ["A categorical factor and a continuous outcome", "Two continuous variables", "Two categorical variables", "A continuous factor and a categorical outcome"],
+    answer: 0,
+    explanation: "The independent variable (factor) defines the groups, so it is categorical; the dependent variable whose means are compared is continuous.",
+  },
+  {
+    id: "m7-25", module: 7, type: "mc", kind: "theory",
+    prompt: "Why are unequal variances especially problematic in a two-way ANOVA with unequal group sizes?",
+    options: ["The combination can produce biased results", "Two-way ANOVA cannot handle more than two groups", "It makes the interaction impossible to test", "Unequal sizes always make the variances equal"],
+    answer: 0,
+    explanation: "Unequal variances combined with an unbalanced design can bias the results of a two-way ANOVA.",
+  },
+  {
+    id: "m7-26", module: 7, type: "mc", kind: "theory",
+    prompt: "Variances are unequal in a two-way design and Welch's ANOVA is not available. Which is a valid option?",
+    options: ["Use a transformation or a non-parametric alternative", "Ignore it, because two-way ANOVA has no assumptions", "Switch to a paired-samples t-test", "Delete the group with the largest variance"],
+    answer: 0,
+    explanation: "Options include variance-stabilising transformations (log, square root), generalised linear models or non-parametric alternatives.",
+  },
+  {
+    id: "m7-27", module: 7, type: "mc", kind: "theory",
+    prompt: "Why does ANOVA assume random sampling?",
+    options: ["So results generalise to the population", "So that the F-ratio is always significant", "So all groups have the same mean", "So no post hoc test is needed"],
+    answer: 0,
+    explanation: "Random sampling makes each sample represent its population without bias, which is needed to generalise the findings.",
+  },
+  {
+    id: "m7-28", module: 7, type: "mc", kind: "theory",
+    prompt: "Students are split into flashcards, summarising and self-testing groups, and all take the same exam. Which analysis compares the three groups' mean scores?",
+    options: ["One-way ANOVA", "Paired-samples t-test", "Chi-square test", "Two-way ANOVA"],
+    answer: 0,
+    explanation: "One factor (study technique, 3 levels) and one continuous outcome (exam score): one-way ANOVA.",
+  },
+  {
+    id: "m7-29", module: 7, type: "mc", kind: "theory",
+    prompt: "Why is it called analysis of VARIANCE when it tests differences in MEANS?",
+    options: ["It compares spread between and within groups to judge means", "Because it only tests whether the variances are equal", "Because means and variances are the same thing", "Because it ignores the group means entirely"],
+    answer: 0,
+    explanation: "ANOVA splits the total variance into between-group and within-group parts; if the between-group part is large, the means differ.",
+  },
+  {
+    id: "m7-c1", module: 7, type: "mc", kind: "code",
+    prompt: "What do you conclude at α = .05?",
+    code: `One-way ANOVA: Satisfaction score by Store (3 stores)
+                 Sum of Squares   df   Mean Square    F      Sig.
+Between Groups        84.6         2      42.30      5.12    .008
+Within Groups        718.2        87       8.26
+Total                802.8        89`,
+    options: ["At least one store mean differs (post hoc next)", "All three stores have different mean scores", "No store differs, because F is small", "Store 3 has the highest mean score"],
+    answer: 0,
+    explanation: "p = .008 < .05, so reject H₀: at least one store's mean differs. The ANOVA table cannot say which one; a post hoc test is needed.",
+  },
+  {
+    id: "m7-c2", module: 7, type: "mc", kind: "code",
+    prompt: "What is the correct conclusion?",
+    code: `One-way ANOVA: Exam score by Teaching method (3 methods)
+F(2, 27) = 0.42      Sig. = .664
+Levene's test: Sig. = .512`,
+    options: ["No significant difference between the methods", "Teaching method has a significant effect", "The ANOVA is invalid because Levene's p > .05", "Method A is the best teaching method"],
+    answer: 0,
+    explanation: "p = .664 > .05, so we fail to reject H₀. Levene's p > .05 means equal variances, so the ANOVA is valid.",
+  },
+  {
+    id: "m7-c3", module: 7, type: "mc", kind: "code",
+    prompt: "Which result should you report?",
+    code: `Test of homogeneity of variances (Levene): Sig. = .002
+ANOVA:         F(2, 57) = 3.95      Sig. = .025
+Welch's test:  F(2, 33.8) = 2.71    Sig. = .081`,
+    options: ["Welch's test: no significant difference (p = .081)", "ANOVA: a significant difference (p = .025)", "Levene: means differ significantly (p = .002)", "Both, averaging their two p-values"],
+    answer: 0,
+    explanation: "Levene's p = .002 shows unequal variances, so the standard ANOVA is not trustworthy. Welch's ANOVA is the one to report: p = .081, not significant.",
+  },
+  {
+    id: "m7-c4", module: 7, type: "mc", kind: "code",
+    prompt: "Which regions differ significantly at α = .05?",
+    code: `Tukey HSD: mean difference in sales ($000s)
+Region A vs B    2.1    Sig. = .412
+Region A vs C    6.8    Sig. = .003
+Region B vs C    4.7    Sig. = .038`,
+    options: ["A vs C and B vs C", "Only A vs B", "All three pairs", "No pair differs significantly"],
+    answer: 0,
+    explanation: "Only the pairs with p < .05 differ: A vs C (.003) and B vs C (.038). A vs B (.412) is not significant.",
+  },
+  {
+    id: "m7-c5", module: 7, type: "mc", kind: "code",
+    prompt: "What does the interaction row show?",
+    code: `Two-way ANOVA: Exam score
+Source                    F      Sig.
+Teaching method          6.21    .003
+Study time               9.40   <.001
+Method × Study time      4.18    .008`,
+    options: ["Method's effect on scores depends on study time", "Method and study time have no effect on scores", "Study time causes students to pick a method", "Only teaching method affects exam scores"],
+    answer: 0,
+    explanation: "The interaction (p = .008) is significant, so the effect of teaching method on scores differs across levels of study time.",
+  },
+  {
+    id: "m7-c6", module: 7, type: "mc", kind: "code",
+    prompt: "Which statement is correct at α = .05?",
+    code: `Two-way ANOVA: Sales
+Source               F      Sig.
+Ad type             8.92    .004
+Region              0.61    .545
+Ad type × Region    0.88    .419`,
+    options: ["Only ad type has a significant effect", "Region matters; ad type does not", "Ad type's effect depends on the region", "Nothing is significant at α = .05"],
+    answer: 0,
+    explanation: "Only ad type has p < .05. Region (.545) and the interaction (.419) are not significant, so ad type works the same way in every region.",
+  },
+  {
+    id: "m7-c7", module: 7, type: "mc", kind: "code",
+    prompt: "How should η² = .17 be interpreted?",
+    code: `One-way ANOVA: Revenue by Marketing channel (4 channels)
+F(3, 116) = 7.85     Sig. < .001     η² = .17`,
+    options: ["Channel explains ~17% of revenue variance", "There is a 17% chance that H₀ is true", "The best channel earns 17% more revenue", "17% of the channels differ significantly"],
+    answer: 0,
+    explanation: "η² is the proportion of variance in the outcome explained by the factor: about 17% of the differences in revenue are linked to the channel.",
+  },
+  {
+    id: "m7-o1", module: 7, type: "open", kind: "theory",
+    prompt: "Why do we use ANOVA instead of running several t-tests to compare three or more groups?",
+    modelAnswer: "ANOVA compares three or more group means in a single test. Running a t-test for every pair means many tests, and each one has a 5% chance of a false positive, so the overall Type I error rate grows. One ANOVA keeps the error rate at α and is more efficient.",
+    keyPoints: [
+      { text: "Compares 3+ group means in one test", keywords: ["three or more", "3 or more", "more than two", "single test", "one test"] },
+      { text: "Several t-tests inflate the Type I error rate", keywords: ["type i", "false positive", "error rate", "inflate"] },
+      { text: "Keeps the error rate at α / more efficient", keywords: ["keeps", "controls", "maintain", "efficien"] },
+    ],
+  },
+  {
+    id: "m7-o2", module: 7, type: "open", kind: "theory",
+    prompt: "What does the F-ratio in ANOVA compare, and what does a large F mean?",
+    modelAnswer: "The F-ratio divides the variance between groups (how far the group means are from the overall mean) by the variance within groups (the error, or how spread out the scores are inside each group). A large F means the group means differ more than random variation alone would explain, so the difference is more likely to be significant.",
+    keyPoints: [
+      { text: "Numerator: variance between groups", keywords: ["between"] },
+      { text: "Denominator: variance within groups (error)", keywords: ["within", "error"] },
+      { text: "Large F: means differ more than chance explains", keywords: ["large", "significant", "chance", "random"] },
+    ],
+  },
+  {
+    id: "m7-o3", module: 7, type: "open", kind: "theory",
+    prompt: "Name three assumptions of one-way ANOVA and how one of them can be checked.",
+    modelAnswer: "One-way ANOVA assumes independent observations (ensured by random sampling and the study design), normally distributed residuals, and equal variances across groups (homogeneity of variance). Equal variances can be checked with Levene's test (p > .05 means the assumption holds), and normality with a Q-Q plot or the Shapiro–Wilk test.",
+    keyPoints: [
+      { text: "Independence of observations / random sampling", keywords: ["independen", "random"] },
+      { text: "Normality (of the residuals)", keywords: ["normal"] },
+      { text: "Equal variances (homogeneity)", keywords: ["equal variance", "homogeneity", "homoscedastic", "similar variance"] },
+      { text: "How to check one: Levene's, Shapiro–Wilk or a Q-Q plot", keywords: ["levene", "shapiro", "q-q", "qq", "kolmogorov"] },
+    ],
+  },
+  {
+    id: "m7-o4", module: 7, type: "open", kind: "theory",
+    prompt: "Explain what an interaction effect is in a two-way ANOVA, with an example.",
+    modelAnswer: "An interaction effect means that the effect of one factor on the dependent variable depends on the level of the other factor, so the two factors do not act separately. Example: teaching method A may raise test scores in Environment X but not in Environment Y, so the effect of the method depends on the classroom environment.",
+    keyPoints: [
+      { text: "The effect of one factor depends on the level of the other", keywords: ["depends", "depend"] },
+      { text: "Involves the two factors (independent variables) together", keywords: ["two factors", "other factor", "both factors", "two independent"] },
+      { text: "Gives an example", keywords: ["example", "e.g", "for instance"] },
+    ],
+  },
+  {
+    id: "m7-o5", module: 7, type: "open", kind: "code",
+    prompt: "Interpret this output. What can you conclude, and what should you do next?",
+    code: `One-way ANOVA: Monthly sales by Region (4 regions)
+Levene's test: Sig. = .318
+ANOVA: F(3, 76) = 4.62      Sig. = .005`,
+    modelAnswer: "Levene's test is not significant (p = .318), so the equal-variance assumption holds and the standard ANOVA can be used. The ANOVA is significant, F(3, 76) = 4.62, p = .005, so we reject H₀: at least one region's mean sales differ. It does not say which regions differ, so the next step is a post hoc test such as Tukey HSD.",
+    keyPoints: [
+      { text: "Levene's p > .05 → equal variances, standard ANOVA is fine", keywords: ["levene", ".318", "equal variance", "assumption"] },
+      { text: "p = .005 < .05 → reject H₀: at least one region differs", keywords: ["at least one", "reject", "significant"] },
+      { text: "Next: a post hoc test (e.g. Tukey) to find which regions differ", keywords: ["post hoc", "post-hoc", "tukey"] },
+    ],
+  },
+  {
+    id: "m7-o6", module: 7, type: "open", kind: "code",
+    prompt: "Interpret the main effects and the interaction in this output.",
+    code: `Two-way ANOVA: Exam score by Teaching method and Study time
+Source                    F      Sig.
+Teaching method          5.84    .004
+Study time              11.20   <.001
+Method × Study time      3.95    .010
+Levene's test: Sig. = .274`,
+    modelAnswer: "Both main effects are significant: teaching method (p = .004) and study time (p < .001) each affect exam scores. The interaction is also significant (p = .010), so the effect of teaching method depends on how much students study, and the main effects should be read with that in mind. Levene's test is not significant (p = .274), so the equal-variance assumption is met.",
+    keyPoints: [
+      { text: "Both main effects are significant (p = .004 and p < .001)", keywords: ["main effect", "both", ".004"] },
+      { text: "Significant interaction: the method's effect depends on study time", keywords: ["depends", "interaction"] },
+      { text: "Levene's p = .274 > .05 → equal-variance assumption met", keywords: ["levene", ".274", "equal variance", "assumption"] },
+    ],
+  },
+  // ───────────────────────── Module 8: Non-Parametric Tests ─────────────────────────
+  {
+    id: "m8-01", module: 8, type: "mc", kind: "theory",
+    prompt: "What makes a test 'parametric'?",
+    options: ["It assumes the population is, e.g., normal", "It can only be used with categorical data", "It ranks the data before testing", "It never needs a sample to be drawn"],
+    answer: 0,
+    explanation: "Parametric tests (t-test, ANOVA) estimate population parameters and assume a shape for the population, usually normality.",
+  },
+  {
+    id: "m8-02", module: 8, type: "mc", kind: "theory",
+    prompt: "What do non-parametric tests usually analyse instead of the raw scores?",
+    options: ["Ranks", "Means", "Variances", "Z-scores"],
+    answer: 0,
+    explanation: "Non-parametric tests convert values into ranks (or use medians or signs), so they do not need a normal distribution.",
+  },
+  {
+    id: "m8-03", module: 8, type: "mc", kind: "theory",
+    prompt: "Which situation most calls for a non-parametric test?",
+    options: ["A small, strongly skewed sample with outliers", "A large sample with normally distributed data", "Two continuous variables with a linear link", "Equal variances and no outliers in each group"],
+    answer: 0,
+    explanation: "Skewed data, small samples, outliers and ordinal scales are the classic reasons to switch from a t-test or ANOVA to a rank-based test.",
+  },
+  {
+    id: "m8-04", module: 8, type: "mc", kind: "theory",
+    prompt: "When their assumptions are met, why are parametric tests preferred?",
+    options: ["They are more powerful", "They do not need any assumptions", "They only work with ordinal data", "They always give smaller p-values"],
+    answer: 0,
+    explanation: "Parametric tests use all the information in the actual values, so when their assumptions hold they are more likely to detect a real effect.",
+  },
+  {
+    id: "m8-05", module: 8, type: "mc", kind: "theory",
+    prompt: "Customer satisfaction is rated on a 1–5 scale. Why might a non-parametric test be preferred?",
+    options: ["Ordinal ratings can be ranked but not averaged reliably", "Ordinal data always follow a normal distribution", "Ordinal data cannot be compared in any way", "Non-parametric tests require interval data"],
+    answer: 0,
+    explanation: "A 1–5 scale is ordinal: the order is meaningful, but the gaps between levels may not be equal. Rank-based tests suit that.",
+  },
+  {
+    id: "m8-06", module: 8, type: "mc", kind: "theory",
+    prompt: "The Mann–Whitney U test is the non-parametric alternative to which test?",
+    options: ["Independent-samples t-test", "Paired-samples t-test", "One-way ANOVA", "Pearson correlation"],
+    answer: 0,
+    explanation: "Mann–Whitney U compares two independent groups, like the independent-samples t-test, but using ranks.",
+  },
+  {
+    id: "m8-07", module: 8, type: "mc", kind: "theory",
+    prompt: "How does the Mann–Whitney U test compare two groups?",
+    options: ["It ranks all values together and compares the ranks", "It compares the two group means directly", "It compares each person's before and after score", "It compares the variances of the two groups"],
+    answer: 0,
+    explanation: "All values from both groups are ranked together (1st, 2nd, 3rd…), and the test checks whether one group tends to have higher ranks.",
+  },
+  {
+    id: "m8-08", module: 8, type: "mc", kind: "theory",
+    prompt: "What is the null hypothesis of a two-tailed Mann–Whitney U test?",
+    options: ["The two groups' distributions are the same", "Group 1 has higher ranks than Group 2", "The two groups' means are different", "The two groups are paired"],
+    answer: 0,
+    explanation: "H₀: the distributions are the same, so the ranks are evenly mixed between the groups. Ha: they differ.",
+  },
+  {
+    id: "m8-09", module: 8, type: "mc", kind: "theory",
+    prompt: "When can a Mann–Whitney U result be described as a difference in medians?",
+    options: ["When the two distributions have similar shapes", "When both groups are normally distributed", "When both samples are larger than 30", "When the groups are paired"],
+    answer: 0,
+    explanation: "The test compares whole distributions. Only if the two shapes are similar can a difference be read as a difference in medians.",
+  },
+  {
+    id: "m8-10", module: 8, type: "mc", kind: "theory",
+    prompt: "Which is an assumption of the Mann–Whitney U test?",
+    options: ["The two groups are independent", "Both groups are normally distributed", "The variances are exactly equal", "Each person is measured twice"],
+    answer: 0,
+    explanation: "Its assumptions are independence, ordinal or continuous data, similar distribution shapes and no major ties. Normality is not required.",
+  },
+  {
+    id: "m8-11", module: 8, type: "mc", kind: "theory",
+    prompt: "Which condition weakens the Mann–Whitney U test?",
+    options: ["Many tied values", "Skewed data", "Outliers", "A small sample"],
+    answer: 0,
+    explanation: "Many ties make ranking less informative. Skew, outliers and small samples are exactly the situations Mann–Whitney is designed to handle.",
+  },
+  {
+    id: "m8-12", module: 8, type: "mc", kind: "theory",
+    prompt: "Pre-test and post-test scores of the SAME students are not normal. Is the Mann–Whitney U test appropriate?",
+    options: ["No, use the Wilcoxon signed-rank test", "Yes, because the data are not normal", "Yes, because there are two sets of scores", "No, use the Kruskal–Wallis test"],
+    answer: 0,
+    explanation: "Pre/post scores of the same people are paired, and Mann–Whitney needs independent groups. The paired non-parametric test is Wilcoxon signed-rank.",
+  },
+  {
+    id: "m8-13", module: 8, type: "mc", kind: "theory",
+    prompt: "The Wilcoxon signed-rank test is the non-parametric alternative to which test?",
+    options: ["Paired-samples t-test", "Independent-samples t-test", "One-way ANOVA", "Chi-square test"],
+    answer: 0,
+    explanation: "Wilcoxon signed-rank compares two related (paired or matched) measurements when the paired t-test's normality assumption fails.",
+  },
+  {
+    id: "m8-14", module: 8, type: "mc", kind: "theory",
+    prompt: "How does the Wilcoxon signed-rank test handle the paired differences?",
+    options: ["Ranks their absolute sizes, then re-applies the signs", "Averages them and compares the result with zero", "Squares them and adds up the result", "Ignores the direction of every difference"],
+    answer: 0,
+    explanation: "It takes the absolute differences, ranks them, puts back the + or − sign, and tests whether the median difference is 0.",
+  },
+  {
+    id: "m8-15", module: 8, type: "mc", kind: "theory",
+    prompt: "What is the null hypothesis of a two-tailed Wilcoxon signed-rank test?",
+    options: ["The median difference between pairs is zero", "The two independent groups have equal means", "The median difference is greater than zero", "The pairs are independent of each other"],
+    answer: 0,
+    explanation: "H₀: the median difference is zero (no change between the two related measurements). Ha: it is not zero.",
+  },
+  {
+    id: "m8-16", module: 8, type: "mc", kind: "theory",
+    prompt: "Which assumption does the Wilcoxon signed-rank test make about the paired differences?",
+    options: ["They are roughly symmetric", "They are normally distributed", "They are all positive", "They are on a nominal scale"],
+    answer: 0,
+    explanation: "The differences should be roughly symmetric and at least ordinal. Normality is NOT required, which is the test's main advantage.",
+  },
+  {
+    id: "m8-17", module: 8, type: "mc", kind: "theory",
+    prompt: "When should you choose the Wilcoxon signed-rank test over a paired t-test?",
+    options: ["Small sample, skewed differences", "A large sample with normal differences", "Two independent groups of customers", "Three or more related measurements"],
+    answer: 0,
+    explanation: "Use Wilcoxon for small samples (n < 30) with non-normal or skewed differences, ordinal data or extreme outliers. Use the paired t-test when the differences are roughly normal.",
+  },
+  {
+    id: "m8-18", module: 8, type: "mc", kind: "theory",
+    prompt: "Which design fits the Wilcoxon signed-rank test?",
+    options: ["Same patients' pain before and after treatment", "Pain scores of two different patient groups", "Pain scores compared across three hospitals", "The link between age and pain score"],
+    answer: 0,
+    explanation: "Wilcoxon needs two related measurements, such as the same people before and after. Different groups need Mann–Whitney or Kruskal–Wallis.",
+  },
+  {
+    id: "m8-19", module: 8, type: "mc", kind: "theory",
+    prompt: "The Kruskal–Wallis test is the non-parametric alternative to:",
+    options: ["One-way ANOVA", "Paired-samples t-test", "Two-way ANOVA", "Pearson correlation"],
+    answer: 0,
+    explanation: "Kruskal–Wallis compares three or more independent groups using ranks, like a rank-based one-way ANOVA.",
+  },
+  {
+    id: "m8-20", module: 8, type: "mc", kind: "theory",
+    prompt: "The Kruskal–Wallis test is used to compare:",
+    options: ["Three or more independent groups", "Two dependent samples", "Two independent samples", "Three repeated measurements"],
+    answer: 0,
+    explanation: "Kruskal–Wallis extends Mann–Whitney to 3+ independent groups. Repeated measurements of the same people need the Friedman test.",
+  },
+  {
+    id: "m8-21", module: 8, type: "mc", kind: "theory",
+    prompt: "A Kruskal–Wallis test is significant. What does it tell you?",
+    options: ["At least one group differs", "All groups differ from each other", "Exactly two groups differ", "No groups differ"],
+    answer: 0,
+    explanation: "Like ANOVA, it only says the groups are not all the same. Post hoc tests are needed to find which groups differ.",
+  },
+  {
+    id: "m8-22", module: 8, type: "mc", kind: "theory",
+    prompt: "Why does the Kruskal–Wallis test have no directional (one-tailed) hypothesis?",
+    options: ["No single direction exists across 3+ groups", "Because it only works with two groups", "Because ranks have no order", "Because it always uses α = 0.10"],
+    answer: 0,
+    explanation: "With three or more groups there is no single 'greater than' direction, so the hypotheses are always non-directional.",
+  },
+  {
+    id: "m8-23", module: 8, type: "mc", kind: "theory",
+    prompt: "The SAME patients are measured at three time points, and the data are skewed. Which test fits?",
+    options: ["Friedman test", "Kruskal–Wallis test", "Mann–Whitney U test", "One-way ANOVA"],
+    answer: 0,
+    explanation: "Three or more related measurements of the same people need the Friedman test. Kruskal–Wallis requires independent groups.",
+  },
+  {
+    id: "m8-24", module: 8, type: "mc", kind: "theory",
+    prompt: "How can you check whether groups have similar distribution shapes before a Kruskal–Wallis test?",
+    options: ["Boxplots plus Levene's test", "Run a paired-samples t-test", "Compare the number of people per group", "Calculate a correlation"],
+    answer: 0,
+    explanation: "The module recommends boxplots (similar spread and symmetry) together with Levene's test, and comparing skewness.",
+  },
+  {
+    id: "m8-25", module: 8, type: "mc", kind: "theory",
+    prompt: "In a Kruskal–Wallis test, the groups' distribution shapes differ a lot. How should a significant result be described?",
+    options: ["As a difference in overall distributions", "As a difference in group medians", "As a difference in group means", "As proof that the variances are equal"],
+    answer: 0,
+    explanation: "With similar shapes you can talk about medians. With different shapes, the result is a difference in overall distributions.",
+  },
+  {
+    id: "m8-26", module: 8, type: "mc", kind: "theory",
+    prompt: "Which assumption applies to all four non-parametric tests in this module?",
+    options: ["Data are ordinal or continuous (rankable)", "Data are normally distributed in each group", "The variances are equal", "The sample sizes are equal"],
+    answer: 0,
+    explanation: "Every rank-based test needs data that can be ordered from lowest to highest.",
+  },
+  {
+    id: "m8-27", module: 8, type: "mc", kind: "theory",
+    prompt: "Which test is a non-parametric extension of Kruskal–Wallis for two-way factorial designs?",
+    options: ["Scheirer–Ray–Hare test", "Wilcoxon signed-rank test", "Friedman test", "Welch's ANOVA"],
+    answer: 0,
+    explanation: "Scheirer–Ray–Hare ranks all observations and tests Factor A, Factor B and their interaction: a simple rank-based alternative to two-way ANOVA.",
+  },
+  {
+    id: "m8-28", module: 8, type: "mc", kind: "theory",
+    prompt: "Why is ART ANOVA described as the most accurate non-parametric method for factorial designs?",
+    options: ["It aligns, then ranks, to test interactions", "It does not use ranks at all", "It requires normally distributed data", "It only compares two independent groups"],
+    answer: 0,
+    explanation: "Aligned Rank Transform ANOVA aligns the data for each effect and then ranks it, so main effects and interactions can be tested properly.",
+  },
+  {
+    id: "m8-29", module: 8, type: "mc", kind: "theory",
+    prompt: "Satisfaction (1–5) is compared across three store locations, with different customers at each. Which test fits?",
+    options: ["Kruskal–Wallis test", "Wilcoxon signed-rank test", "Mann–Whitney U test", "Paired-samples t-test"],
+    answer: 0,
+    explanation: "Three independent groups and an ordinal outcome: Kruskal–Wallis.",
+  },
+  {
+    id: "m8-30", module: 8, type: "mc", kind: "theory",
+    prompt: "A company compares delivery ratings (1–5) between two independent courier firms. Which test fits?",
+    options: ["Mann–Whitney U test", "Wilcoxon signed-rank test", "Kruskal–Wallis test", "Paired-samples t-test"],
+    answer: 0,
+    explanation: "Two independent groups with an ordinal outcome: Mann–Whitney U.",
+  },
+  {
+    id: "m8-31", module: 8, type: "mc", kind: "theory",
+    prompt: "Why are rank-based tests less affected by an extreme outlier?",
+    options: ["An outlier is just the top rank", "They delete outliers automatically", "They replace outliers with the mean", "They only use values near the median"],
+    answer: 0,
+    explanation: "A value of 1,000 or 1,000,000 both just become 'the highest rank', so one extreme value cannot drag the result the way it drags a mean.",
+  },
+  {
+    id: "m8-c1", module: 8, type: "mc", kind: "code",
+    prompt: "What do you conclude at α = .05?",
+    code: `Mann–Whitney U test: Satisfaction (1–5) by Store type
+Group      N    Mean rank
+Online     40     46.2
+In-store   40     34.8
+U = 572.0    Z = −2.24    Asymp. Sig. (2-tailed) = .025`,
+    options: ["Satisfaction differs; online customers rank higher", "No significant difference between store types", "In-store customers rank higher on satisfaction", "The test is invalid because Z is negative"],
+    answer: 0,
+    explanation: "p = .025 < .05, so the groups differ. Online customers have the higher mean rank (46.2 vs 34.8), so they tend to be more satisfied.",
+  },
+  {
+    id: "m8-c2", module: 8, type: "mc", kind: "code",
+    prompt: "What does this output show?",
+    code: `Wilcoxon signed-rank test: Pain score (after − before), n = 20
+Negative ranks (after < before): 15
+Positive ranks (after > before):  3
+Ties: 2
+Z = −2.65    Asymp. Sig. (2-tailed) = .008`,
+    options: ["Pain scores dropped significantly after treatment", "Pain scores rose significantly after treatment", "There is no significant change in pain scores", "The two groups of patients differ significantly"],
+    answer: 0,
+    explanation: "p = .008 < .05 and most differences are negative (after < before), so pain fell significantly. It is one group measured twice, not two groups.",
+  },
+  {
+    id: "m8-c3", module: 8, type: "mc", kind: "code",
+    prompt: "What is the correct conclusion?",
+    code: `Kruskal–Wallis test: Customer rating by Branch
+Branch   N    Mean rank
+North    25     31.4
+South    25     46.9
+West     25     35.7
+H = 7.92    df = 2    Asymp. Sig. = .019`,
+    options: ["At least one branch differs; post hoc tests are needed", "South is significantly higher than both others", "All three branches differ from each other", "No branch differs, because H is small"],
+    answer: 0,
+    explanation: "p = .019 < .05, so at least one branch differs. South has the highest mean rank, but only post hoc pairwise tests can show which differences are significant.",
+  },
+  {
+    id: "m8-c4", module: 8, type: "mc", kind: "code",
+    prompt: "What do you conclude?",
+    code: `Kruskal–Wallis test: Recovery days by Treatment (3 groups)
+H = 2.14    df = 2    Asymp. Sig. = .343`,
+    options: ["No significant difference between the treatments", "At least one treatment differs significantly", "Treatment 1 works best", "The treatments are proven identical"],
+    answer: 0,
+    explanation: "p = .343 > .05, so we fail to reject H₀. That is not proof the treatments are identical, only a lack of evidence of a difference.",
+  },
+  {
+    id: "m8-c5", module: 8, type: "mc", kind: "code",
+    prompt: "Which test should you use to compare the two groups?",
+    code: `Two independent groups, n = 12 each
+Shapiro–Wilk normality test: Group A Sig. = .004    Group B Sig. = .011`,
+    options: ["Mann–Whitney U test", "Independent-samples t-test", "Wilcoxon signed-rank test", "One-way ANOVA"],
+    answer: 0,
+    explanation: "Both Shapiro–Wilk p-values are below .05 (not normal) and the samples are small and independent, so use Mann–Whitney U.",
+  },
+  {
+    id: "m8-c6", module: 8, type: "mc", kind: "code",
+    prompt: "Which test is the best choice?",
+    code: `Paired design: the same 45 employees, before and after a course
+Differences: roughly normal, no extreme outliers`,
+    options: ["Paired-samples t-test", "Wilcoxon signed-rank test", "Mann–Whitney U test", "Kruskal–Wallis test"],
+    answer: 0,
+    explanation: "The design is paired and the differences are roughly normal with n ≥ 30, so the more powerful paired t-test is the right choice.",
+  },
+  {
+    id: "m8-c7", module: 8, type: "mc", kind: "code",
+    prompt: "What is the correct conclusion?",
+    code: `Mann–Whitney U test: Wait time (minutes) by Clinic
+U = 301.5    Z = −0.88    Asymp. Sig. (2-tailed) = .379`,
+    options: ["No significant difference in wait times between clinics", "Clinic A's wait times are significantly longer", "The two clinics have identical wait times", "Wait times differ, because U is large"],
+    answer: 0,
+    explanation: "p = .379 > .05, so there is no evidence of a difference. That does not prove the wait times are identical.",
+  },
+  {
+    id: "m8-o1", module: 8, type: "open", kind: "theory",
+    prompt: "What is a non-parametric test, and when would you use one?",
+    modelAnswer: "A non-parametric test does not assume a specific population distribution, so it does not need normality. It works with ranks (or medians or signs) instead of raw scores. Use it when the data are skewed, contain outliers, come from a small sample, are ordinal, or otherwise violate the assumptions of a t-test or ANOVA.",
+    keyPoints: [
+      { text: "Does not assume a distribution (no normality needed)", keywords: ["normal", "distribution", "assum"] },
+      { text: "Works with ranks (or medians / signs)", keywords: ["rank", "median", "sign"] },
+      { text: "Used for skewed data, outliers, small samples or ordinal data", keywords: ["skew", "outlier", "small", "ordinal", "violat"] },
+    ],
+  },
+  {
+    id: "m8-o2", module: 8, type: "open", kind: "theory",
+    prompt: "Name the non-parametric alternative to each test: the independent-samples t-test, the paired t-test and one-way ANOVA.",
+    modelAnswer: "Independent-samples t-test → Mann–Whitney U test (two independent groups). Paired t-test → Wilcoxon signed-rank test (two related measurements). One-way ANOVA → Kruskal–Wallis test (three or more independent groups).",
+    keyPoints: [
+      { text: "Independent-samples t-test → Mann–Whitney U", keywords: ["mann", "whitney"] },
+      { text: "Paired t-test → Wilcoxon signed-rank", keywords: ["wilcoxon"] },
+      { text: "One-way ANOVA → Kruskal–Wallis", keywords: ["kruskal"] },
+    ],
+  },
+  {
+    id: "m8-o3", module: 8, type: "open", kind: "theory",
+    prompt: "What is the difference between the Mann–Whitney U test and the Wilcoxon signed-rank test? Give an example of each.",
+    modelAnswer: "The Mann–Whitney U test compares two independent groups (different people in each), for example the satisfaction of online vs in-store customers. The Wilcoxon signed-rank test compares two related measurements from the same people, for example patients' pain scores before and after treatment.",
+    keyPoints: [
+      { text: "Mann–Whitney: two independent groups", keywords: ["independent", "different people"] },
+      { text: "Wilcoxon: two related / paired measurements", keywords: ["paired", "related", "same people", "matched", "before and after"] },
+      { text: "Gives an example of each", keywords: ["example", "e.g", "for instance"] },
+    ],
+  },
+  {
+    id: "m8-o4", module: 8, type: "open", kind: "theory",
+    prompt: "If the data meet the assumptions of a t-test, why should you use the t-test rather than the Mann–Whitney U test?",
+    modelAnswer: "When its assumptions hold, the t-test is more powerful because it uses the actual values, while the Mann–Whitney U test only uses their ranks and loses some information. Higher power means the t-test is more likely to detect a real difference (fewer Type II errors).",
+    keyPoints: [
+      { text: "The t-test is more powerful", keywords: ["power"] },
+      { text: "It uses the actual values; ranks lose information", keywords: ["information", "actual values", "raw", "loses"] },
+      { text: "More likely to detect a real difference (fewer Type II errors)", keywords: ["detect", "type ii", "real difference", "real effect"] },
+    ],
+  },
+  {
+    id: "m8-o5", module: 8, type: "open", kind: "code",
+    prompt: "Interpret this result and say what you would do next.",
+    code: `Kruskal–Wallis test: Satisfaction (1–5) by Store location
+Location   N    Mean rank
+Downtown   30     52.1
+Mall       30     38.6
+Airport    30     45.8
+H = 8.73    df = 2    Asymp. Sig. = .013`,
+    modelAnswer: "H(2) = 8.73, p = .013 < .05, so we reject H₀: satisfaction differs for at least one store location. Downtown has the highest mean rank (52.1) and the Mall the lowest (38.6). The test does not say which locations differ, so the next step is post hoc pairwise comparisons.",
+    keyPoints: [
+      { text: "p = .013 < .05 → reject H₀: at least one location differs", keywords: ["at least one", "reject", "significant", "differ"] },
+      { text: "Reads the mean ranks: Downtown highest, Mall lowest", keywords: ["downtown", "highest", "mean rank"] },
+      { text: "Next: post hoc pairwise comparisons to find which locations differ", keywords: ["post hoc", "post-hoc", "pairwise"] },
+    ],
+  },
+  {
+    id: "m8-o6", module: 8, type: "open", kind: "theory",
+    prompt: "The same 15 employees rate their stress (1–10) before, during and after a project, and the ratings are skewed. Which test should you use, and why not Kruskal–Wallis?",
+    modelAnswer: "Use the Friedman test, the non-parametric test for three or more related measurements: the same employees are measured three times, and the ratings are skewed and ordinal. Kruskal–Wallis is not appropriate because it requires independent groups, with each person in only one group.",
+    keyPoints: [
+      { text: "Chooses the Friedman test", keywords: ["friedman"] },
+      { text: "Three or more related (repeated) measurements of the same people", keywords: ["same", "related", "repeated"] },
+      { text: "Kruskal–Wallis needs independent groups", keywords: ["independent"] },
     ],
   },
 ];

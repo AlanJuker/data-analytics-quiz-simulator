@@ -3,12 +3,14 @@ const assert = require("node:assert/strict");
 const QUESTIONS = require("../questions.js");
 const { buildQuiz, suggestPoints, itemScore, grade } = require("../quiz.js");
 
+const QUIZ2 = [5, 6, 7, 8];
+
 test("question bank is well formed", () => {
   const ids = new Set();
   for (const q of QUESTIONS) {
     assert.ok(!ids.has(q.id), `duplicate id ${q.id}`);
     ids.add(q.id);
-    assert.ok([1, 2, 3, 4].includes(q.module), q.id);
+    assert.ok([1, 2, 3, 4, 5, 6, 7, 8].includes(q.module), q.id);
     assert.ok(["theory", "code"].includes(q.kind), q.id);
     assert.ok(q.prompt.length > 10, q.id);
     if (q.kind === "code") assert.ok(q.code, `${q.id} is an output question without output`);
@@ -24,12 +26,13 @@ test("question bank is well formed", () => {
       assert.equal(q.type, "open", q.id);
       assert.ok(q.modelAnswer && q.keyPoints.length >= 3, q.id);
       for (const p of q.keyPoints) assert.ok(p.text && p.keywords.length, q.id);
+      if (q.module >= 5) assert.ok(suggestPoints(q, q.modelAnswer).every(Boolean), `${q.id}: the model answer should earn full marks`);
     }
   }
 });
 
 test("each module alone can fill the long format (24 MC + 6 short answer)", () => {
-  for (const m of [1, 2, 3, 4]) {
+  for (const m of [1, 2, 3, 4, 5, 6, 7, 8]) {
     const quiz = buildQuiz(QUESTIONS, { modules: [m], mcCount: 24, openCount: 6 });
     assert.equal(quiz.length, 30, `module ${m}`);
   }
@@ -44,12 +47,46 @@ test("Quiz 1 format: 15 MC + 3 short answer, theory before output before short a
   assert.equal(new Set(quiz.map((it) => it.q.id)).size, 18, "no repeated questions");
   assert.equal(mc.filter((it) => it.q.kind === "code").length, 3);
   const openCode = open.filter((it) => it.q.kind === "code").length;
-  assert.equal(openCode, Math.min(1, QUESTIONS.filter((q) => q.type === "open" && q.kind === "code").length));
   const sections = quiz.map((it) => `${it.q.type}-${it.q.kind}`);
   assert.deepEqual(sections, [
     ...Array(12).fill("mc-theory"), ...Array(3).fill("mc-code"),
     ...Array(3 - openCode).fill("open-theory"), ...Array(openCode).fill("open-code"),
   ], "theory MC first, then output MC, then short answers");
+});
+
+test("Quiz 2 format: 25 MC + 2 short answer from Modules 5-8, theory before output before short answer", () => {
+  const quiz = buildQuiz(QUESTIONS, { modules: QUIZ2, mcCount: 25, openCount: 2 });
+  assert.equal(quiz.length, 27);
+  assert.equal(new Set(quiz.map((it) => it.q.id)).size, 27, "no repeated questions");
+  assert.ok(quiz.every((it) => it.q.module >= 5));
+  const sections = quiz.slice(0, 25).map((it) => `${it.q.type}-${it.q.kind}`);
+  assert.deepEqual(sections, [...Array(20).fill("mc-theory"), ...Array(5).fill("mc-code")]);
+  assert.ok(quiz.slice(25).every((it) => it.q.type === "open"));
+});
+
+// Runs Quiz 2 attempts the way the app does: each one counts as seen and becomes `last` as soon as it starts.
+function attempts(n) {
+  const seen = {};
+  let last = [];
+  return Array.from({ length: n }, () => {
+    const ids = buildQuiz(QUESTIONS, { modules: QUIZ2, mcCount: 25, openCount: 2, seen, last }).map((it) => it.q.id);
+    ids.forEach((id) => (seen[id] = (seen[id] || 0) + 1));
+    last = ids;
+    return ids;
+  });
+}
+
+test("new quizzes show unseen questions first: 12 Quiz 2 attempts cover all of Modules 5-8", () => {
+  const shown = new Set(attempts(12).flat());
+  const missing = QUESTIONS.filter((q) => q.module >= 5 && !shown.has(q.id)).map((q) => q.id);
+  assert.deepEqual(missing, []);
+});
+
+test("two quizzes in a row never share a question", () => {
+  for (let trial = 0; trial < 20; trial++) {
+    const runs = attempts(30);
+    for (let i = 1; i < runs.length; i++) assert.ok(!runs[i].some((id) => runs[i - 1].includes(id)), `attempt ${i + 1} repeats attempt ${i}`);
+  }
 });
 
 test("only selected modules are used", () => {

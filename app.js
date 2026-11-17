@@ -3,21 +3,30 @@
 
 const app = document.getElementById("app");
 const HISTORY_KEY = "pdaquiz.history";
+const SEEN_KEY = "pdaquiz.seen"; // question id → times shown, so new quizzes prefer unseen questions
+const LAST_KEY = "pdaquiz.last"; // the previous quiz's question ids, never repeated straight away
 const PASS_MARK = 70;
 const LETTERS = "ABCD";
-// Quiz 1 is 15 multiple choice + 3 short answer in 40 minutes; the other formats keep that pace.
+// Quiz 2 (Modules 5-8) is 25 multiple choice + 2 short answer in 30 minutes; Quiz 1 (Modules 1-4) was
+// 15 + 3 in 40 minutes. The timer keeps the real quiz's time per question for whichever modules you pick.
 const FORMATS = {
+  quiz2: { label: "Quiz 2 format · 25 MC + 2 short answer", mc: 25, open: 2 },
   quiz1: { label: "Quiz 1 format · 15 MC + 3 short answer", mc: 15, open: 3 },
   quick: { label: "Quick · 8 MC + 2 short answer", mc: 8, open: 2 },
   long: { label: "Long · 24 MC + 6 short answer", mc: 24, open: 6 },
 };
-const SECONDS_PER_QUESTION = (40 * 60) / 18;
+const secondsPerQuestion = (modules) => (modules.some((m) => m >= 5) ? (30 * 60) / 27 : (40 * 60) / 18);
 const MODULES = [
   [1, "M1 · Intro to data analytics"],
   [2, "M2 · Data collection & preparation"],
   [3, "M3 · Statistics & visualization"],
   [4, "M4 · Measures of association"],
+  [5, "M5 · Probability"],
+  [6, "M6 · Hypothesis testing"],
+  [7, "M7 · ANOVA"],
+  [8, "M8 · Non-parametric tests"],
 ];
+const QUIZ2_MODULES = [5, 6, 7, 8];
 
 let state = null; // { screen, settings, items, index, startedAt, deadline, finishedAt, timerId, saved }
 
@@ -25,35 +34,46 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&
 const fmt = (sec) => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
 const isAnswered = (it) => (it.q.type === "mc" ? it.choice !== null : it.text.trim() !== "");
 
-function loadHistory() {
+function load(key, fallback) {
   try {
-    return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+    return JSON.parse(localStorage.getItem(key)) || fallback;
   } catch {
-    return [];
+    return fallback;
   }
 }
 
-function saveHistory(list) {
+function save(key, value) {
   try {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(0, 20)));
+    localStorage.setItem(key, JSON.stringify(value));
   } catch {
-    // Storage unavailable (private mode); history is a convenience, so ignore.
+    // Storage unavailable (private mode); history and progress are conveniences, so ignore.
   }
+}
+
+const loadHistory = () => load(HISTORY_KEY, []);
+const saveHistory = (list) => save(HISTORY_KEY, list.slice(0, 20));
+
+function seenText(modules) {
+  const seen = load(SEEN_KEY, {});
+  const pool = QUESTIONS.filter((q) => modules.includes(q.module));
+  return `Questions seen in the selected modules: ${pool.filter((q) => seen[q.id]).length} / ${pool.length}`;
 }
 
 const chip = (type, name, value, label, checked) =>
   `<label class="chip"><input type="${type}" name="${name}" value="${value}" ${checked ? "checked" : ""}> ${label}</label>`;
 
 // ───────────── Setup ─────────────
-function renderSetup(settings = { modules: MODULES.map(([m]) => m), format: "quiz1", timed: true }) {
+function renderSetup(settings = { modules: QUIZ2_MODULES, format: "quiz2", timed: true }) {
   state = null;
   const history = loadHistory();
   app.innerHTML = `
     <section class="card">
       <h2>Set up your practice quiz</h2>
-      <p class="muted">The default matches Quiz 1: 15 multiple-choice and 3 short-answer questions in 40 minutes,
-      submitted automatically when time runs out. You can move freely between questions. About 1 in 5 multiple-choice
-      questions asks you to interpret a test result or a data table. You grade your short answers against a rubric after you submit.</p>
+      <p class="muted">The default matches Quiz 2: 25 multiple-choice and 2 short-answer questions on Modules 5–8
+      (probability, hypothesis testing, ANOVA and non-parametric tests) in 30 minutes, submitted automatically when time
+      runs out. You can move freely between questions. About 1 in 5 multiple-choice questions asks you to interpret a
+      test result or a data table. Every new quiz gives you the questions you have seen least, so you work through the
+      whole bank. You grade your short answers against a rubric after you submit. For Quiz 1, pick Modules 1–4.</p>
       <form id="setup">
         <fieldset><legend>Modules</legend><div class="chips">
           ${MODULES.map(([m, l]) => chip("checkbox", "module", m, l, settings.modules.includes(m))).join("")}
@@ -62,9 +82,10 @@ function renderSetup(settings = { modules: MODULES.map(([m]) => m), format: "qui
           ${Object.entries(FORMATS).map(([k, f]) => chip("radio", "format", k, f.label, settings.format === k)).join("")}
         </div></fieldset>
         <fieldset><legend>Timer</legend><div class="chips">
-          ${[[1, "Exam pace · 40 min for 18 questions"], [0, "Off"]]
+          ${[[1, "Exam pace · Quiz 2: 30 min for 27 questions (Quiz 1: 40 min for 18)"], [0, "Off"]]
             .map(([v, l]) => chip("radio", "timed", v, l, settings.timed === (v === 1))).join("")}
         </div></fieldset>
+        <p class="muted small" id="seen-count">${seenText(settings.modules)}</p>
         <p id="setup-error" class="small" style="color: var(--bad)" hidden>Pick at least one module.</p>
         <button class="primary" type="submit">Start quiz</button>
       </form>
@@ -82,9 +103,14 @@ function renderSetup(settings = { modules: MODULES.map(([m]) => m), format: "qui
     </section>` : ""}`;
 }
 
+// A quiz counts as seen as soon as it starts, so even an abandoned quiz is not repeated next time.
 function startQuiz(settings) {
   const f = FORMATS[settings.format];
-  const items = buildQuiz(QUESTIONS, { modules: settings.modules, mcCount: f.mc, openCount: f.open });
+  const seen = load(SEEN_KEY, {});
+  const items = buildQuiz(QUESTIONS, { modules: settings.modules, mcCount: f.mc, openCount: f.open, seen, last: load(LAST_KEY, []) });
+  items.forEach((it) => (seen[it.q.id] = (seen[it.q.id] || 0) + 1));
+  save(SEEN_KEY, seen);
+  save(LAST_KEY, items.map((it) => it.q.id));
   const now = Date.now();
   state = {
     screen: "quiz",
@@ -92,7 +118,7 @@ function startQuiz(settings) {
     items,
     index: 0,
     startedAt: now,
-    deadline: settings.timed ? now + Math.round(SECONDS_PER_QUESTION * items.length) * 1000 : null,
+    deadline: settings.timed ? now + Math.round(secondsPerQuestion(settings.modules) * items.length) * 1000 : null,
     saved: false,
   };
   state.timerId = setInterval(tick, 1000);
@@ -328,7 +354,9 @@ app.addEventListener("click", (e) => {
 
 app.addEventListener("change", (e) => {
   const t = e.target;
-  if (t.name === "opt") {
+  if (t.name === "module") {
+    document.getElementById("seen-count").textContent = seenText([...document.querySelectorAll('input[name="module"]:checked')].map((x) => Number(x.value)));
+  } else if (t.name === "opt") {
     state.items[state.index].choice = Number(t.value);
     updateProgress();
   } else if (t.dataset.point !== undefined) {

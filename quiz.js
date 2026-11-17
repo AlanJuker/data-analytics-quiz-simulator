@@ -11,11 +11,17 @@ function shuffle(items, rand = Math.random) {
   return a;
 }
 
-// Picks n questions of one type, aiming for CODE_SHARE code questions and topping up from
-// whatever is left if a bucket runs short.
-function pickType(pool, n, rand) {
-  const code = shuffle(pool.filter((q) => q.kind === "code"), rand);
-  const theory = shuffle(pool.filter((q) => q.kind !== "code"), rand);
+// Least-seen questions first, so attempts work through the whole bank before anything repeats. Among
+// equally seen questions the previous attempt's go last, so two attempts in a row never share a question.
+// Remaining ties are random. `seen` maps question id → times shown; `last` lists the previous attempt's ids.
+const freshFirst = (questions, seen, last, rand) =>
+  shuffle(questions, rand).sort((a, b) => (seen[a.id] || 0) - (seen[b.id] || 0) || last.includes(a.id) - last.includes(b.id));
+
+// Picks n multiple-choice questions, aiming for CODE_SHARE code questions and topping up from
+// whatever is left if a bucket runs short. `order` ranks a list of questions (fresh first).
+function pickType(pool, n, order) {
+  const code = order(pool.filter((q) => q.kind === "code"));
+  const theory = order(pool.filter((q) => q.kind !== "code"));
   const nCode = Math.min(code.length, Math.round(n * CODE_SHARE));
   const picked = [...code.slice(0, nCode), ...theory.slice(0, n - nCode)];
   const rest = [...theory.slice(n - nCode), ...code.slice(nCode)];
@@ -26,16 +32,18 @@ function pickType(pool, n, rand) {
 const theoryFirst = (a, b) => (a.kind === "code") - (b.kind === "code");
 
 // Returns quiz items in exam order: theory MC, code MC, then open questions (theory, then code).
-// MC options are shuffled; `order` maps display index → original index.
-function buildQuiz(bank, { modules, mcCount, openCount }, rand = Math.random) {
+// Short answers are picked from the whole open pool, so output-based ones also get their turn.
+// MC options are shuffled; an item's `order` maps display index → original index.
+function buildQuiz(bank, { modules, mcCount, openCount, seen = {}, last = [] }, rand = Math.random) {
+  const fresh = (questions) => freshFirst(questions, seen, last, rand);
   const pool = bank.filter((q) => modules.includes(q.module));
   const mc = pool.filter((q) => q.type === "mc");
   const open = pool.filter((q) => q.type === "open");
   const nMc = Math.min(mc.length, mcCount);
   const nOpen = Math.min(open.length, openCount);
   return [
-    ...shuffle(pickType(mc, nMc, rand), rand).sort(theoryFirst).map((q) => ({ q, order: shuffle([0, 1, 2, 3], rand), choice: null, flagged: false })),
-    ...shuffle(pickType(open, nOpen, rand), rand).sort(theoryFirst).map((q) => ({ q, text: "", points: q.keyPoints.map(() => false), flagged: false })),
+    ...shuffle(pickType(mc, nMc, fresh), rand).sort(theoryFirst).map((q) => ({ q, order: shuffle([0, 1, 2, 3], rand), choice: null, flagged: false })),
+    ...shuffle(fresh(open).slice(0, nOpen), rand).sort(theoryFirst).map((q) => ({ q, text: "", points: q.keyPoints.map(() => false), flagged: false })),
   ];
 }
 
