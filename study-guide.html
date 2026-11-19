@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz 2 Study Guide</title>
+  <meta name="description" content="Study guide for Principles of Data Analytics Quiz 2, Modules 5-8: probability, hypothesis testing, ANOVA and non-parametric tests, with a test chooser, output-reading cheat sheet and answer templates.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+  <link rel="stylesheet" href="styles.css?v=20261119-1">
+</head>
+<body class="guide">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Site"><a href="index.html">Quiz 2 practice</a><a href="study-guide.html" aria-current="page">Study guide</a></nav>
+    <h1>Quiz 2 Study Guide</h1>
+    <p class="subtitle">Principles of Data Analytics · Modules 5–8 · Tuesday, November 24, 2026</p>
+  </header>
+
+  <main>
+    <nav class="card toc" aria-label="Contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#quiz">Quiz 2 at a glance</a></li>
+        <li><a href="#answer">How to answer</a></li>
+        <li><a href="#m5">Module 5 · Probability</a></li>
+        <li><a href="#m6">Module 6 · Hypothesis testing</a></li>
+        <li><a href="#m7">Module 7 · ANOVA</a></li>
+        <li><a href="#m8">Module 8 · Non-parametric tests</a></li>
+        <li><a href="#choose">Choosing the right test</a></li>
+        <li><a href="#outputs">Reading test outputs</a></li>
+        <li><a href="#traps">Common traps</a></li>
+        <li><a href="#numbers">Formulas and numbers to know</a></li>
+        <li><a href="#recall">Last-day recall check</a></li>
+      </ol>
+      <p><a class="button-link" href="index.html">Practise with the Quiz 2 simulator →</a></p>
+    </nav>
+
+    <section class="card" id="quiz">
+      <h2>1. Quiz 2 at a glance</h2>
+      <table>
+        <tbody>
+          <tr><th>When</th><td>Tuesday, November 24, 2026, in class</td></tr>
+          <tr><th>Format</th><td><strong>25 multiple-choice + 2 short-answer</strong> questions</td></tr>
+          <tr><th>Time</th><td><strong>30 minutes</strong>. The timer starts when you open the quiz, and it <strong>submits automatically</strong> when time runs out.</td></tr>
+          <tr><th>Content</th><td>Modules 5–8: probability, hypothesis testing, ANOVA and non-parametric tests</td></tr>
+          <tr><th>Tool</th><td>LockDown Browser only. Install it and open it once before the day, and check your internet connection.</td></tr>
+        </tbody>
+      </table>
+      <h3>Time plan</h3>
+      <ul>
+        <li><strong>Multiple choice: about 45 seconds each</strong>, so about 19 minutes for all 25. Answer every one (a blank scores nothing), flag the hard ones and come back.</li>
+        <li><strong>Short answers: about 4–5 minutes each.</strong> Start them by minute 20 at the latest: an unwritten answer cannot be saved by the automatic submit.</li>
+        <li>Keep about 2 minutes to check flagged questions.</li>
+      </ul>
+      <h3>On the day</h3>
+      <ul class="checks">
+        <li>Be in the room at the start: no late entry and no early exit.</li>
+        <li>Phone, smartwatch, headphones and earphones go in your bag, and the bag goes aside. No phone in a pocket or jacket.</li>
+        <li>Launch LockDown Browser and show that you are properly logged in.</li>
+        <li>Set screen brightness to maximum for the whole quiz.</li>
+        <li>No questions can be asked during the quiz.</li>
+        <li>If you finish early, close your laptop and stay seated and silent.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="answer">
+      <h2>2. How to answer</h2>
+      <h3>Multiple choice</h3>
+      <ol class="steps">
+        <li><strong>Find the design first.</strong> One sample against a benchmark? Two independent groups? The same people twice? Three or more groups? Two factors? That decides the test (<a href="#choose">§7</a>).</li>
+        <li><strong>Check the data type.</strong> Skewed, small sample, outliers or ordinal (1–5 ratings) → think non-parametric.</li>
+        <li><strong>For an output, read in this order:</strong> the assumption check (Levene's), then the p-value against .05, then the direction (means or mean ranks), then what to do next (post hoc?).</li>
+        <li><strong>Watch absolute words.</strong> "Proves", "accept H₀" and "all groups differ" are almost always wrong.</li>
+      </ol>
+      <h3>Short answer: 2–3 sentences</h3>
+      <ol class="steps">
+        <li><strong>Answer directly:</strong> name the test, the distribution or the decision.</li>
+        <li><strong>Explain why:</strong> the condition, definition or numbers that justify it.</li>
+        <li><strong>Conclude in plain language:</strong> what it means in the scenario, plus one caution or next step (post hoc test, no causation without a control group).</li>
+      </ol>
+      <p class="model">Example: "The same 15 employees rate their stress before, during and after a project, and the ratings are skewed. Which test, and why not Kruskal–Wallis?"</p>
+      <div class="model-answer">Use the Friedman test, the non-parametric test for three or more related measurements: the same employees are measured three times, and the ratings are skewed and ordinal. Kruskal–Wallis is not appropriate because it requires independent groups, with each person in only one group.</div>
+      <p class="tip"><strong>Output template:</strong> "Because p = ___ is below/above .05, we reject / fail to reject H₀. This means ___ (in the scenario's words). Next step or caution: ___."</p>
+    </section>
+
+    <section class="card" id="m5">
+      <h2>3. Module 5 · Probability for decision making</h2>
+      <h3>Probability basics</h3>
+      <ul>
+        <li>A probability is a number from <strong>0 (impossible) to 1 (certain)</strong>.</li>
+        <li>To compute it, first find the <strong>total number of possible outcomes</strong>, then how many of them count as the event.</li>
+        <li><em>The Last Banana</em>: with two dice and "highest number counts", Player 1 (1–4) wins only if <strong>both</strong> dice are 1–4 (16 of 36), so Player 2 (5–6) wins more often (20 of 36). One high die is enough.</li>
+      </ul>
+      <h3>The three distributions</h3>
+      <div class="table-wrap"><table class="matrix">
+        <thead><tr><th></th><th>Binomial</th><th>Poisson</th><th>Normal</th></tr></thead>
+        <tbody>
+          <tr><th>Models</th><td>Number of <strong>successes</strong> in a <strong>fixed number of trials</strong></td><td>Number of <strong>events in a fixed interval</strong> of time or space</td><td>A <strong>continuous</strong> variable that clusters around the mean</td></tr>
+          <tr><th>Data</th><td>Discrete count, 0 to n</td><td>Discrete count, 0, 1, 2 … with <strong>no upper limit</strong></td><td>Continuous</td></tr>
+          <tr><th>Parameters</th><td>n (trials), p (probability of success)</td><td>λ (lambda) = average number of events per interval</td><td>μ (mean) and σ (standard deviation)</td></tr>
+          <tr><th>Conditions</th><td>Fixed n · only two outcomes · constant p · independent trials</td><td>Counts · independent events · constant rate · two events at exactly the same time is negligible</td><td>Symmetric bell · mean = median = mode · tails never touch the axis (asymptotic)</td></tr>
+          <tr><th>Example</th><td>How many of 20 customers click an ad</td><td>Calls per hour, arrivals per night, defects per batch</td><td>Heights, delivery times, sample means</td></tr>
+          <tr><th>Centre</th><td>Mean = n × p, SD = √(np(1 − p))</td><td>Mean = λ. <strong>Rescale λ to the interval</strong> (30 per hour = 5 per 10 minutes)</td><td>Mean = μ</td></tr>
+        </tbody>
+      </table></div>
+      <p class="tip"><strong>Quick way to pick:</strong> "how many out of n" → binomial · "how many per hour / per page / per km" → Poisson · "how long, how heavy, how much" (measured) → normal.</p>
+      <h3>Normal distribution</h3>
+      <ul>
+        <li><strong>68–95–99.7 rule:</strong> about 68% of values lie within 1 SD of the mean, 95% within 2 SD and 99.7% within 3 SD. With mean 30 and SD 5, 95% lie between 20 and 40.</li>
+        <li>A <strong>larger σ</strong> makes the curve wider and flatter; the mean only moves its centre.</li>
+        <li><strong>z-score</strong> = (X − μ) / σ = how many standard deviations a value is from the mean. Negative = below the mean. Z-scores let you compare scores from different scales.</li>
+        <li><strong>Z-table</strong> (area to the left of z): <em>less than z</em> = the table value · <em>greater than z</em> = 1 − table value · <em>between two z's</em> = larger value − smaller value. Example: P(Z &lt; 1) = .8413, so P(Z &gt; 1) = .1587.</li>
+        <li>The Z-table is used for confidence intervals and hypothesis testing.</li>
+      </ul>
+      <h3>Central Limit Theorem (CLT)</h3>
+      <p>As the sample size grows, the <strong>distribution of sample means becomes approximately normal, whatever the shape of the population</strong>. Its mean is μ and its spread (standard error) is <strong>σ / √n</strong>, so bigger samples give more precise means. This is why normal-based tests work on large samples (rule of thumb n &gt; 30). It does <strong>not</strong> rescue small samples from skewed populations.</p>
+      <h3>When the normal distribution fails, and the fix</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Limitation</th><th>Example</th><th>What to do</th></tr></thead>
+        <tbody>
+          <tr><td>Assumes symmetry</td><td>Incomes, spending (mean ≫ median)</td><td>Log or square-root transformation</td></tr>
+          <tr><td>Needs continuous data</td><td>Counts of defects or calls</td><td>Poisson or binomial instead</td></tr>
+          <tr><td>Sensitive to outliers</td><td>A few huge purchases</td><td>Trim or treat the outliers, or use a non-parametric test</td></tr>
+          <tr><td>Underestimates extreme (tail) events</td><td>Stock-market crashes, insurance claims</td><td>Another distribution (log-normal, exponential, Weibull)</td></tr>
+          <tr><td>Data have a finite range</td><td>Percentages from 0 to 100</td><td>Transformation or a bounded model</td></tr>
+          <tr><td>CLT misapplied</td><td>n = 8 from a skewed population</td><td>Larger sample, or a non-parametric method</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="m6">
+      <h2>4. Module 6 · Hypothesis testing</h2>
+      <h3>The two hypotheses</h3>
+      <ul>
+        <li><strong>H₀ (null):</strong> no difference, no relationship, no effect. It is the <strong>baseline</strong> the results are measured against, e.g. μ₁ = μ₂ (hypothesized difference = 0).</li>
+        <li><strong>Ha (alternative):</strong> there is a difference or relationship that is not due to chance. It is what the researcher hopes to support.</li>
+        <li>We either <strong>reject H₀</strong> or <strong>fail to reject H₀</strong>. Rejecting H₀ <em>supports</em> Ha but does not prove it. Failing to reject does not prove H₀.</li>
+      </ul>
+      <h3>One-tailed or two-tailed: decide before collecting data</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Ha</th><th>Test</th><th>Where α goes</th><th>Critical z at α = .05</th><th>Drug claims a 20% gain; the researcher thinks…</th></tr></thead>
+        <tbody>
+          <tr><td>μ ≠ 20%</td><td>Two-tailed</td><td>Split: 2.5% in each tail</td><td>±1.96</td><td>…it is different, in either direction</td></tr>
+          <tr><td>μ &lt; 20%</td><td>Left-tailed</td><td>All 5% in the left tail</td><td>−1.645</td><td>…it is lower than claimed</td></tr>
+          <tr><td>μ &gt; 20%</td><td>Right-tailed</td><td>All 5% in the right tail</td><td>+1.645</td><td>…it is higher than claimed</td></tr>
+        </tbody>
+      </table></div>
+      <p class="tip">A direction predicted <strong>before</strong> seeing the data → one-tailed. No direction, or "is it different?" → two-tailed. In a t-table, pick the column for one- or two-tailed α and the row for the degrees of freedom.</p>
+      <h3>Two ways to decide</h3>
+      <ul>
+        <li><strong>p-value approach:</strong> the p-value is the probability of results at least this extreme <strong>if H₀ were true</strong>. If <strong>p ≤ α</strong> (usually .05), reject H₀. It also shows how strong the evidence is: the smaller the p, the stronger.</li>
+        <li><strong>Critical value approach:</strong> if the test statistic falls beyond the critical value (in the rejection region), reject H₀. It only says inside or outside.</li>
+        <li>Both usually agree. <strong>Test statistic</strong> (z, t, F) = one number calculated from the sample; <strong>p-value</strong> = a probability calculated from that statistic.</li>
+      </ul>
+      <h3>z-test or t-test?</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>z-test</th><th>t-test</th></tr></thead>
+        <tbody>
+          <tr><td>Population σ <strong>known</strong></td><td>σ <strong>unknown</strong>, estimated from the sample</td></tr>
+          <tr><td>Large sample (n &gt; 30), even if σ is unknown</td><td>Small sample (n &lt; 30)</td></tr>
+          <tr><td>Uses the standard normal distribution</td><td>Uses the t-distribution: more spread out with heavier tails, shaped by the degrees of freedom</td></tr>
+        </tbody>
+      </table></div>
+      <p>With large samples the t-distribution is practically normal, so both tests give very similar results; software usually runs a t-test.</p>
+      <h3>Errors and power</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Decision</th><th>H₀ is true</th><th>H₀ is false</th></tr></thead>
+        <tbody>
+          <tr><th>Reject H₀</th><td><strong>Type I error</strong> (false positive), probability α</td><td>Correct (power = 1 − β)</td></tr>
+          <tr><th>Fail to reject H₀</th><td>Correct</td><td><strong>Type II error</strong> (false negative), probability β</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li>Type I: concluding a useless drug works. Type II: concluding an effective drug does not work.</li>
+        <li><strong>Raising α (.05 → .10):</strong> easier to reject H₀ → more Type I errors, fewer Type II errors, more power. Lowering α does the opposite.</li>
+        <li>Security guard: a guard quick to press the alarm (high α) catches more burglars but is fooled by more raccoons.</li>
+        <li>To gain power without more false positives, <strong>increase the sample size</strong> (or the effect size).</li>
+      </ul>
+      <h3>The three t-tests from the class activity</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Test</th><th>Design</th><th>Activity example</th><th>H₀</th></tr></thead>
+        <tbody>
+          <tr><td>One-sample t-test</td><td>One sample mean vs a known value</td><td>Is average salary different from the $75,000 benchmark?</td><td>μ = 75,000</td></tr>
+          <tr><td>Independent-samples t-test</td><td>Two separate groups</td><td>Does average salary differ between men and women?</td><td>μ₁ = μ₂</td></tr>
+          <tr><td>Paired-samples t-test</td><td>The same people measured twice (or matched pairs)</td><td>Did each employee's sales change after training? (matched by EmployeeID)</td><td>Mean difference = 0</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><strong>Independent samples</strong> come from separate populations, or from one group randomly split in two; one sample does not influence the other.</li>
+        <li><strong>Levene's test</strong> decides the row of an independent t-test: p &gt; .05 → "equal variances assumed"; p ≤ .05 → "equal variances not assumed" (Welch's t-test).</li>
+        <li><strong>Confidence interval of the difference:</strong> if it <strong>excludes 0</strong>, the difference is significant; if it includes 0, it is not.</li>
+        <li><strong>Does a significant paired test prove the training worked?</strong> No. It shows sales changed; without a control group, other factors (season, market) could explain it.</li>
+      </ul>
+      <h3>Steps of a test, and the report</h3>
+      <ol class="steps">
+        <li>Define H₀ and Ha → select the test → choose α (.05, .01 or .10) → collect the data.</li>
+        <li>Compute the test statistic → find the p-value → decide (p ≤ α: reject H₀).</li>
+        <li>Report the <strong>test statistic, the p-value and the decision</strong>, then the conclusion in plain language.</li>
+      </ol>
+      <p class="small muted">Sampling strategies mentioned in this module: simple random, stratified (sample randomly within each subgroup) and cluster sampling.</p>
+    </section>
+
+    <section class="card" id="m7">
+      <h2>5. Module 7 · ANOVA (analysis of variance)</h2>
+      <h3>What it is for</h3>
+      <ul>
+        <li>Tests whether the <strong>means of three or more independent groups</strong> differ: one categorical factor, one continuous outcome.</li>
+        <li><strong>Why not several t-tests?</strong> Each test has a 5% false-positive risk, so many tests inflate the Type I error. One ANOVA keeps it at α.</li>
+        <li><strong>H₀:</strong> all group means are equal. <strong>H₁:</strong> at least one mean differs.</li>
+      </ul>
+      <h3>The F-ratio</h3>
+      <p><strong>F = between-group variance ÷ within-group variance.</strong></p>
+      <ul>
+        <li><strong>Between-group:</strong> how far the group means are from the overall mean (the effect of the factor).</li>
+        <li><strong>Within-group</strong> (error variance): the spread of scores inside each group, which the factor does not explain.</li>
+        <li>A <strong>large F</strong> means the group means differ more than chance alone would explain.</li>
+      </ul>
+      <h3>Assumptions</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Assumption</th><th>Meaning</th><th>How to check</th><th>If violated</th></tr></thead>
+        <tbody>
+          <tr><td>Independence</td><td>One observation does not influence another</td><td>Study design (random assignment)</td><td>Fix the design</td></tr>
+          <tr><td>Normality</td><td>Of the <strong>residuals</strong> (score − its group mean)</td><td>Q-Q plot, Shapiro–Wilk, Kolmogorov–Smirnov</td><td>Transformation, or Kruskal–Wallis</td></tr>
+          <tr><td>Equal variances</td><td>Groups have similar spread</td><td><strong>Levene's test</strong> (p &gt; .05 = OK)</td><td><strong>Welch's ANOVA</strong> (the course's choice)</td></tr>
+          <tr><td>Random sampling</td><td>Samples represent the population</td><td>How the data were collected</td><td>Results cannot be generalised</td></tr>
+        </tbody>
+      </table></div>
+      <p>Ignoring unequal variances can <strong>increase Type I errors</strong>. In a two-way design with unequal variances and unequal group sizes the results can be biased, and Welch's ANOVA is not available: use a transformation, a generalised linear model or a non-parametric alternative.</p>
+      <h3>One-way vs two-way</h3>
+      <ul>
+        <li><strong>One-way:</strong> one factor with 3+ levels. Example: flashcards vs summarising vs self-testing → exam score.</li>
+        <li><strong>Two-way:</strong> two factors. It gives a <strong>main effect</strong> for each factor (its own effect, averaged over the other) and an <strong>interaction</strong>: the effect of one factor <strong>depends on</strong> the level of the other. Example: teaching method works in classroom X but not in Y.</li>
+        <li><strong>MANOVA:</strong> several dependent variables at once.</li>
+      </ul>
+      <h3>After a significant F</h3>
+      <ul>
+        <li>The F-test only says <strong>at least one mean differs</strong>. Run a <strong>post hoc test</strong> (Tukey HSD with equal variances; the course mentions Bonferroni when they are not) to find which pairs differ.</li>
+        <li><strong>Effect size η² (eta-squared):</strong> the share of variance in the outcome explained by the factor. η² = .17 → the factor explains about 17%.</li>
+      </ul>
+      <h3>Reading an ANOVA output</h3>
+      <pre>Levene's test: Sig. = .318                      → p &gt; .05: equal variances, standard ANOVA is fine
+ANOVA: F(3, 76) = 4.62, Sig. = .005             → p &lt; .05: at least one region differs
+Tukey HSD: A vs C Sig. = .003, A vs B Sig. = .41 → only A and C differ</pre>
+      <pre>Two-way ANOVA            F      Sig.
+Teaching method         5.84    .004   → main effect: method matters
+Study time             11.20   &lt;.001   → main effect: study time matters
+Method × Study time     3.95    .010   → interaction: method's effect depends on study time</pre>
+    </section>
+
+    <section class="card" id="m8">
+      <h2>6. Module 8 · Non-parametric tests</h2>
+      <h3>Parametric vs non-parametric</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Parametric (t-test, ANOVA)</th><th>Non-parametric</th></tr></thead>
+        <tbody>
+          <tr><td>Assumes a population shape, usually normal</td><td>No specific distribution, <strong>no normality needed</strong></td></tr>
+          <tr><td>Uses the raw values (means, variances)</td><td>Uses <strong>ranks</strong> (or medians, signs)</td></tr>
+          <tr><td><strong>More powerful</strong> when its assumptions hold, because it uses all the information</td><td>Robust when the data are <strong>skewed, small, ordinal or have outliers</strong>. An outlier just becomes the top rank.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>The four tests</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Test</th><th>Replaces</th><th>Design</th><th>H₀</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Mann–Whitney U</strong></td><td>Independent t-test</td><td>2 independent groups</td><td>The two distributions are the same</td><td>Satisfaction (1–5): online vs in-store customers</td></tr>
+          <tr><td><strong>Wilcoxon signed-rank</strong></td><td>Paired t-test</td><td>2 related measurements</td><td>Median difference = 0</td><td>Same patients' pain before and after treatment</td></tr>
+          <tr><td><strong>Kruskal–Wallis</strong></td><td>One-way ANOVA</td><td>3+ independent groups</td><td>All distributions are the same</td><td>Satisfaction at three store locations</td></tr>
+          <tr><td><strong>Friedman</strong></td><td>Repeated-measures ANOVA</td><td>3+ related measurements</td><td>No difference across the measurements</td><td>Same patients at three time points</td></tr>
+        </tbody>
+      </table></div>
+      <h3>What to remember about each</h3>
+      <ul>
+        <li><strong>Mann–Whitney U:</strong> ranks all values from both groups together and checks whether one group tends to have higher ranks. Assumes independent groups, ordinal or continuous data, <strong>similar shapes</strong> (only then is it a difference in medians) and <strong>no major ties</strong>. Not for paired data (→ Wilcoxon) or 3+ groups (→ Kruskal–Wallis).</li>
+        <li><strong>Wilcoxon signed-rank:</strong> takes the absolute differences, ranks them, re-applies the + / − signs and tests whether the median difference is 0. Assumes pairs, differences that are at least ordinal and roughly <strong>symmetric</strong>. Choose it over a paired t-test for a small sample (n &lt; 30) with skewed differences, Likert data or extreme outliers. With n ≥ 30 or roughly normal differences, the paired t-test is better.</li>
+        <li><strong>Kruskal–Wallis:</strong> ranks all observations across groups. Hypotheses are <strong>always non-directional</strong> (no single direction exists across 3+ groups). Each person is in only one group. Check similar shapes with <strong>boxplots + Levene's test</strong> (and skewness within ±1 of each other). Similar shapes → you can talk about medians; different shapes → overall distributions. Significant → at least one group differs, so run <strong>post hoc</strong> pairwise tests.</li>
+        <li><strong>All four</strong> need data that can be ranked (ordinal or continuous).</li>
+        <li><strong>Two factors, non-parametric:</strong> Scheirer–Ray–Hare (extends Kruskal–Wallis to two-way designs) or <strong>ART ANOVA</strong> (aligned rank transform, the most accurate for testing interactions).</li>
+      </ul>
+      <h3>Reading the outputs</h3>
+      <ul>
+        <li><strong>Mean ranks</strong> give the direction: the group with the higher mean rank tends to have higher values.</li>
+        <li><strong>Wilcoxon:</strong> mostly negative ranks (after &lt; before) with p &lt; .05 → scores dropped significantly.</li>
+        <li>The sign of Z does not make a test invalid; the p-value decides.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="choose">
+      <h2>7. Choosing the right test</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Question / design</th><th>Assumptions met (normal, interval)</th><th>Skewed, small, ordinal or outliers</th></tr></thead>
+        <tbody>
+          <tr><td>One sample vs a benchmark</td><td>One-sample t-test (z-test if σ known)</td><td>—</td></tr>
+          <tr><td>Two independent groups</td><td>Independent t-test (Welch's if variances unequal)</td><td>Mann–Whitney U</td></tr>
+          <tr><td>Same people twice / matched pairs</td><td>Paired t-test</td><td>Wilcoxon signed-rank</td></tr>
+          <tr><td>3+ independent groups</td><td>One-way ANOVA (Welch's ANOVA if variances unequal)</td><td>Kruskal–Wallis</td></tr>
+          <tr><td>Same people 3+ times</td><td>—</td><td>Friedman</td></tr>
+          <tr><td>Two factors on one outcome</td><td>Two-way ANOVA</td><td>Scheirer–Ray–Hare or ART ANOVA</td></tr>
+          <tr><td>Several outcomes at once</td><td>MANOVA</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+      <p class="tip"><strong>Two questions decide almost everything:</strong> (1) How many groups, and are they independent or the same people? (2) Are the data normal and interval, or skewed / ordinal / small?</p>
+    </section>
+
+    <section class="card" id="outputs">
+      <h2>8. Reading test outputs</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>You see</th><th>It means</th></tr></thead>
+        <tbody>
+          <tr><td>p ≤ .05</td><td>Reject H₀: significant difference or effect</td></tr>
+          <tr><td>p &gt; .05</td><td>Fail to reject H₀: not enough evidence (not "no difference proven")</td></tr>
+          <tr><td>Levene's p &gt; .05</td><td>Equal variances: use the "assumed" row / standard ANOVA</td></tr>
+          <tr><td>Levene's p ≤ .05</td><td>Unequal variances: use the "not assumed" row (Welch's t) / Welch's ANOVA</td></tr>
+          <tr><td>95% CI of a difference excludes 0</td><td>Significant difference</td></tr>
+          <tr><td>95% CI includes 0</td><td>Not significant</td></tr>
+          <tr><td>Significant ANOVA or Kruskal–Wallis</td><td>At least one group differs → post hoc test to find which</td></tr>
+          <tr><td>Significant interaction (A × B)</td><td>The effect of A depends on the level of B</td></tr>
+          <tr><td>η² = .17</td><td>The factor explains about 17% of the variance</td></tr>
+          <tr><td>Higher mean rank</td><td>That group tends to have higher values</td></tr>
+          <tr><td>Shapiro–Wilk p ≤ .05</td><td>Not normal → consider a non-parametric test</td></tr>
+          <tr><td>z = 1.80, one-tailed critical 1.645</td><td>Beyond the critical value → reject H₀ (1.96 is the two-tailed value)</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="traps">
+      <h2>9. Common traps</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Wrong</th><th>Right</th></tr></thead>
+        <tbody>
+          <tr><td>"We accept H₀" / "H₀ is proven"</td><td>"We fail to reject H₀"</td></tr>
+          <tr><td>"Rejecting H₀ proves Ha"</td><td>It gives evidence for Ha</td></tr>
+          <tr><td>"p is the probability that H₀ is true"</td><td>p = probability of results this extreme <em>if</em> H₀ is true</td></tr>
+          <tr><td>"Significant ANOVA: all groups differ"</td><td>At least one group differs</td></tr>
+          <tr><td>Choosing one-tailed after seeing the data</td><td>Decide the direction before collecting data</td></tr>
+          <tr><td>Reading Levene's p as the test of the means</td><td>Levene's p is about variances; it only picks the row</td></tr>
+          <tr><td>"The training caused the increase"</td><td>Sales rose significantly; without a control group other causes are possible</td></tr>
+          <tr><td>Mann–Whitney for before/after data</td><td>Paired data → Wilcoxon signed-rank</td></tr>
+          <tr><td>Kruskal–Wallis for the same people at 3 time points</td><td>Related measurements → Friedman</td></tr>
+          <tr><td>Normal distribution for counts</td><td>Counts → Poisson or binomial</td></tr>
+          <tr><td>"Non-parametric tests are always better"</td><td>When assumptions hold, parametric tests are more powerful</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card" id="numbers">
+      <h2>10. Formulas and numbers to know</h2>
+      <div class="table-wrap"><table>
+        <tbody>
+          <tr><th>z-score</th><td>z = (X − μ) / σ</td></tr>
+          <tr><th>Standard error of the mean</th><td>σ / √n (quadruple n → half the error)</td></tr>
+          <tr><th>Binomial mean and SD</th><td>n × p and √(n × p × (1 − p))</td></tr>
+          <tr><th>Poisson mean</th><td>λ, rescaled to the interval asked about</td></tr>
+          <tr><th>Empirical rule</th><td>68% / 95% / 99.7% within 1 / 2 / 3 SD</td></tr>
+          <tr><th>Critical z at α = .05</th><td>1.645 one-tailed · ±1.96 two-tailed</td></tr>
+          <tr><th>Power</th><td>1 − β</td></tr>
+          <tr><th>F-ratio</th><td>between-group variance ÷ within-group variance</td></tr>
+          <tr><th>Usual α</th><td>.05 (also .01 or .10)</td></tr>
+          <tr><th>Large sample rule of thumb</th><td>n &gt; 30 (CLT, z-test, paired t vs Wilcoxon)</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card recall" id="recall">
+      <h2>11. Last-day recall check</h2>
+      <p class="small muted">Answer out loud before opening each one.</p>
+      <details><summary>What are the four conditions of a binomial experiment?</summary><p>A fixed number of trials, two outcomes per trial, a constant probability of success and independent trials.</p></details>
+      <details><summary>How is Poisson different from binomial?</summary><p>Binomial counts successes in a fixed number of trials (maximum n). Poisson counts events in a fixed interval of time or space, using the average rate λ, with no upper limit.</p></details>
+      <details><summary>What does the Central Limit Theorem say, and why does it matter?</summary><p>Sample means become approximately normal as n grows, whatever the population's shape, with spread σ/√n. It lets us use normal-based tests on large samples.</p></details>
+      <details><summary>What does z = −1.5 mean?</summary><p>The value is 1.5 standard deviations below the mean.</p></details>
+      <details><summary>What is a p-value, and when do you reject H₀?</summary><p>The probability of results at least this extreme if H₀ were true. Reject H₀ when p ≤ α (usually .05).</p></details>
+      <details><summary>Type I vs Type II error?</summary><p>Type I: rejecting a true H₀ (false positive, probability α). Type II: failing to reject a false H₀ (false negative, probability β).</p></details>
+      <details><summary>What happens when α goes from .05 to .10?</summary><p>H₀ is rejected more easily: more Type I errors, fewer Type II errors, more power.</p></details>
+      <details><summary>When do you use a z-test instead of a t-test?</summary><p>When σ is known, or the sample is large (n &gt; 30). Otherwise a t-test.</p></details>
+      <details><summary>Levene's p = .006 in an independent t-test. Which row?</summary><p>Equal variances not assumed (Welch's t-test), because p ≤ .05 means the variances differ.</p></details>
+      <details><summary>Why ANOVA instead of several t-tests?</summary><p>Several t-tests inflate the Type I error rate; one ANOVA compares all the means in a single test at α.</p></details>
+      <details><summary>What does the F-ratio compare?</summary><p>Between-group variance to within-group (error) variance. A large F means the means differ more than chance explains.</p></details>
+      <details><summary>What is an interaction effect?</summary><p>The effect of one factor depends on the level of the other factor.</p></details>
+      <details><summary>Name the non-parametric alternatives to the independent t-test, paired t-test and one-way ANOVA.</summary><p>Mann–Whitney U, Wilcoxon signed-rank and Kruskal–Wallis.</p></details>
+      <details><summary>A Kruskal–Wallis test is significant. What do you conclude and do next?</summary><p>At least one group differs. Run post hoc pairwise comparisons to find which.</p></details>
+      <details><summary>Why choose a t-test over Mann–Whitney when assumptions hold?</summary><p>It is more powerful: it uses the actual values, while ranks lose information.</p></details>
+      <p style="margin-top: 14px"><a class="button-link" href="index.html">Take a Quiz 2 practice run →</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">Study aid, not official course material. Based on the Module 5–8 readings and class activities.</footer>
+</body>
+</html>

@@ -97,7 +97,7 @@ if (typeof document !== "undefined") {
         <p class="muted small">Each question has an exhibit (a data extract, summary statistics or test output) and four short parts.
         Answer in your own words, in full sentences, using the numbers in the exhibit. After you submit, you compare each answer with a model
         answer and tick the rubric points you covered; keyword matches are pre-ticked for you to confirm. Each question is worth 25 points.
-        Before you start, read the <a href="study-guide.html#framework">answer framework</a>.</p>
+        Before you start, read the <a href="study-guide-midterm.html#framework">answer framework</a>.</p>
         <p class="muted small">A clock starts when you begin and shows how long you have been working.
         <strong>Quick (1 case)</strong> gives you a single scenario (25 points). <strong>Full exam (4 cases)</strong> follows the real midterm format.
         Every start draws cases you have not seen yet, so you work through the whole bank of ${SCENARIOS.length} cases before any repeats.</p>
@@ -265,7 +265,7 @@ if (typeof document !== "undefined") {
         <h3>By skill</h3>
         <div class="bars">${Object.entries(g.skills).map(([s, v]) => bar(s, v.earned, v.total)).join("")}</div>
         ${weakest && weakest[1].earned < weakest[1].total ? `<p class="small">Weakest skill this attempt: <strong>${esc(weakest[0])}</strong>.
-          Review it in the <a href="study-guide.html">study guide</a>, then try a new exam.</p>` : ""}
+          Review it in the <a href="study-guide-midterm.html">study guide</a>, then try a new exam.</p>` : ""}
         <div class="row"><button class="primary" data-act="restart">New exam</button><button data-act="regrade">Back to grading</button></div>
       </section>`;
     window.scrollTo({ top: 0 });
