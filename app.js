@@ -7,26 +7,21 @@ const SEEN_KEY = "pdaquiz.seen"; // question id → times shown, so new quizzes 
 const LAST_KEY = "pdaquiz.last"; // the previous quiz's question ids, never repeated straight away
 const PASS_MARK = 70;
 const LETTERS = "ABCD";
-// Quiz 2 (Modules 5-8) is 25 multiple choice + 2 short answer in 30 minutes; Quiz 1 (Modules 1-4) was
-// 15 + 3 in 40 minutes. The timer keeps the real quiz's time per question for whichever modules you pick.
+// The site focuses on Quiz 2 (Modules 5-8): 25 multiple choice + 2 short answer in 30 minutes. The other
+// formats keep that time per question. Modules 1-4 questions stay in the bank for a later full exam.
 const FORMATS = {
-  quiz2: { label: "Quiz 2 format · 25 MC + 2 short answer", mc: 25, open: 2 },
-  quiz1: { label: "Quiz 1 format · 15 MC + 3 short answer", mc: 15, open: 3 },
+  quiz2: { label: "Quiz 2 · 25 MC + 2 short answer · 30 min", mc: 25, open: 2 },
   quick: { label: "Quick · 8 MC + 2 short answer", mc: 8, open: 2 },
   long: { label: "Long · 24 MC + 6 short answer", mc: 24, open: 6 },
 };
-const secondsPerQuestion = (modules) => (modules.some((m) => m >= 5) ? (30 * 60) / 27 : (40 * 60) / 18);
+const SECONDS_PER_QUESTION = (30 * 60) / 27;
 const MODULES = [
-  [1, "M1 · Intro to data analytics"],
-  [2, "M2 · Data collection & preparation"],
-  [3, "M3 · Statistics & visualization"],
-  [4, "M4 · Measures of association"],
   [5, "M5 · Probability"],
   [6, "M6 · Hypothesis testing"],
   [7, "M7 · ANOVA"],
   [8, "M8 · Non-parametric tests"],
 ];
-const QUIZ2_MODULES = [5, 6, 7, 8];
+const QUIZ2_MODULES = MODULES.map(([m]) => m);
 
 let state = null; // { screen, settings, items, index, startedAt, deadline, finishedAt, timerId, saved }
 
@@ -50,7 +45,8 @@ function save(key, value) {
   }
 }
 
-const loadHistory = () => load(HISTORY_KEY, []);
+// Only Quiz 2 attempts (Modules 5-8) are listed; older Quiz 1 attempts stay saved but hidden.
+const loadHistory = () => load(HISTORY_KEY, []).filter((h) => h.modules.every((m) => QUIZ2_MODULES.includes(m)));
 const saveHistory = (list) => save(HISTORY_KEY, list.slice(0, 20));
 
 function seenText(modules) {
@@ -73,7 +69,8 @@ function renderSetup(settings = { modules: QUIZ2_MODULES, format: "quiz2", timed
       (probability, hypothesis testing, ANOVA and non-parametric tests) in 30 minutes, submitted automatically when time
       runs out. You can move freely between questions. About 1 in 5 multiple-choice questions asks you to interpret a
       test result or a data table. Every new quiz gives you the questions you have seen least, so you work through the
-      whole bank. You grade your short answers against a rubric after you submit. For Quiz 1, pick Modules 1–4.</p>
+      whole bank. You grade your short answers against a rubric after you submit. To focus on one topic, untick the
+      other modules. Revise with the <a href="study-guide.html">Quiz 2 study guide</a>.</p>
       <form id="setup">
         <fieldset><legend>Modules</legend><div class="chips">
           ${MODULES.map(([m, l]) => chip("checkbox", "module", m, l, settings.modules.includes(m))).join("")}
@@ -82,7 +79,7 @@ function renderSetup(settings = { modules: QUIZ2_MODULES, format: "quiz2", timed
           ${Object.entries(FORMATS).map(([k, f]) => chip("radio", "format", k, f.label, settings.format === k)).join("")}
         </div></fieldset>
         <fieldset><legend>Timer</legend><div class="chips">
-          ${[[1, "Exam pace · Quiz 2: 30 min for 27 questions (Quiz 1: 40 min for 18)"], [0, "Off"]]
+          ${[[1, "Exam pace · 30 min for 27 questions"], [0, "Off"]]
             .map(([v, l]) => chip("radio", "timed", v, l, settings.timed === (v === 1))).join("")}
         </div></fieldset>
         <p class="muted small" id="seen-count">${seenText(settings.modules)}</p>
@@ -118,7 +115,7 @@ function startQuiz(settings) {
     items,
     index: 0,
     startedAt: now,
-    deadline: settings.timed ? now + Math.round(secondsPerQuestion(settings.modules) * items.length) * 1000 : null,
+    deadline: settings.timed ? now + Math.round(SECONDS_PER_QUESTION * items.length) * 1000 : null,
     saved: false,
   };
   state.timerId = setInterval(tick, 1000);
