@@ -7,21 +7,19 @@ const SEEN_KEY = "pdaquiz.seen"; // question id → times shown, so new quizzes 
 const LAST_KEY = "pdaquiz.last"; // the previous quiz's question ids, never repeated straight away
 const PASS_MARK = 70;
 const LETTERS = "ABCD";
-// The site focuses on Quiz 2 (Modules 5-8): 25 multiple choice + 2 short answer in 30 minutes. The other
-// formats keep that time per question. Modules 1-4 questions stay in the bank for a later full exam.
+// The site focuses on Quiz 2, which always covers Modules 5-8: 25 multiple choice + 2 short answer in
+// 30 minutes. Super quick is the default; every format keeps the real quiz's time per question.
+// Modules 1-4 questions stay in the bank for a later full exam.
+const QUIZ2_MODULES = [5, 6, 7, 8];
 const FORMATS = {
-  quiz2: { label: "Quiz 2 · 25 MC + 2 short answer · 30 min", mc: 25, open: 2 },
-  quick: { label: "Quick · 8 MC + 2 short answer", mc: 8, open: 2 },
-  long: { label: "Long · 24 MC + 6 short answer", mc: 24, open: 6 },
+  superquick: { label: "Super quick · 5 MC + 1 short answer · about 7 min", short: "Super quick", mc: 5, open: 1 },
+  quick: { label: "Quick · 8 MC + 2 short answer · about 11 min", short: "Quick", mc: 8, open: 2 },
+  quiz2: { label: "Real Quiz 2 · 25 MC + 2 short answer · 30 min", short: "Quiz 2", mc: 25, open: 2 },
+  long: { label: "Long · 24 MC + 6 short answer · about 33 min", short: "Long", mc: 24, open: 6 },
 };
 const SECONDS_PER_QUESTION = (30 * 60) / 27;
-const MODULES = [
-  [5, "M5 · Probability"],
-  [6, "M6 · Hypothesis testing"],
-  [7, "M7 · ANOVA"],
-  [8, "M8 · Non-parametric tests"],
-];
-const QUIZ2_MODULES = MODULES.map(([m]) => m);
+// Each format has a different number of questions, so an attempt's length tells its format.
+const formatName = (total) => Object.values(FORMATS).find((f) => f.mc + f.open === total)?.short ?? `${total} questions`;
 
 let state = null; // { screen, settings, items, index, startedAt, deadline, finishedAt, timerId, saved }
 
@@ -52,38 +50,35 @@ const saveHistory = (list) => save(HISTORY_KEY, list.slice(0, 20));
 function seenText(modules) {
   const seen = load(SEEN_KEY, {});
   const pool = QUESTIONS.filter((q) => modules.includes(q.module));
-  return `Questions seen in the selected modules: ${pool.filter((q) => seen[q.id]).length} / ${pool.length}`;
+  return `Questions seen so far: ${pool.filter((q) => seen[q.id]).length} / ${pool.length}`;
 }
 
 const chip = (type, name, value, label, checked) =>
   `<label class="chip"><input type="${type}" name="${name}" value="${value}" ${checked ? "checked" : ""}> ${label}</label>`;
 
 // ───────────── Setup ─────────────
-function renderSetup(settings = { modules: QUIZ2_MODULES, format: "quiz2", timed: true }) {
+function renderSetup(settings = { format: "superquick", timed: true }) {
   state = null;
   const history = loadHistory();
   app.innerHTML = `
     <section class="card">
       <h2>Set up your practice quiz</h2>
-      <p class="muted">The default matches Quiz 2: 25 multiple-choice and 2 short-answer questions on Modules 5–8
-      (probability, hypothesis testing, ANOVA and non-parametric tests) in 30 minutes, submitted automatically when time
-      runs out. You can move freely between questions. About 1 in 5 multiple-choice questions asks you to interpret a
-      test result or a data table. Every new quiz gives you the questions you have seen least, so you work through the
-      whole bank. You grade your short answers against a rubric after you submit. To focus on one topic, untick the
-      other modules. Revise with the <a href="study-guide.html">Quiz 2 study guide</a>.</p>
+      <p class="muted">Every quiz covers Modules 5–8 (probability, hypothesis testing, ANOVA and non-parametric
+      tests), like Quiz 2. The default <strong>Super quick</strong> gives 5 multiple-choice questions and 1 short answer;
+      <strong>Real Quiz 2</strong> is the full 25 + 2 in 30 minutes. The timer keeps the real quiz's pace and submits
+      automatically when time runs out. About 1 in 5 multiple-choice questions asks you to interpret a test result or a
+      data table. Every new quiz gives you the questions you have seen least, so you work through the whole bank. You
+      grade your short answers against a rubric after you submit. Revise with the
+      <a href="study-guide.html">Quiz 2 study guide</a>.</p>
       <form id="setup">
-        <fieldset><legend>Modules</legend><div class="chips">
-          ${MODULES.map(([m, l]) => chip("checkbox", "module", m, l, settings.modules.includes(m))).join("")}
-        </div></fieldset>
-        <fieldset><legend>Format</legend><div class="chips">
+        <fieldset><legend>Length</legend><div class="chips">
           ${Object.entries(FORMATS).map(([k, f]) => chip("radio", "format", k, f.label, settings.format === k)).join("")}
         </div></fieldset>
         <fieldset><legend>Timer</legend><div class="chips">
-          ${[[1, "Exam pace · 30 min for 27 questions"], [0, "Off"]]
+          ${[[1, "Exam pace · the real quiz's 30 min for 27 questions"], [0, "Off"]]
             .map(([v, l]) => chip("radio", "timed", v, l, settings.timed === (v === 1))).join("")}
         </div></fieldset>
-        <p class="muted small" id="seen-count">${seenText(settings.modules)}</p>
-        <p id="setup-error" class="small" style="color: var(--bad)" hidden>Pick at least one module.</p>
+        <p class="muted small">${seenText(QUIZ2_MODULES)}</p>
         <button class="primary" type="submit">Start quiz</button>
       </form>
     </section>
@@ -91,9 +86,9 @@ function renderSetup(settings = { modules: QUIZ2_MODULES, format: "quiz2", timed
     <section class="card">
       <div class="row spread"><h2>Your attempts</h2><button class="link" data-act="clear-history">Clear</button></div>
       <table>
-        <thead><tr><th>Date</th><th>Modules</th><th class="num">Questions</th><th class="num">Score</th></tr></thead>
+        <thead><tr><th>Date</th><th>Length</th><th class="num">Questions</th><th class="num">Score</th></tr></thead>
         <tbody>${history.map((h) => `
-          <tr><td>${esc(new Date(h.date).toLocaleString())}</td><td>${esc(h.modules.join(", "))}</td>
+          <tr><td>${esc(new Date(h.date).toLocaleString())}</td><td>${esc(formatName(h.total))}</td>
           <td class="num">${h.total}</td><td class="num">${h.percent}%</td></tr>`).join("")}
         </tbody>
       </table>
@@ -104,7 +99,7 @@ function renderSetup(settings = { modules: QUIZ2_MODULES, format: "quiz2", timed
 function startQuiz(settings) {
   const f = FORMATS[settings.format];
   const seen = load(SEEN_KEY, {});
-  const items = buildQuiz(QUESTIONS, { modules: settings.modules, mcCount: f.mc, openCount: f.open, seen, last: load(LAST_KEY, []) });
+  const items = buildQuiz(QUESTIONS, { modules: QUIZ2_MODULES, mcCount: f.mc, openCount: f.open, seen, last: load(LAST_KEY, []) });
   items.forEach((it) => (seen[it.q.id] = (seen[it.q.id] || 0) + 1));
   save(SEEN_KEY, seen);
   save(LAST_KEY, items.map((it) => it.q.id));
@@ -251,7 +246,7 @@ function renderResults() {
   const g = grade(state.items);
   const seconds = Math.round((state.finishedAt - state.startedAt) / 1000);
   if (!state.saved) {
-    saveHistory([{ date: new Date().toISOString(), modules: state.settings.modules, total: g.total, percent: g.percent }, ...loadHistory()]);
+    saveHistory([{ date: new Date().toISOString(), modules: QUIZ2_MODULES, total: g.total, percent: g.percent }, ...loadHistory()]);
     state.saved = true;
   }
   const pass = g.percent >= PASS_MARK;
@@ -322,12 +317,7 @@ function reviewItem(it, i) {
 app.addEventListener("submit", (e) => {
   e.preventDefault();
   const form = new FormData(e.target);
-  const modules = form.getAll("module").map(Number);
-  if (!modules.length) {
-    document.getElementById("setup-error").hidden = false;
-    return;
-  }
-  startQuiz({ modules, format: form.get("format"), timed: form.get("timed") === "1" });
+  startQuiz({ format: form.get("format"), timed: form.get("timed") === "1" });
 });
 
 app.addEventListener("click", (e) => {
@@ -351,9 +341,7 @@ app.addEventListener("click", (e) => {
 
 app.addEventListener("change", (e) => {
   const t = e.target;
-  if (t.name === "module") {
-    document.getElementById("seen-count").textContent = seenText([...document.querySelectorAll('input[name="module"]:checked')].map((x) => Number(x.value)));
-  } else if (t.name === "opt") {
+  if (t.name === "opt") {
     state.items[state.index].choice = Number(t.value);
     updateProgress();
   } else if (t.dataset.point !== undefined) {
