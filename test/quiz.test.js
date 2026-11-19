@@ -64,7 +64,16 @@ test("Quiz 2 format: 25 MC + 2 short answer from Modules 5-8, theory before outp
   assert.ok(quiz.slice(25).every((it) => it.q.type === "open"));
 });
 
-test("super quick format: 5 MC (one of them an output question) + 1 short answer from Modules 5-8", () => {
+test("multiple-choice only and short-answer only practice", () => {
+  const mc = buildQuiz(QUESTIONS, { modules: QUIZ2, mcCount: 5, openCount: 0 });
+  assert.equal(mc.length, 5);
+  assert.ok(mc.every((it) => it.q.type === "mc" && it.q.module >= 5));
+  const open = buildQuiz(QUESTIONS, { modules: QUIZ2, mcCount: 0, openCount: 1 });
+  assert.equal(open.length, 1);
+  assert.equal(open[0].q.type, "open");
+});
+
+test("quick format: 5 MC (one of them an output question) + 1 short answer from Modules 5-8", () => {
   const quiz = buildQuiz(QUESTIONS, { modules: QUIZ2, mcCount: 5, openCount: 1 });
   assert.deepEqual(quiz.map((it) => `${it.q.type}-${it.q.kind}`).slice(0, 5), [...Array(4).fill("mc-theory"), "mc-code"]);
   assert.equal(quiz[5].q.type, "open");

@@ -1,6 +1,6 @@
 # Data Analytics Quiz Simulator
 
-A practice simulator for **Principles of Data Analytics Quiz 2** (Tuesday, November 24, 2026). Every quiz covers **Modules 5–8** (probability, hypothesis testing, ANOVA and non-parametric tests), like the real quiz. The default **Super quick** practice gives 5 multiple-choice questions and 1 short answer; **Real Quiz 2** mimics the exam itself: 25 multiple-choice and 2 short-answer questions, a **30-minute timer** and automatic submission when time runs out. Questions come from a bank of 180, every new quiz shows the questions you have seen least, every attempt is scored, and every question comes with an explanation.
+A practice simulator for **Principles of Data Analytics Quiz 2** (Tuesday, November 24, 2026). Every quiz covers **Modules 5–8** (probability, hypothesis testing, ANOVA and non-parametric tests), like the real quiz. The default **Quick** practice gives 5 multiple-choice questions and 1 short answer, **Multiple choice** and **Quick open** practise one question type at a time, and **Real Quiz 2** mimics the exam itself: 25 multiple-choice and 2 short-answer questions, a **30-minute timer** and automatic submission when time runs out. Questions come from a bank of 180, every new quiz shows the questions you have seen least, every attempt is scored, and every question comes with an explanation.
 
 **Live:** https://alanjuker.github.io/data-analytics-quiz-simulator/ · **[Quiz 2 study guide](study-guide.html)**
 
@@ -19,11 +19,11 @@ The site only shows Quiz 2 material. The Modules 1–4 material is kept for a la
 
 ## How a quiz works
 
-- **Lengths:** Super quick (5 MC + 1 short answer, about 7 minutes, the default), Quick (8 + 2, about 11 minutes), Real Quiz 2 (25 + 2, 30 minutes) or Long (24 + 6, about 33 minutes). The "exam pace" timer keeps the real quiz's pace (30 minutes for 27 questions) and submits the quiz when time runs out. You can move freely between questions, as in the real quiz.
+- **Lengths:** Quick (5 MC + 1 short answer, 9 minutes, the default), Multiple choice (5 MC, 4 minutes), Quick open (1 short answer, 5 minutes) or Real Quiz 2 (25 + 2, 30 minutes). The timer always runs, at the real quiz's pace for each question type (about 45 seconds per multiple choice, 4–5 minutes per short answer), and submits the quiz when time runs out. You can move freely between questions, as in the real quiz.
 - **Always a different quiz:** questions you have seen least come first, so 12 Quiz 2 attempts cover all 180 Module 5–8 questions. A quiz counts as seen as soon as it starts, and the next one never repeats any of its questions. The setup screen shows how many questions of the selected modules you have seen.
 - **Mix:** about 1 in 5 multiple-choice questions asks you to interpret a test result (e.g., a t-test, ANOVA or Kruskal–Wallis output) or a data table. Questions come in this order: theory, then output interpretation, then the short answers.
 - **Style:** the questions test understanding, not memorisation. You identify the concept, choose the right test or chart, or interpret a result, and there is no arithmetic. Short-answer questions ask one thing each and can be answered in 2–3 sentences.
-- **Setup:** the modules are fixed to 5–8, as in Quiz 2. Choose the length and whether the timer is on.
+- **Setup:** the modules are fixed to 5–8, as in Quiz 2, and the timer always runs. Just choose the length.
 - **During the quiz:** a question navigator, flags, and keyboard shortcuts (`1`–`4` / `A`–`D` to answer, `←` `→` to move, `F` to flag).
 - **Short answers:** after you submit, you see the model answer and a rubric. Points are pre-ticked by keyword matching, and you confirm or correct them. Each short answer earns partial credit.
 - **Results:** your score against a 70% pass mark, a breakdown by module and question type, and a full review with explanations. Past attempts are saved in your browser.

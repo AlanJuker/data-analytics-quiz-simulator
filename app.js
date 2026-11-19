@@ -8,16 +8,16 @@ const LAST_KEY = "pdaquiz.last"; // the previous quiz's question ids, never repe
 const PASS_MARK = 70;
 const LETTERS = "ABCD";
 // The site focuses on Quiz 2, which always covers Modules 5-8: 25 multiple choice + 2 short answer in
-// 30 minutes. Super quick is the default; every format keeps the real quiz's time per question.
+// 30 minutes. Quick is the default. The timer always runs, at the real quiz's pace per question type:
+// about 45 seconds per multiple choice and 4-5 minutes per short answer.
 // Modules 1-4 questions stay in the bank for a later full exam.
 const QUIZ2_MODULES = [5, 6, 7, 8];
 const FORMATS = {
-  superquick: { label: "Super quick · 5 MC + 1 short answer · about 7 min", short: "Super quick", mc: 5, open: 1 },
-  quick: { label: "Quick · 8 MC + 2 short answer · about 11 min", short: "Quick", mc: 8, open: 2 },
-  quiz2: { label: "Real Quiz 2 · 25 MC + 2 short answer · 30 min", short: "Quiz 2", mc: 25, open: 2 },
-  long: { label: "Long · 24 MC + 6 short answer · about 33 min", short: "Long", mc: 24, open: 6 },
+  quick: { label: "Quick · 5 multiple choice + 1 short answer", short: "Quick", mc: 5, open: 1, minutes: 9 },
+  mc: { label: "Multiple choice · 5 questions", short: "Multiple choice", mc: 5, open: 0, minutes: 4 },
+  open: { label: "Quick open · 1 short answer", short: "Quick open", mc: 0, open: 1, minutes: 5 },
+  real: { label: "Real Quiz 2 · 25 multiple choice + 2 short answer", short: "Real Quiz 2", mc: 25, open: 2, minutes: 30 },
 };
-const SECONDS_PER_QUESTION = (30 * 60) / 27;
 // Each format has a different number of questions, so an attempt's length tells its format.
 const formatName = (total) => Object.values(FORMATS).find((f) => f.mc + f.open === total)?.short ?? `${total} questions`;
 
@@ -57,26 +57,22 @@ const chip = (type, name, value, label, checked) =>
   `<label class="chip"><input type="${type}" name="${name}" value="${value}" ${checked ? "checked" : ""}> ${label}</label>`;
 
 // ───────────── Setup ─────────────
-function renderSetup(settings = { format: "superquick", timed: true }) {
+function renderSetup(settings = { format: "quick" }) {
   state = null;
   const history = loadHistory();
   app.innerHTML = `
     <section class="card">
       <h2>Set up your practice quiz</h2>
       <p class="muted">Every quiz covers Modules 5–8 (probability, hypothesis testing, ANOVA and non-parametric
-      tests), like Quiz 2. The default <strong>Super quick</strong> gives 5 multiple-choice questions and 1 short answer;
-      <strong>Real Quiz 2</strong> is the full 25 + 2 in 30 minutes. The timer keeps the real quiz's pace and submits
-      automatically when time runs out. About 1 in 5 multiple-choice questions asks you to interpret a test result or a
-      data table. Every new quiz gives you the questions you have seen least, so you work through the whole bank. You
-      grade your short answers against a rubric after you submit. Revise with the
-      <a href="study-guide.html">Quiz 2 study guide</a>.</p>
+      tests), like Quiz 2. <strong>Quick</strong> gives 5 multiple-choice questions and 1 short answer;
+      <strong>Multiple choice</strong> and <strong>Quick open</strong> practise one type at a time; <strong>Real Quiz 2</strong>
+      is the full 25 + 2 in 30 minutes. A timer runs as in the real quiz and submits automatically when time runs out.
+      About 1 in 5 multiple-choice questions asks you to interpret a test result or a data table. Every new quiz gives
+      you the questions you have seen least, so you work through the whole bank. You grade your short answers against a
+      rubric after you submit. Revise with the <a href="study-guide.html">Quiz 2 study guide</a>.</p>
       <form id="setup">
         <fieldset><legend>Length</legend><div class="chips">
           ${Object.entries(FORMATS).map(([k, f]) => chip("radio", "format", k, f.label, settings.format === k)).join("")}
-        </div></fieldset>
-        <fieldset><legend>Timer</legend><div class="chips">
-          ${[[1, "Exam pace · the real quiz's 30 min for 27 questions"], [0, "Off"]]
-            .map(([v, l]) => chip("radio", "timed", v, l, settings.timed === (v === 1))).join("")}
         </div></fieldset>
         <p class="muted small">${seenText(QUIZ2_MODULES)}</p>
         <button class="primary" type="submit">Start quiz</button>
@@ -110,7 +106,7 @@ function startQuiz(settings) {
     items,
     index: 0,
     startedAt: now,
-    deadline: settings.timed ? now + Math.round(SECONDS_PER_QUESTION * items.length) * 1000 : null,
+    deadline: now + f.minutes * 60 * 1000,
     saved: false,
   };
   state.timerId = setInterval(tick, 1000);
@@ -317,7 +313,7 @@ function reviewItem(it, i) {
 app.addEventListener("submit", (e) => {
   e.preventDefault();
   const form = new FormData(e.target);
-  startQuiz({ format: form.get("format"), timed: form.get("timed") === "1" });
+  startQuiz({ format: form.get("format") });
 });
 
 app.addEventListener("click", (e) => {
