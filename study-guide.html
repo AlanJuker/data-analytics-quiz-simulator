@@ -4,383 +4,630 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quiz 2 Study Guide</title>
-  <meta name="description" content="Study guide for Principles of Data Analytics Quiz 2, Modules 5-8: probability, hypothesis testing, ANOVA and non-parametric tests, with a test chooser, output-reading cheat sheet and answer templates.">
+  <meta name="description" content="Study guide for Principles of Data Analytics Quiz 2, Modules 5-8: probability, hypothesis testing, ANOVA and non-parametric tests, with diagrams, a test chooser, an output cheat sheet and a recall check.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
+  <!-- Bump ?v= when a file changes: GitHub Pages lets browsers cache each file for 10 minutes. -->
   <link rel="stylesheet" href="styles.css?v=20261119-1">
+  <link rel="stylesheet" href="guide.css?v=20261119-1">
 </head>
-<body class="guide">
+<body class="q2">
   <header class="site-header">
     <nav class="site-nav" aria-label="Site"><a href="index.html">Quiz 2 practice</a><a href="study-guide.html" aria-current="page">Study guide</a></nav>
     <h1>Quiz 2 Study Guide</h1>
     <p class="subtitle">Principles of Data Analytics · Modules 5–8 · Tuesday, November 24, 2026</p>
   </header>
 
-  <main>
-    <nav class="card toc" aria-label="Contents">
-      <h2>Contents</h2>
+  <nav class="chip-toc" aria-label="Chapters"><a href="#start">Start</a><a href="#how">Answer</a><a href="#m5">M5</a><a href="#m6">M6</a><a href="#m7">M7</a><a href="#m8">M8</a><a href="#choose">Test chooser</a><a href="#outputs">Outputs</a><a href="#traps">Traps</a><a href="#numbers">Formulas</a><a href="#recall">Recall</a></nav>
+
+  <div class="layout">
+    <aside class="side-toc" aria-label="Contents">
+      <p class="toc-title">Contents</p>
       <ol>
-        <li><a href="#quiz">Quiz 2 at a glance</a></li>
-        <li><a href="#answer">How to answer</a></li>
-        <li><a href="#m5">Module 5 · Probability</a></li>
-        <li><a href="#m6">Module 6 · Hypothesis testing</a></li>
-        <li><a href="#m7">Module 7 · ANOVA</a></li>
-        <li><a href="#m8">Module 8 · Non-parametric tests</a></li>
-        <li><a href="#choose">Choosing the right test</a></li>
-        <li><a href="#outputs">Reading test outputs</a></li>
+        <li><a href="#start">Start here</a>
+          <ol><li><a href="#start-plan">Your 30 minutes</a></li><li><a href="#start-map">What each module answers</a></li><li><a href="#start-day">Exam day</a></li></ol></li>
+        <li><a href="#how">How to answer</a>
+          <ol><li><a href="#how-mc">Multiple choice</a></li><li><a href="#how-sa">Short answer</a></li></ol></li>
+        <li><a href="#m5">M5 · Probability</a>
+          <ol><li><a href="#m5-basics">Probability basics</a></li><li><a href="#m5-dist">Which distribution?</a></li><li><a href="#m5-normal">The normal curve</a></li><li><a href="#m5-z">z-scores and the Z-table</a></li><li><a href="#m5-clt">Central Limit Theorem</a></li><li><a href="#m5-limits">When normal fails</a></li></ol></li>
+        <li><a href="#m6">M6 · Hypothesis testing</a>
+          <ol><li><a href="#m6-hyp">H₀ and Ha</a></li><li><a href="#m6-tails">One or two tails</a></li><li><a href="#m6-decide">Making the decision</a></li><li><a href="#m6-zt">z-test or t-test</a></li><li><a href="#m6-errors">Errors and power</a></li><li><a href="#m6-ttests">The three t-tests</a></li><li><a href="#m6-read">Reading a t-test</a></li><li><a href="#m6-steps">Steps and report</a></li></ol></li>
+        <li><a href="#m7">M7 · ANOVA</a>
+          <ol><li><a href="#m7-why">Why ANOVA</a></li><li><a href="#m7-f">The F-ratio</a></li><li><a href="#m7-assume">Assumptions</a></li><li><a href="#m7-types">One-way vs two-way</a></li><li><a href="#m7-after">After a significant F</a></li><li><a href="#m7-read">Reading outputs</a></li></ol></li>
+        <li><a href="#m8">M8 · Non-parametric</a>
+          <ol><li><a href="#m8-vs">Why rank the data</a></li><li><a href="#m8-tests">The four tests</a></li><li><a href="#m8-details">How each one works</a></li><li><a href="#m8-read">Reading outputs</a></li></ol></li>
+        <li><a href="#choose">Test chooser</a></li>
+        <li><a href="#outputs">Reading outputs</a></li>
         <li><a href="#traps">Common traps</a></li>
-        <li><a href="#numbers">Formulas and numbers to know</a></li>
-        <li><a href="#recall">Last-day recall check</a></li>
+        <li><a href="#numbers">Formulas</a></li>
+        <li><a href="#recall">Recall check</a></li>
       </ol>
-      <p><a class="button-link" href="index.html">Practise with the Quiz 2 simulator →</a></p>
-    </nav>
+      <a class="go" href="index.html">Practise Quiz 2 →</a>
+    </aside>
 
-    <section class="card" id="quiz">
-      <h2>1. Quiz 2 at a glance</h2>
-      <table>
-        <tbody>
-          <tr><th>When</th><td>Tuesday, November 24, 2026, in class</td></tr>
-          <tr><th>Format</th><td><strong>25 multiple-choice + 2 short-answer</strong> questions</td></tr>
-          <tr><th>Time</th><td><strong>30 minutes</strong>. The timer starts when you open the quiz, and it <strong>submits automatically</strong> when time runs out.</td></tr>
-          <tr><th>Content</th><td>Modules 5–8: probability, hypothesis testing, ANOVA and non-parametric tests</td></tr>
-          <tr><th>Tool</th><td>LockDown Browser only. Install it and open it once before the day, and check your internet connection.</td></tr>
-        </tbody>
-      </table>
-      <h3>Time plan</h3>
-      <ul>
-        <li><strong>Multiple choice: about 45 seconds each</strong>, so about 19 minutes for all 25. Answer every one (a blank scores nothing), flag the hard ones and come back.</li>
-        <li><strong>Short answers: about 4–5 minutes each.</strong> Start them by minute 20 at the latest: an unwritten answer cannot be saved by the automatic submit.</li>
-        <li>Keep about 2 minutes to check flagged questions.</li>
-      </ul>
-      <h3>On the day</h3>
-      <ul class="checks">
-        <li>Be in the room at the start: no late entry and no early exit.</li>
-        <li>Phone, smartwatch, headphones and earphones go in your bag, and the bag goes aside. No phone in a pocket or jacket.</li>
-        <li>Launch LockDown Browser and show that you are properly logged in.</li>
-        <li>Set screen brightness to maximum for the whole quiz.</li>
-        <li>No questions can be asked during the quiz.</li>
-        <li>If you finish early, close your laptop and stay seated and silent.</li>
-      </ul>
-    </section>
+    <main>
+      <!-- ───────────────────────── Start here ───────────────────────── -->
+      <section class="chapter" id="start">
+        <header class="chapter-head"><span class="chapter-num">★</span><div><p class="eyebrow">Start here</p><h2>Quiz 2 in one page</h2></div></header>
+        <p class="key">25 multiple-choice and 2 short-answer questions on Modules 5–8 in 30 minutes. The quiz submits itself at 0:00, so pacing matters as much as knowing the content.</p>
+        <div class="stats">
+          <div class="stat"><b>25</b><span>multiple-choice questions</span></div>
+          <div class="stat"><b>2</b><span>short-answer questions</span></div>
+          <div class="stat"><b>30 min</b><span>timer starts when you open it; auto-submits</span></div>
+          <div class="stat"><b>Nov 24</b><span>Tuesday, in class, in LockDown Browser</span></div>
+        </div>
 
-    <section class="card" id="answer">
-      <h2>2. How to answer</h2>
-      <h3>Multiple choice</h3>
-      <ol class="steps">
-        <li><strong>Find the design first.</strong> One sample against a benchmark? Two independent groups? The same people twice? Three or more groups? Two factors? That decides the test (<a href="#choose">§7</a>).</li>
-        <li><strong>Check the data type.</strong> Skewed, small sample, outliers or ordinal (1–5 ratings) → think non-parametric.</li>
-        <li><strong>For an output, read in this order:</strong> the assumption check (Levene's), then the p-value against .05, then the direction (means or mean ranks), then what to do next (post hoc?).</li>
-        <li><strong>Watch absolute words.</strong> "Proves", "accept H₀" and "all groups differ" are almost always wrong.</li>
-      </ol>
-      <h3>Short answer: 2–3 sentences</h3>
-      <ol class="steps">
-        <li><strong>Answer directly:</strong> name the test, the distribution or the decision.</li>
-        <li><strong>Explain why:</strong> the condition, definition or numbers that justify it.</li>
-        <li><strong>Conclude in plain language:</strong> what it means in the scenario, plus one caution or next step (post hoc test, no causation without a control group).</li>
-      </ol>
-      <p class="model">Example: "The same 15 employees rate their stress before, during and after a project, and the ratings are skewed. Which test, and why not Kruskal–Wallis?"</p>
-      <div class="model-answer">Use the Friedman test, the non-parametric test for three or more related measurements: the same employees are measured three times, and the ratings are skewed and ordinal. Kruskal–Wallis is not appropriate because it requires independent groups, with each person in only one group.</div>
-      <p class="tip"><strong>Output template:</strong> "Because p = ___ is below/above .05, we reject / fail to reject H₀. This means ___ (in the scenario's words). Next step or caution: ___."</p>
-    </section>
+        <div class="sub" id="start-plan">
+          <h3><span class="idx">Plan</span>Your 30 minutes</h3>
+          <div class="timebar" aria-hidden="true"><span class="c-mc" style="flex: 19"></span><span class="c-sa" style="flex: 9"></span><span class="c-rev" style="flex: 2"></span></div>
+          <div class="timescale" aria-hidden="true"><span>0:00</span><span>10:00</span><span>20:00</span><span>30:00</span></div>
+          <ul class="legend">
+            <li><i class="c-mc"></i><span><b>0–19 min · 25 multiple choice</b>, about 45 seconds each. Answer every one (a blank scores nothing) and flag the hard ones.</span></li>
+            <li><i class="c-sa"></i><span><b>19–28 min · 2 short answers</b>, about 4–5 minutes each, 2–3 sentences.</span></li>
+            <li><i class="c-rev"></i><span><b>28–30 min · check</b> the flagged questions.</span></li>
+          </ul>
+          <p class="trap"><b>Don't run out of time</b>Start the short answers by minute 20 at the latest. The automatic submit cannot save an answer you have not written yet.</p>
+        </div>
 
-    <section class="card" id="m5">
-      <h2>3. Module 5 · Probability for decision making</h2>
-      <h3>Probability basics</h3>
-      <ul>
-        <li>A probability is a number from <strong>0 (impossible) to 1 (certain)</strong>.</li>
-        <li>To compute it, first find the <strong>total number of possible outcomes</strong>, then how many of them count as the event.</li>
-        <li><em>The Last Banana</em>: with two dice and "highest number counts", Player 1 (1–4) wins only if <strong>both</strong> dice are 1–4 (16 of 36), so Player 2 (5–6) wins more often (20 of 36). One high die is enough.</li>
-      </ul>
-      <h3>The three distributions</h3>
-      <div class="table-wrap"><table class="matrix">
-        <thead><tr><th></th><th>Binomial</th><th>Poisson</th><th>Normal</th></tr></thead>
-        <tbody>
-          <tr><th>Models</th><td>Number of <strong>successes</strong> in a <strong>fixed number of trials</strong></td><td>Number of <strong>events in a fixed interval</strong> of time or space</td><td>A <strong>continuous</strong> variable that clusters around the mean</td></tr>
-          <tr><th>Data</th><td>Discrete count, 0 to n</td><td>Discrete count, 0, 1, 2 … with <strong>no upper limit</strong></td><td>Continuous</td></tr>
-          <tr><th>Parameters</th><td>n (trials), p (probability of success)</td><td>λ (lambda) = average number of events per interval</td><td>μ (mean) and σ (standard deviation)</td></tr>
-          <tr><th>Conditions</th><td>Fixed n · only two outcomes · constant p · independent trials</td><td>Counts · independent events · constant rate · two events at exactly the same time is negligible</td><td>Symmetric bell · mean = median = mode · tails never touch the axis (asymptotic)</td></tr>
-          <tr><th>Example</th><td>How many of 20 customers click an ad</td><td>Calls per hour, arrivals per night, defects per batch</td><td>Heights, delivery times, sample means</td></tr>
-          <tr><th>Centre</th><td>Mean = n × p, SD = √(np(1 − p))</td><td>Mean = λ. <strong>Rescale λ to the interval</strong> (30 per hour = 5 per 10 minutes)</td><td>Mean = μ</td></tr>
-        </tbody>
-      </table></div>
-      <p class="tip"><strong>Quick way to pick:</strong> "how many out of n" → binomial · "how many per hour / per page / per km" → Poisson · "how long, how heavy, how much" (measured) → normal.</p>
-      <h3>Normal distribution</h3>
-      <ul>
-        <li><strong>68–95–99.7 rule:</strong> about 68% of values lie within 1 SD of the mean, 95% within 2 SD and 99.7% within 3 SD. With mean 30 and SD 5, 95% lie between 20 and 40.</li>
-        <li>A <strong>larger σ</strong> makes the curve wider and flatter; the mean only moves its centre.</li>
-        <li><strong>z-score</strong> = (X − μ) / σ = how many standard deviations a value is from the mean. Negative = below the mean. Z-scores let you compare scores from different scales.</li>
-        <li><strong>Z-table</strong> (area to the left of z): <em>less than z</em> = the table value · <em>greater than z</em> = 1 − table value · <em>between two z's</em> = larger value − smaller value. Example: P(Z &lt; 1) = .8413, so P(Z &gt; 1) = .1587.</li>
-        <li>The Z-table is used for confidence intervals and hypothesis testing.</li>
-      </ul>
-      <h3>Central Limit Theorem (CLT)</h3>
-      <p>As the sample size grows, the <strong>distribution of sample means becomes approximately normal, whatever the shape of the population</strong>. Its mean is μ and its spread (standard error) is <strong>σ / √n</strong>, so bigger samples give more precise means. This is why normal-based tests work on large samples (rule of thumb n &gt; 30). It does <strong>not</strong> rescue small samples from skewed populations.</p>
-      <h3>When the normal distribution fails, and the fix</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Limitation</th><th>Example</th><th>What to do</th></tr></thead>
-        <tbody>
-          <tr><td>Assumes symmetry</td><td>Incomes, spending (mean ≫ median)</td><td>Log or square-root transformation</td></tr>
-          <tr><td>Needs continuous data</td><td>Counts of defects or calls</td><td>Poisson or binomial instead</td></tr>
-          <tr><td>Sensitive to outliers</td><td>A few huge purchases</td><td>Trim or treat the outliers, or use a non-parametric test</td></tr>
-          <tr><td>Underestimates extreme (tail) events</td><td>Stock-market crashes, insurance claims</td><td>Another distribution (log-normal, exponential, Weibull)</td></tr>
-          <tr><td>Data have a finite range</td><td>Percentages from 0 to 100</td><td>Transformation or a bounded model</td></tr>
-          <tr><td>CLT misapplied</td><td>n = 8 from a skewed population</td><td>Larger sample, or a non-parametric method</td></tr>
-        </tbody>
-      </table></div>
-    </section>
+        <div class="sub" id="start-map">
+          <h3><span class="idx">Map</span>What each module answers</h3>
+          <div class="mods">
+            <a class="mod" href="#m5"><span class="mnum">5</span><span><b>Probability</b><em>How likely is it, and which distribution fits?</em><small>Binomial, Poisson, normal, z-scores, Central Limit Theorem</small></span></a>
+            <a class="mod" href="#m6"><span class="mnum">6</span><span><b>Hypothesis testing</b><em>Is this difference real, or just chance?</em><small>H₀ and Ha, p-values, Type I/II errors, t-tests</small></span></a>
+            <a class="mod" href="#m7"><span class="mnum">7</span><span><b>ANOVA</b><em>Do three or more group means differ?</em><small>F-ratio, assumptions, post hoc tests, two-way ANOVA</small></span></a>
+            <a class="mod" href="#m8"><span class="mnum">8</span><span><b>Non-parametric tests</b><em>What if the data are not normal?</em><small>Mann–Whitney U, Wilcoxon, Kruskal–Wallis, Friedman</small></span></a>
+          </div>
+        </div>
 
-    <section class="card" id="m6">
-      <h2>4. Module 6 · Hypothesis testing</h2>
-      <h3>The two hypotheses</h3>
-      <ul>
-        <li><strong>H₀ (null):</strong> no difference, no relationship, no effect. It is the <strong>baseline</strong> the results are measured against, e.g. μ₁ = μ₂ (hypothesized difference = 0).</li>
-        <li><strong>Ha (alternative):</strong> there is a difference or relationship that is not due to chance. It is what the researcher hopes to support.</li>
-        <li>We either <strong>reject H₀</strong> or <strong>fail to reject H₀</strong>. Rejecting H₀ <em>supports</em> Ha but does not prove it. Failing to reject does not prove H₀.</li>
-      </ul>
-      <h3>One-tailed or two-tailed: decide before collecting data</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Ha</th><th>Test</th><th>Where α goes</th><th>Critical z at α = .05</th><th>Drug claims a 20% gain; the researcher thinks…</th></tr></thead>
-        <tbody>
-          <tr><td>μ ≠ 20%</td><td>Two-tailed</td><td>Split: 2.5% in each tail</td><td>±1.96</td><td>…it is different, in either direction</td></tr>
-          <tr><td>μ &lt; 20%</td><td>Left-tailed</td><td>All 5% in the left tail</td><td>−1.645</td><td>…it is lower than claimed</td></tr>
-          <tr><td>μ &gt; 20%</td><td>Right-tailed</td><td>All 5% in the right tail</td><td>+1.645</td><td>…it is higher than claimed</td></tr>
-        </tbody>
-      </table></div>
-      <p class="tip">A direction predicted <strong>before</strong> seeing the data → one-tailed. No direction, or "is it different?" → two-tailed. In a t-table, pick the column for one- or two-tailed α and the row for the degrees of freedom.</p>
-      <h3>Two ways to decide</h3>
-      <ul>
-        <li><strong>p-value approach:</strong> the p-value is the probability of results at least this extreme <strong>if H₀ were true</strong>. If <strong>p ≤ α</strong> (usually .05), reject H₀. It also shows how strong the evidence is: the smaller the p, the stronger.</li>
-        <li><strong>Critical value approach:</strong> if the test statistic falls beyond the critical value (in the rejection region), reject H₀. It only says inside or outside.</li>
-        <li>Both usually agree. <strong>Test statistic</strong> (z, t, F) = one number calculated from the sample; <strong>p-value</strong> = a probability calculated from that statistic.</li>
-      </ul>
-      <h3>z-test or t-test?</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>z-test</th><th>t-test</th></tr></thead>
-        <tbody>
-          <tr><td>Population σ <strong>known</strong></td><td>σ <strong>unknown</strong>, estimated from the sample</td></tr>
-          <tr><td>Large sample (n &gt; 30), even if σ is unknown</td><td>Small sample (n &lt; 30)</td></tr>
-          <tr><td>Uses the standard normal distribution</td><td>Uses the t-distribution: more spread out with heavier tails, shaped by the degrees of freedom</td></tr>
-        </tbody>
-      </table></div>
-      <p>With large samples the t-distribution is practically normal, so both tests give very similar results; software usually runs a t-test.</p>
-      <h3>Errors and power</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Decision</th><th>H₀ is true</th><th>H₀ is false</th></tr></thead>
-        <tbody>
-          <tr><th>Reject H₀</th><td><strong>Type I error</strong> (false positive), probability α</td><td>Correct (power = 1 − β)</td></tr>
-          <tr><th>Fail to reject H₀</th><td>Correct</td><td><strong>Type II error</strong> (false negative), probability β</td></tr>
-        </tbody>
-      </table></div>
-      <ul>
-        <li>Type I: concluding a useless drug works. Type II: concluding an effective drug does not work.</li>
-        <li><strong>Raising α (.05 → .10):</strong> easier to reject H₀ → more Type I errors, fewer Type II errors, more power. Lowering α does the opposite.</li>
-        <li>Security guard: a guard quick to press the alarm (high α) catches more burglars but is fooled by more raccoons.</li>
-        <li>To gain power without more false positives, <strong>increase the sample size</strong> (or the effect size).</li>
-      </ul>
-      <h3>The three t-tests from the class activity</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Test</th><th>Design</th><th>Activity example</th><th>H₀</th></tr></thead>
-        <tbody>
-          <tr><td>One-sample t-test</td><td>One sample mean vs a known value</td><td>Is average salary different from the $75,000 benchmark?</td><td>μ = 75,000</td></tr>
-          <tr><td>Independent-samples t-test</td><td>Two separate groups</td><td>Does average salary differ between men and women?</td><td>μ₁ = μ₂</td></tr>
-          <tr><td>Paired-samples t-test</td><td>The same people measured twice (or matched pairs)</td><td>Did each employee's sales change after training? (matched by EmployeeID)</td><td>Mean difference = 0</td></tr>
-        </tbody>
-      </table></div>
-      <ul>
-        <li><strong>Independent samples</strong> come from separate populations, or from one group randomly split in two; one sample does not influence the other.</li>
-        <li><strong>Levene's test</strong> decides the row of an independent t-test: p &gt; .05 → "equal variances assumed"; p ≤ .05 → "equal variances not assumed" (Welch's t-test).</li>
-        <li><strong>Confidence interval of the difference:</strong> if it <strong>excludes 0</strong>, the difference is significant; if it includes 0, it is not.</li>
-        <li><strong>Does a significant paired test prove the training worked?</strong> No. It shows sales changed; without a control group, other factors (season, market) could explain it.</li>
-      </ul>
-      <h3>Steps of a test, and the report</h3>
-      <ol class="steps">
-        <li>Define H₀ and Ha → select the test → choose α (.05, .01 or .10) → collect the data.</li>
-        <li>Compute the test statistic → find the p-value → decide (p ≤ α: reject H₀).</li>
-        <li>Report the <strong>test statistic, the p-value and the decision</strong>, then the conclusion in plain language.</li>
-      </ol>
-      <p class="small muted">Sampling strategies mentioned in this module: simple random, stratified (sample randomly within each subgroup) and cluster sampling.</p>
-    </section>
+        <div class="sub" id="start-day">
+          <h3><span class="idx">Rules</span>Exam day checklist</h3>
+          <ul class="checks">
+            <li>Install LockDown Browser and open it once before the day; check your internet connection.</li>
+            <li>Be in the room at the start: no late entry and no early exit.</li>
+            <li>Phone, smartwatch, headphones and earphones go in your bag; the bag goes aside. Nothing in pockets.</li>
+            <li>Launch LockDown Browser and show that you are properly logged in.</li>
+            <li>Screen brightness at maximum for the whole quiz.</li>
+            <li>No questions can be asked during the quiz. If you finish early, close the laptop and stay seated and silent.</li>
+          </ul>
+        </div>
+      </section>
 
-    <section class="card" id="m7">
-      <h2>5. Module 7 · ANOVA (analysis of variance)</h2>
-      <h3>What it is for</h3>
-      <ul>
-        <li>Tests whether the <strong>means of three or more independent groups</strong> differ: one categorical factor, one continuous outcome.</li>
-        <li><strong>Why not several t-tests?</strong> Each test has a 5% false-positive risk, so many tests inflate the Type I error. One ANOVA keeps it at α.</li>
-        <li><strong>H₀:</strong> all group means are equal. <strong>H₁:</strong> at least one mean differs.</li>
-      </ul>
-      <h3>The F-ratio</h3>
-      <p><strong>F = between-group variance ÷ within-group variance.</strong></p>
-      <ul>
-        <li><strong>Between-group:</strong> how far the group means are from the overall mean (the effect of the factor).</li>
-        <li><strong>Within-group</strong> (error variance): the spread of scores inside each group, which the factor does not explain.</li>
-        <li>A <strong>large F</strong> means the group means differ more than chance alone would explain.</li>
-      </ul>
-      <h3>Assumptions</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Assumption</th><th>Meaning</th><th>How to check</th><th>If violated</th></tr></thead>
-        <tbody>
-          <tr><td>Independence</td><td>One observation does not influence another</td><td>Study design (random assignment)</td><td>Fix the design</td></tr>
-          <tr><td>Normality</td><td>Of the <strong>residuals</strong> (score − its group mean)</td><td>Q-Q plot, Shapiro–Wilk, Kolmogorov–Smirnov</td><td>Transformation, or Kruskal–Wallis</td></tr>
-          <tr><td>Equal variances</td><td>Groups have similar spread</td><td><strong>Levene's test</strong> (p &gt; .05 = OK)</td><td><strong>Welch's ANOVA</strong> (the course's choice)</td></tr>
-          <tr><td>Random sampling</td><td>Samples represent the population</td><td>How the data were collected</td><td>Results cannot be generalised</td></tr>
-        </tbody>
-      </table></div>
-      <p>Ignoring unequal variances can <strong>increase Type I errors</strong>. In a two-way design with unequal variances and unequal group sizes the results can be biased, and Welch's ANOVA is not available: use a transformation, a generalised linear model or a non-parametric alternative.</p>
-      <h3>One-way vs two-way</h3>
-      <ul>
-        <li><strong>One-way:</strong> one factor with 3+ levels. Example: flashcards vs summarising vs self-testing → exam score.</li>
-        <li><strong>Two-way:</strong> two factors. It gives a <strong>main effect</strong> for each factor (its own effect, averaged over the other) and an <strong>interaction</strong>: the effect of one factor <strong>depends on</strong> the level of the other. Example: teaching method works in classroom X but not in Y.</li>
-        <li><strong>MANOVA:</strong> several dependent variables at once.</li>
-      </ul>
-      <h3>After a significant F</h3>
-      <ul>
-        <li>The F-test only says <strong>at least one mean differs</strong>. Run a <strong>post hoc test</strong> (Tukey HSD with equal variances; the course mentions Bonferroni when they are not) to find which pairs differ.</li>
-        <li><strong>Effect size η² (eta-squared):</strong> the share of variance in the outcome explained by the factor. η² = .17 → the factor explains about 17%.</li>
-      </ul>
-      <h3>Reading an ANOVA output</h3>
-      <pre>Levene's test: Sig. = .318                      → p &gt; .05: equal variances, standard ANOVA is fine
-ANOVA: F(3, 76) = 4.62, Sig. = .005             → p &lt; .05: at least one region differs
-Tukey HSD: A vs C Sig. = .003, A vs B Sig. = .41 → only A and C differ</pre>
-      <pre>Two-way ANOVA            F      Sig.
-Teaching method         5.84    .004   → main effect: method matters
-Study time             11.20   &lt;.001   → main effect: study time matters
-Method × Study time     3.95    .010   → interaction: method's effect depends on study time</pre>
-    </section>
+      <!-- ───────────────────────── How to answer ───────────────────────── -->
+      <section class="chapter" id="how">
+        <header class="chapter-head"><span class="chapter-num">✎</span><div><p class="eyebrow">Exam technique</p><h2>How to answer</h2></div></header>
+        <p class="key">Find the design first (how many groups? independent or the same people?), then read any output in the same order every time.</p>
 
-    <section class="card" id="m8">
-      <h2>6. Module 8 · Non-parametric tests</h2>
-      <h3>Parametric vs non-parametric</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Parametric (t-test, ANOVA)</th><th>Non-parametric</th></tr></thead>
-        <tbody>
-          <tr><td>Assumes a population shape, usually normal</td><td>No specific distribution, <strong>no normality needed</strong></td></tr>
-          <tr><td>Uses the raw values (means, variances)</td><td>Uses <strong>ranks</strong> (or medians, signs)</td></tr>
-          <tr><td><strong>More powerful</strong> when its assumptions hold, because it uses all the information</td><td>Robust when the data are <strong>skewed, small, ordinal or have outliers</strong>. An outlier just becomes the top rank.</td></tr>
-        </tbody>
-      </table></div>
-      <h3>The four tests</h3>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Test</th><th>Replaces</th><th>Design</th><th>H₀</th><th>Example</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Mann–Whitney U</strong></td><td>Independent t-test</td><td>2 independent groups</td><td>The two distributions are the same</td><td>Satisfaction (1–5): online vs in-store customers</td></tr>
-          <tr><td><strong>Wilcoxon signed-rank</strong></td><td>Paired t-test</td><td>2 related measurements</td><td>Median difference = 0</td><td>Same patients' pain before and after treatment</td></tr>
-          <tr><td><strong>Kruskal–Wallis</strong></td><td>One-way ANOVA</td><td>3+ independent groups</td><td>All distributions are the same</td><td>Satisfaction at three store locations</td></tr>
-          <tr><td><strong>Friedman</strong></td><td>Repeated-measures ANOVA</td><td>3+ related measurements</td><td>No difference across the measurements</td><td>Same patients at three time points</td></tr>
-        </tbody>
-      </table></div>
-      <h3>What to remember about each</h3>
-      <ul>
-        <li><strong>Mann–Whitney U:</strong> ranks all values from both groups together and checks whether one group tends to have higher ranks. Assumes independent groups, ordinal or continuous data, <strong>similar shapes</strong> (only then is it a difference in medians) and <strong>no major ties</strong>. Not for paired data (→ Wilcoxon) or 3+ groups (→ Kruskal–Wallis).</li>
-        <li><strong>Wilcoxon signed-rank:</strong> takes the absolute differences, ranks them, re-applies the + / − signs and tests whether the median difference is 0. Assumes pairs, differences that are at least ordinal and roughly <strong>symmetric</strong>. Choose it over a paired t-test for a small sample (n &lt; 30) with skewed differences, Likert data or extreme outliers. With n ≥ 30 or roughly normal differences, the paired t-test is better.</li>
-        <li><strong>Kruskal–Wallis:</strong> ranks all observations across groups. Hypotheses are <strong>always non-directional</strong> (no single direction exists across 3+ groups). Each person is in only one group. Check similar shapes with <strong>boxplots + Levene's test</strong> (and skewness within ±1 of each other). Similar shapes → you can talk about medians; different shapes → overall distributions. Significant → at least one group differs, so run <strong>post hoc</strong> pairwise tests.</li>
-        <li><strong>All four</strong> need data that can be ranked (ordinal or continuous).</li>
-        <li><strong>Two factors, non-parametric:</strong> Scheirer–Ray–Hare (extends Kruskal–Wallis to two-way designs) or <strong>ART ANOVA</strong> (aligned rank transform, the most accurate for testing interactions).</li>
-      </ul>
-      <h3>Reading the outputs</h3>
-      <ul>
-        <li><strong>Mean ranks</strong> give the direction: the group with the higher mean rank tends to have higher values.</li>
-        <li><strong>Wilcoxon:</strong> mostly negative ranks (after &lt; before) with p &lt; .05 → scores dropped significantly.</li>
-        <li>The sign of Z does not make a test invalid; the p-value decides.</li>
-      </ul>
-    </section>
+        <div class="sub" id="how-mc">
+          <h3><span class="idx">25 ×</span>Multiple choice: four moves</h3>
+          <ol class="steps">
+            <li><b>Find the design</b>One sample against a benchmark? Two groups? The same people twice? Three or more groups? Two factors? That decides the test (see the <a href="#choose">test chooser</a>).</li>
+            <li><b>Check the data</b>Skewed, small sample, outliers or ordinal ratings (1–5) → think non-parametric.</li>
+            <li><b>Read an output in this order</b>Levene's test → p-value vs .05 → direction (means or mean ranks) → next step (post hoc?).</li>
+            <li><b>Distrust absolute words</b>"Proves", "accept H₀" and "all groups differ" are almost always wrong.</li>
+          </ol>
+        </div>
 
-    <section class="card" id="choose">
-      <h2>7. Choosing the right test</h2>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Question / design</th><th>Assumptions met (normal, interval)</th><th>Skewed, small, ordinal or outliers</th></tr></thead>
-        <tbody>
-          <tr><td>One sample vs a benchmark</td><td>One-sample t-test (z-test if σ known)</td><td>—</td></tr>
-          <tr><td>Two independent groups</td><td>Independent t-test (Welch's if variances unequal)</td><td>Mann–Whitney U</td></tr>
-          <tr><td>Same people twice / matched pairs</td><td>Paired t-test</td><td>Wilcoxon signed-rank</td></tr>
-          <tr><td>3+ independent groups</td><td>One-way ANOVA (Welch's ANOVA if variances unequal)</td><td>Kruskal–Wallis</td></tr>
-          <tr><td>Same people 3+ times</td><td>—</td><td>Friedman</td></tr>
-          <tr><td>Two factors on one outcome</td><td>Two-way ANOVA</td><td>Scheirer–Ray–Hare or ART ANOVA</td></tr>
-          <tr><td>Several outcomes at once</td><td>MANOVA</td><td>—</td></tr>
-        </tbody>
-      </table></div>
-      <p class="tip"><strong>Two questions decide almost everything:</strong> (1) How many groups, and are they independent or the same people? (2) Are the data normal and interval, or skewed / ordinal / small?</p>
-    </section>
+        <div class="sub" id="how-sa">
+          <h3><span class="idx">2 ×</span>Short answer: three sentences</h3>
+          <div class="grid3">
+            <div class="box"><h4>① Answer</h4><p>Name the test, the distribution or the decision.</p></div>
+            <div class="box"><h4>② Why</h4><p>Give the condition, definition or numbers that justify it.</p></div>
+            <div class="box good"><h4>③ So what</h4><p>Conclude in plain language, plus one caution or next step.</p></div>
+          </div>
+          <div class="example"><b>Example</b><p><i>"The same 15 employees rate their stress before, during and after a project, and the ratings are skewed. Which test, and why not Kruskal–Wallis?"</i></p>
+            <p>① Use the <b>Friedman test</b>. ② It is the non-parametric test for three or more related measurements: the same employees are measured three times and the ratings are skewed and ordinal. ③ Kruskal–Wallis is not appropriate because it needs independent groups, with each person in only one group.</p></div>
+          <div class="formula">Because p = ___ is below / above .05, we reject / fail to reject H₀.<br>This means ___ (in the scenario's words). Next step or caution: ___.<small>Template for any output question</small></div>
+        </div>
+      </section>
 
-    <section class="card" id="outputs">
-      <h2>8. Reading test outputs</h2>
-      <div class="table-wrap"><table>
-        <thead><tr><th>You see</th><th>It means</th></tr></thead>
-        <tbody>
-          <tr><td>p ≤ .05</td><td>Reject H₀: significant difference or effect</td></tr>
-          <tr><td>p &gt; .05</td><td>Fail to reject H₀: not enough evidence (not "no difference proven")</td></tr>
-          <tr><td>Levene's p &gt; .05</td><td>Equal variances: use the "assumed" row / standard ANOVA</td></tr>
-          <tr><td>Levene's p ≤ .05</td><td>Unequal variances: use the "not assumed" row (Welch's t) / Welch's ANOVA</td></tr>
-          <tr><td>95% CI of a difference excludes 0</td><td>Significant difference</td></tr>
-          <tr><td>95% CI includes 0</td><td>Not significant</td></tr>
-          <tr><td>Significant ANOVA or Kruskal–Wallis</td><td>At least one group differs → post hoc test to find which</td></tr>
-          <tr><td>Significant interaction (A × B)</td><td>The effect of A depends on the level of B</td></tr>
-          <tr><td>η² = .17</td><td>The factor explains about 17% of the variance</td></tr>
-          <tr><td>Higher mean rank</td><td>That group tends to have higher values</td></tr>
-          <tr><td>Shapiro–Wilk p ≤ .05</td><td>Not normal → consider a non-parametric test</td></tr>
-          <tr><td>z = 1.80, one-tailed critical 1.645</td><td>Beyond the critical value → reject H₀ (1.96 is the two-tailed value)</td></tr>
-        </tbody>
-      </table></div>
-    </section>
+      <!-- ───────────────────────── Module 5 ───────────────────────── -->
+      <section class="chapter" id="m5">
+        <header class="chapter-head"><span class="chapter-num">5</span><div><p class="eyebrow">Module 5</p><h2>Probability for decision making</h2></div></header>
+        <p class="key">A probability measures how likely an event is, from 0 (impossible) to 1 (certain). Which distribution you use depends on what you count or measure.</p>
 
-    <section class="card" id="traps">
-      <h2>9. Common traps</h2>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Wrong</th><th>Right</th></tr></thead>
-        <tbody>
-          <tr><td>"We accept H₀" / "H₀ is proven"</td><td>"We fail to reject H₀"</td></tr>
-          <tr><td>"Rejecting H₀ proves Ha"</td><td>It gives evidence for Ha</td></tr>
-          <tr><td>"p is the probability that H₀ is true"</td><td>p = probability of results this extreme <em>if</em> H₀ is true</td></tr>
-          <tr><td>"Significant ANOVA: all groups differ"</td><td>At least one group differs</td></tr>
-          <tr><td>Choosing one-tailed after seeing the data</td><td>Decide the direction before collecting data</td></tr>
-          <tr><td>Reading Levene's p as the test of the means</td><td>Levene's p is about variances; it only picks the row</td></tr>
-          <tr><td>"The training caused the increase"</td><td>Sales rose significantly; without a control group other causes are possible</td></tr>
-          <tr><td>Mann–Whitney for before/after data</td><td>Paired data → Wilcoxon signed-rank</td></tr>
-          <tr><td>Kruskal–Wallis for the same people at 3 time points</td><td>Related measurements → Friedman</td></tr>
-          <tr><td>Normal distribution for counts</td><td>Counts → Poisson or binomial</td></tr>
-          <tr><td>"Non-parametric tests are always better"</td><td>When assumptions hold, parametric tests are more powerful</td></tr>
-        </tbody>
-      </table></div>
-    </section>
+        <div class="sub" id="m5-basics">
+          <h3><span class="idx">5.1</span>Probability basics</h3>
+          <div class="pscale" aria-hidden="true"></div>
+          <div class="pscale-labels"><span><b>0</b>impossible</span><span><b>0.5</b>as likely as not</span><span><b>1</b>certain</span></div>
+          <p>To compute a probability, first find the <b>total number of possible outcomes</b>, then count how many of them make up the event.</p>
+          <div class="example"><b>The Last Banana</b>Two dice are rolled and only the highest number counts. Player 1 wins with 1–4, Player 2 with 5–6. Player 1 needs <b>both</b> dice to show 1–4 (16 of 36 outcomes), while Player 2 needs only <b>one</b> high die (20 of 36). Player 2 is favoured.</div>
+        </div>
 
-    <section class="card" id="numbers">
-      <h2>10. Formulas and numbers to know</h2>
-      <div class="table-wrap"><table>
-        <tbody>
-          <tr><th>z-score</th><td>z = (X − μ) / σ</td></tr>
-          <tr><th>Standard error of the mean</th><td>σ / √n (quadruple n → half the error)</td></tr>
-          <tr><th>Binomial mean and SD</th><td>n × p and √(n × p × (1 − p))</td></tr>
-          <tr><th>Poisson mean</th><td>λ, rescaled to the interval asked about</td></tr>
-          <tr><th>Empirical rule</th><td>68% / 95% / 99.7% within 1 / 2 / 3 SD</td></tr>
-          <tr><th>Critical z at α = .05</th><td>1.645 one-tailed · ±1.96 two-tailed</td></tr>
-          <tr><th>Power</th><td>1 − β</td></tr>
-          <tr><th>F-ratio</th><td>between-group variance ÷ within-group variance</td></tr>
-          <tr><th>Usual α</th><td>.05 (also .01 or .10)</td></tr>
-          <tr><th>Large sample rule of thumb</th><td>n &gt; 30 (CLT, z-test, paired t vs Wilcoxon)</td></tr>
-        </tbody>
-      </table></div>
-    </section>
+        <div class="sub" id="m5-dist">
+          <h3><span class="idx">5.2</span>Which distribution?</h3>
+          <div class="grid3">
+            <div class="box">
+              <h4>Binomial</h4><p class="q">"How many out of n?"</p>
+              <span class="label">Counts</span>successes in a <b>fixed number of trials</b> (0 to n)
+              <span class="label">Parameters</span>n (trials) and p (chance of success)
+              <span class="label">Conditions</span><span class="tag">fixed n</span><span class="tag">2 outcomes</span><span class="tag">constant p</span><span class="tag">independent</span>
+              <span class="label">Example</span>How many of 20 customers click an ad
+              <span class="label">Centre</span>mean = n × p, SD = √(np(1 − p))
+            </div>
+            <div class="box warn">
+              <h4>Poisson</h4><p class="q">"How many per hour / per page / per km?"</p>
+              <span class="label">Counts</span>events in a <b>fixed interval</b> of time or space, with <b>no upper limit</b>
+              <span class="label">Parameter</span>λ (lambda) = average number per interval
+              <span class="label">Conditions</span><span class="tag warn">counts</span><span class="tag warn">independent</span><span class="tag warn">constant rate</span><span class="tag warn">no two at once</span>
+              <span class="label">Example</span>Calls per hour, arrivals per night, defects per batch
+              <span class="label">Centre</span>mean = λ. <b>Rescale λ</b> to the interval: 30 per hour = 5 per 10 minutes
+            </div>
+            <div class="box good">
+              <h4>Normal</h4><p class="q">"How long, how heavy, how much?"</p>
+              <span class="label">Describes</span>a <b>continuous</b> measurement that clusters around the mean
+              <span class="label">Parameters</span>μ (mean) and σ (standard deviation)
+              <span class="label">Shape</span><span class="tag good">symmetric bell</span><span class="tag good">mean = median = mode</span><span class="tag good">tails never touch the axis</span>
+              <span class="label">Example</span>Heights, delivery times, sample means
+            </div>
+          </div>
+        </div>
 
-    <section class="card recall" id="recall">
-      <h2>11. Last-day recall check</h2>
-      <p class="small muted">Answer out loud before opening each one.</p>
-      <details><summary>What are the four conditions of a binomial experiment?</summary><p>A fixed number of trials, two outcomes per trial, a constant probability of success and independent trials.</p></details>
-      <details><summary>How is Poisson different from binomial?</summary><p>Binomial counts successes in a fixed number of trials (maximum n). Poisson counts events in a fixed interval of time or space, using the average rate λ, with no upper limit.</p></details>
-      <details><summary>What does the Central Limit Theorem say, and why does it matter?</summary><p>Sample means become approximately normal as n grows, whatever the population's shape, with spread σ/√n. It lets us use normal-based tests on large samples.</p></details>
-      <details><summary>What does z = −1.5 mean?</summary><p>The value is 1.5 standard deviations below the mean.</p></details>
-      <details><summary>What is a p-value, and when do you reject H₀?</summary><p>The probability of results at least this extreme if H₀ were true. Reject H₀ when p ≤ α (usually .05).</p></details>
-      <details><summary>Type I vs Type II error?</summary><p>Type I: rejecting a true H₀ (false positive, probability α). Type II: failing to reject a false H₀ (false negative, probability β).</p></details>
-      <details><summary>What happens when α goes from .05 to .10?</summary><p>H₀ is rejected more easily: more Type I errors, fewer Type II errors, more power.</p></details>
-      <details><summary>When do you use a z-test instead of a t-test?</summary><p>When σ is known, or the sample is large (n &gt; 30). Otherwise a t-test.</p></details>
-      <details><summary>Levene's p = .006 in an independent t-test. Which row?</summary><p>Equal variances not assumed (Welch's t-test), because p ≤ .05 means the variances differ.</p></details>
-      <details><summary>Why ANOVA instead of several t-tests?</summary><p>Several t-tests inflate the Type I error rate; one ANOVA compares all the means in a single test at α.</p></details>
-      <details><summary>What does the F-ratio compare?</summary><p>Between-group variance to within-group (error) variance. A large F means the means differ more than chance explains.</p></details>
-      <details><summary>What is an interaction effect?</summary><p>The effect of one factor depends on the level of the other factor.</p></details>
-      <details><summary>Name the non-parametric alternatives to the independent t-test, paired t-test and one-way ANOVA.</summary><p>Mann–Whitney U, Wilcoxon signed-rank and Kruskal–Wallis.</p></details>
-      <details><summary>A Kruskal–Wallis test is significant. What do you conclude and do next?</summary><p>At least one group differs. Run post hoc pairwise comparisons to find which.</p></details>
-      <details><summary>Why choose a t-test over Mann–Whitney when assumptions hold?</summary><p>It is more powerful: it uses the actual values, while ranks lose information.</p></details>
-      <p style="margin-top: 14px"><a class="button-link" href="index.html">Take a Quiz 2 practice run →</a></p>
-    </section>
-  </main>
+        <div class="sub" id="m5-normal">
+          <h3><span class="idx">5.3</span>The normal curve and the 68–95–99.7 rule</h3>
+          <figure class="fig"><svg viewBox="0 0 640 266" role="img" aria-label="Normal curve with 68%, 95% and 99.7% of values within 1, 2 and 3 standard deviations of the mean"><title>Normal curve with 68%, 95% and 99.7% of values within 1, 2 and 3 standard deviations of the mean</title><path class="s-band3" d="M78.3,180.0 L78.3,178.3 L84.4,177.9 L90.4,177.4 L96.5,176.8 L102.5,176.1 L108.5,175.2 L114.6,174.2 L120.6,173.0 L126.7,171.6 L132.7,169.9 L138.8,168.1 L144.8,165.9 L150.8,163.5 L156.9,160.7 L162.9,157.6 L169.0,154.1 L175.0,150.3 L181.0,146.1 L187.1,141.5 L193.1,136.6 L199.2,131.3 L205.2,125.7 L211.2,119.7 L217.3,113.5 L223.3,107.0 L229.4,100.3 L235.4,93.6 L241.5,86.7 L247.5,80.0 L253.5,73.3 L259.6,66.8 L265.6,60.6 L271.7,54.7 L277.7,49.3 L283.8,44.4 L289.8,40.2 L295.8,36.6 L301.9,33.7 L307.9,31.7 L314.0,30.4 L320.0,30.0 L326.0,30.4 L332.1,31.7 L338.1,33.7 L344.2,36.6 L350.2,40.2 L356.3,44.4 L362.3,49.3 L368.3,54.7 L374.4,60.6 L380.4,66.8 L386.5,73.3 L392.5,80.0 L398.5,86.7 L404.6,93.6 L410.6,100.3 L416.7,107.0 L422.7,113.5 L428.7,119.7 L434.8,125.7 L440.8,131.3 L446.9,136.6 L452.9,141.5 L459.0,146.1 L465.0,150.3 L471.0,154.1 L477.1,157.6 L483.1,160.7 L489.2,163.5 L495.2,165.9 L501.2,168.1 L507.3,169.9 L513.3,171.6 L519.4,173.0 L525.4,174.2 L531.5,175.2 L537.5,176.1 L543.5,176.8 L549.6,177.4 L555.6,177.9 L561.7,178.3 L561.7,180.0 Z"/><path class="s-band2" d="M158.9,180.0 L158.9,159.7 L162.9,157.6 L166.9,155.3 L171.0,152.9 L175.0,150.3 L179.0,147.6 L183.1,144.6 L187.1,141.5 L191.1,138.3 L195.1,134.9 L199.2,131.3 L203.2,127.6 L207.2,123.7 L211.2,119.7 L215.3,115.6 L219.3,111.3 L223.3,107.0 L227.4,102.6 L231.4,98.1 L235.4,93.6 L239.4,89.0 L243.5,84.5 L247.5,80.0 L251.5,75.5 L255.6,71.1 L259.6,66.8 L263.6,62.6 L267.6,58.6 L271.7,54.7 L275.7,51.1 L279.7,47.6 L283.8,44.4 L287.8,41.5 L291.8,38.9 L295.8,36.6 L299.9,34.6 L303.9,33.0 L307.9,31.7 L311.9,30.7 L316.0,30.2 L320.0,30.0 L324.0,30.2 L328.1,30.7 L332.1,31.7 L336.1,33.0 L340.1,34.6 L344.2,36.6 L348.2,38.9 L352.2,41.5 L356.3,44.4 L360.3,47.6 L364.3,51.1 L368.3,54.7 L372.4,58.6 L376.4,62.6 L380.4,66.8 L384.4,71.1 L388.5,75.5 L392.5,80.0 L396.5,84.5 L400.6,89.0 L404.6,93.6 L408.6,98.1 L412.6,102.6 L416.7,107.0 L420.7,111.3 L424.7,115.6 L428.8,119.7 L432.8,123.7 L436.8,127.6 L440.8,131.3 L444.9,134.9 L448.9,138.3 L452.9,141.5 L456.9,144.6 L461.0,147.6 L465.0,150.3 L469.0,152.9 L473.1,155.3 L477.1,157.6 L481.1,159.7 L481.1,180.0 Z"/><path class="s-band1" d="M239.4,180.0 L239.4,89.0 L241.5,86.7 L243.5,84.5 L245.5,82.2 L247.5,80.0 L249.5,77.7 L251.5,75.5 L253.5,73.3 L255.6,71.1 L257.6,68.9 L259.6,66.8 L261.6,64.7 L263.6,62.6 L265.6,60.6 L267.6,58.6 L269.7,56.6 L271.7,54.7 L273.7,52.9 L275.7,51.1 L277.7,49.3 L279.7,47.6 L281.7,46.0 L283.8,44.4 L285.8,43.0 L287.8,41.5 L289.8,40.2 L291.8,38.9 L293.8,37.7 L295.8,36.6 L297.8,35.6 L299.9,34.6 L301.9,33.7 L303.9,33.0 L305.9,32.3 L307.9,31.7 L309.9,31.2 L311.9,30.7 L314.0,30.4 L316.0,30.2 L318.0,30.0 L320.0,30.0 L322.0,30.0 L324.0,30.2 L326.0,30.4 L328.1,30.7 L330.1,31.2 L332.1,31.7 L334.1,32.3 L336.1,33.0 L338.1,33.7 L340.1,34.6 L342.2,35.6 L344.2,36.6 L346.2,37.7 L348.2,38.9 L350.2,40.2 L352.2,41.5 L354.2,43.0 L356.2,44.4 L358.3,46.0 L360.3,47.6 L362.3,49.3 L364.3,51.1 L366.3,52.9 L368.3,54.7 L370.3,56.6 L372.4,58.6 L374.4,60.6 L376.4,62.6 L378.4,64.7 L380.4,66.8 L382.4,68.9 L384.4,71.1 L386.5,73.3 L388.5,75.5 L390.5,77.7 L392.5,80.0 L394.5,82.2 L396.5,84.5 L398.5,86.7 L400.6,89.0 L400.6,180.0 Z"/><path class="s-curve" d="M30.0,179.8 L33.6,179.7 L37.2,179.7 L40.9,179.6 L44.5,179.6 L48.1,179.5 L51.8,179.4 L55.4,179.3 L59.0,179.2 L62.6,179.1 L66.3,178.9 L69.9,178.8 L73.5,178.6 L77.1,178.4 L80.7,178.2 L84.4,177.9 L88.0,177.6 L91.6,177.3 L95.2,176.9 L98.9,176.5 L102.5,176.1 L106.1,175.6 L109.7,175.0 L113.4,174.4 L117.0,173.7 L120.6,173.0 L124.3,172.2 L127.9,171.3 L131.5,170.3 L135.1,169.2 L138.8,168.1 L142.4,166.8 L146.0,165.4 L149.6,164.0 L153.2,162.4 L156.9,160.7 L160.5,158.9 L164.1,156.9 L167.8,154.9 L171.4,152.7 L175.0,150.3 L178.6,147.8 L182.2,145.2 L185.9,142.5 L189.5,139.6 L193.1,136.6 L196.8,133.5 L200.4,130.2 L204.0,126.8 L207.6,123.3 L211.2,119.7 L214.9,116.0 L218.5,112.2 L222.1,108.3 L225.8,104.3 L229.4,100.3 L233.0,96.3 L236.6,92.2 L240.3,88.1 L243.9,84.0 L247.5,80.0 L251.1,75.9 L254.8,72.0 L258.4,68.1 L262.0,64.2 L265.6,60.6 L269.2,57.0 L272.9,53.6 L276.5,50.4 L280.1,47.3 L283.8,44.4 L287.4,41.8 L291.0,39.4 L294.6,37.3 L298.3,35.4 L301.9,33.7 L305.5,32.4 L309.1,31.4 L312.8,30.6 L316.4,30.2 L320.0,30.0 L323.6,30.2 L327.2,30.6 L330.9,31.4 L334.5,32.4 L338.1,33.7 L341.8,35.4 L345.4,37.3 L349.0,39.4 L352.6,41.8 L356.2,44.4 L359.9,47.3 L363.5,50.4 L367.1,53.6 L370.8,57.0 L374.4,60.6 L378.0,64.2 L381.6,68.1 L385.2,72.0 L388.9,75.9 L392.5,80.0 L396.1,84.0 L399.8,88.1 L403.4,92.2 L407.0,96.3 L410.6,100.3 L414.3,104.3 L417.9,108.3 L421.5,112.2 L425.1,116.0 L428.8,119.7 L432.4,123.3 L436.0,126.8 L439.6,130.2 L443.3,133.5 L446.9,136.6 L450.5,139.6 L454.1,142.5 L457.8,145.2 L461.4,147.8 L465.0,150.3 L468.6,152.7 L472.2,154.9 L475.9,156.9 L479.5,158.9 L483.1,160.7 L486.8,162.4 L490.4,164.0 L494.0,165.4 L497.6,166.8 L501.2,168.1 L504.9,169.2 L508.5,170.3 L512.1,171.3 L515.8,172.2 L519.4,173.0 L523.0,173.7 L526.6,174.4 L530.2,175.0 L533.9,175.6 L537.5,176.1 L541.1,176.5 L544.8,176.9 L548.4,177.3 L552.0,177.6 L555.6,177.9 L559.2,178.2 L562.9,178.4 L566.5,178.6 L570.1,178.8 L573.8,178.9 L577.4,179.1 L581.0,179.2 L584.6,179.3 L588.2,179.4 L591.9,179.5 L595.5,179.6 L599.1,179.6 L602.8,179.7 L606.4,179.7 L610.0,179.8"/><line class="s-axis" x1="30" y1="180" x2="610" y2="180"/><line class="s-tick" x1="78.3" y1="180" x2="78.3" y2="185"/><text x="78.3" y="199" text-anchor="middle">μ−3σ</text><line class="s-tick" x1="158.9" y1="180" x2="158.9" y2="185"/><text x="158.9" y="199" text-anchor="middle">μ−2σ</text><line class="s-tick" x1="239.4" y1="180" x2="239.4" y2="185"/><text x="239.4" y="199" text-anchor="middle">μ−σ</text><line class="s-tick" x1="320.0" y1="180" x2="320.0" y2="185"/><text x="320.0" y="199" text-anchor="middle">μ</text><line class="s-tick" x1="400.6" y1="180" x2="400.6" y2="185"/><text x="400.6" y="199" text-anchor="middle">μ+σ</text><line class="s-tick" x1="481.1" y1="180" x2="481.1" y2="185"/><text x="481.1" y="199" text-anchor="middle">μ+2σ</text><line class="s-tick" x1="561.7" y1="180" x2="561.7" y2="185"/><text x="561.7" y="199" text-anchor="middle">μ+3σ</text><path class="s-axis" d="M239.4,214 L239.4,218 L400.6,218 L400.6,214" fill="none"/><text class="t-strong" x="406.6" y="222">68%</text><path class="s-axis" d="M158.9,231 L158.9,235 L481.1,235 L481.1,231" fill="none"/><text class="t-strong" x="487.1" y="239">95%</text><path class="s-axis" d="M78.3,248 L78.3,252 L561.7,252 L561.7,248" fill="none"/><text class="t-strong" x="567.7" y="256">99.7%</text></svg><figcaption>About 68% of values lie within 1 SD of the mean, 95% within 2 SD and 99.7% within 3 SD.</figcaption></figure>
+          <div class="grid2">
+            <div class="box plain"><h4>μ moves the centre</h4><p>A larger mean slides the curve right; the shape stays the same.</p></div>
+            <div class="box plain"><h4>σ sets the width</h4><p>A larger SD makes the curve wider and flatter.</p></div>
+          </div>
+          <div class="example"><b>Example</b>Delivery times have mean 30 min and SD 5 min. About 68% take 25–35 min, 95% take 20–40 min and 99.7% take 15–45 min.</div>
+        </div>
+
+        <div class="sub" id="m5-z">
+          <h3><span class="idx">5.4</span>z-scores and the Z-table</h3>
+          <div class="formula">z = (X − μ) ÷ σ<small>how many standard deviations a value is from the mean · negative = below the mean</small></div>
+          <div class="example"><b>Why z-scores help</b>Ana scored 80 (class mean 70, SD 5) → z = 2. Ben scored 85 (class mean 80, SD 10) → z = 0.5. Ana did better relative to her class, even with the lower raw score.</div>
+          <p class="label">The Z-table gives the area to the LEFT of z</p>
+          <div class="grid3">
+            <div class="box plain"><div class="mini"><svg viewBox="0 0 220 100" role="img" aria-label="Area to the left of z"><title>Area to the left of z</title><path class="s-area" d="M10.0,78.0 L10.0,77.6 L11.6,77.6 L13.3,77.5 L14.9,77.4 L16.6,77.3 L18.2,77.2 L19.8,77.0 L21.5,76.9 L23.1,76.7 L24.8,76.5 L26.4,76.3 L28.0,76.0 L29.7,75.7 L31.3,75.4 L33.0,75.0 L34.6,74.6 L36.2,74.2 L37.9,73.7 L39.5,73.1 L41.2,72.5 L42.8,71.9 L44.5,71.1 L46.1,70.3 L47.7,69.5 L49.4,68.6 L51.0,67.6 L52.7,66.5 L54.3,65.3 L55.9,64.1 L57.6,62.8 L59.2,61.4 L60.9,60.0 L62.5,58.5 L64.1,56.9 L65.8,55.2 L67.4,53.5 L69.1,51.7 L70.7,49.9 L72.3,48.0 L74.0,46.1 L75.6,44.1 L77.3,42.2 L78.9,40.2 L80.5,38.2 L82.2,36.3 L83.8,34.3 L85.5,32.4 L87.1,30.6 L88.8,28.8 L90.4,27.1 L92.0,25.4 L93.7,23.9 L95.3,22.5 L97.0,21.2 L98.6,20.0 L100.2,19.0 L101.9,18.1 L103.5,17.3 L105.2,16.7 L106.8,16.3 L108.4,16.1 L110.1,16.0 L111.7,16.1 L113.4,16.4 L115.0,16.8 L116.6,17.4 L118.3,18.1 L119.9,19.0 L121.6,20.1 L123.2,21.3 L124.8,22.6 L126.5,24.1 L128.1,25.6 L129.8,27.2 L131.4,29.0 L133.0,30.8 L134.7,32.6 L136.3,34.5 L138.0,36.5 L139.6,38.4 L141.2,40.4 L141.2,78.0 Z"/><path class="s-curve" d="M10.0,77.6 L11.3,77.6 L12.5,77.5 L13.8,77.5 L15.0,77.4 L16.3,77.3 L17.5,77.2 L18.8,77.1 L20.0,77.0 L21.2,76.9 L22.5,76.8 L23.8,76.6 L25.0,76.5 L26.2,76.3 L27.5,76.1 L28.8,75.9 L30.0,75.7 L31.3,75.4 L32.5,75.1 L33.7,74.8 L35.0,74.5 L36.2,74.2 L37.5,73.8 L38.8,73.4 L40.0,73.0 L41.2,72.5 L42.5,72.0 L43.8,71.4 L45.0,70.9 L46.3,70.3 L47.5,69.6 L48.7,68.9 L50.0,68.2 L51.2,67.4 L52.5,66.6 L53.7,65.7 L55.0,64.8 L56.2,63.9 L57.5,62.9 L58.8,61.8 L60.0,60.8 L61.2,59.6 L62.5,58.5 L63.8,57.3 L65.0,56.0 L66.2,54.7 L67.5,53.4 L68.8,52.1 L70.0,50.7 L71.2,49.3 L72.5,47.8 L73.8,46.4 L75.0,44.9 L76.2,43.4 L77.5,41.9 L78.8,40.4 L80.0,38.9 L81.2,37.4 L82.5,35.9 L83.8,34.4 L85.0,33.0 L86.2,31.6 L87.5,30.2 L88.8,28.8 L90.0,27.5 L91.2,26.2 L92.5,25.0 L93.8,23.8 L95.0,22.7 L96.2,21.7 L97.5,20.8 L98.8,19.9 L100.0,19.1 L101.3,18.4 L102.5,17.8 L103.8,17.2 L105.0,16.8 L106.2,16.4 L107.5,16.2 L108.8,16.0 L110.0,16.0 L111.2,16.0 L112.5,16.2 L113.8,16.4 L115.0,16.8 L116.2,17.2 L117.5,17.8 L118.8,18.4 L120.0,19.1 L121.2,19.9 L122.5,20.8 L123.7,21.7 L125.0,22.7 L126.3,23.8 L127.5,25.0 L128.7,26.2 L130.0,27.5 L131.2,28.8 L132.5,30.2 L133.8,31.6 L135.0,33.0 L136.2,34.4 L137.5,35.9 L138.8,37.4 L140.0,38.9 L141.2,40.4 L142.5,41.9 L143.8,43.4 L145.0,44.9 L146.2,46.4 L147.5,47.8 L148.8,49.3 L150.0,50.7 L151.2,52.1 L152.5,53.4 L153.7,54.7 L155.0,56.0 L156.2,57.3 L157.5,58.5 L158.7,59.6 L160.0,60.8 L161.3,61.8 L162.5,62.9 L163.8,63.9 L165.0,64.8 L166.2,65.7 L167.5,66.6 L168.8,67.4 L170.0,68.2 L171.2,68.9 L172.5,69.6 L173.8,70.3 L175.0,70.9 L176.2,71.4 L177.5,72.0 L178.8,72.5 L180.0,73.0 L181.2,73.4 L182.5,73.8 L183.8,74.2 L185.0,74.5 L186.3,74.8 L187.5,75.1 L188.8,75.4 L190.0,75.7 L191.2,75.9 L192.5,76.1 L193.8,76.3 L195.0,76.5 L196.2,76.6 L197.5,76.8 L198.8,76.9 L200.0,77.0 L201.2,77.1 L202.5,77.2 L203.8,77.3 L205.0,77.4 L206.2,77.5 L207.5,77.5 L208.8,77.6 L210.0,77.6"/><line class="s-axis" x1="10" y1="78" x2="210" y2="78"/><line class="s-dash" x1="141.2" y1="78" x2="141.2" y2="34.4"/><text x="141.2" y="94" text-anchor="middle">z</text></svg></div><h4>Less than z</h4><p>Use the table value.</p></div>
+            <div class="box plain"><div class="mini"><svg viewBox="0 0 220 100" role="img" aria-label="Area to the right of z"><title>Area to the right of z</title><path class="s-area" d="M141.2,78.0 L141.2,40.4 L142.1,41.4 L143.0,42.5 L143.8,43.5 L144.7,44.5 L145.5,45.5 L146.4,46.5 L147.3,47.5 L148.1,48.5 L149.0,49.5 L149.8,50.5 L150.7,51.5 L151.6,52.4 L152.4,53.3 L153.3,54.2 L154.1,55.1 L155.0,56.0 L155.9,56.9 L156.7,57.7 L157.6,58.5 L158.4,59.3 L159.3,60.1 L160.2,60.9 L161.0,61.6 L161.9,62.4 L162.7,63.1 L163.6,63.8 L164.5,64.4 L165.3,65.1 L166.2,65.7 L167.0,66.3 L167.9,66.9 L168.8,67.4 L169.6,67.9 L170.5,68.5 L171.3,69.0 L172.2,69.4 L173.0,69.9 L173.9,70.3 L174.8,70.8 L175.6,71.2 L176.5,71.6 L177.3,71.9 L178.2,72.3 L179.1,72.6 L179.9,72.9 L180.8,73.2 L181.6,73.5 L182.5,73.8 L183.4,74.1 L184.2,74.3 L185.1,74.5 L185.9,74.8 L186.8,75.0 L187.7,75.2 L188.5,75.4 L189.4,75.5 L190.2,75.7 L191.1,75.9 L192.0,76.0 L192.8,76.1 L193.7,76.3 L194.5,76.4 L195.4,76.5 L196.3,76.6 L197.1,76.7 L198.0,76.8 L198.8,76.9 L199.7,77.0 L200.5,77.1 L201.4,77.1 L202.3,77.2 L203.1,77.3 L204.0,77.3 L204.8,77.4 L205.7,77.4 L206.6,77.5 L207.4,77.5 L208.3,77.6 L209.1,77.6 L210.0,77.6 L210.0,78.0 Z"/><path class="s-curve" d="M10.0,77.6 L11.3,77.6 L12.5,77.5 L13.8,77.5 L15.0,77.4 L16.3,77.3 L17.5,77.2 L18.8,77.1 L20.0,77.0 L21.2,76.9 L22.5,76.8 L23.8,76.6 L25.0,76.5 L26.2,76.3 L27.5,76.1 L28.8,75.9 L30.0,75.7 L31.3,75.4 L32.5,75.1 L33.7,74.8 L35.0,74.5 L36.2,74.2 L37.5,73.8 L38.8,73.4 L40.0,73.0 L41.2,72.5 L42.5,72.0 L43.8,71.4 L45.0,70.9 L46.3,70.3 L47.5,69.6 L48.7,68.9 L50.0,68.2 L51.2,67.4 L52.5,66.6 L53.7,65.7 L55.0,64.8 L56.2,63.9 L57.5,62.9 L58.8,61.8 L60.0,60.8 L61.2,59.6 L62.5,58.5 L63.8,57.3 L65.0,56.0 L66.2,54.7 L67.5,53.4 L68.8,52.1 L70.0,50.7 L71.2,49.3 L72.5,47.8 L73.8,46.4 L75.0,44.9 L76.2,43.4 L77.5,41.9 L78.8,40.4 L80.0,38.9 L81.2,37.4 L82.5,35.9 L83.8,34.4 L85.0,33.0 L86.2,31.6 L87.5,30.2 L88.8,28.8 L90.0,27.5 L91.2,26.2 L92.5,25.0 L93.8,23.8 L95.0,22.7 L96.2,21.7 L97.5,20.8 L98.8,19.9 L100.0,19.1 L101.3,18.4 L102.5,17.8 L103.8,17.2 L105.0,16.8 L106.2,16.4 L107.5,16.2 L108.8,16.0 L110.0,16.0 L111.2,16.0 L112.5,16.2 L113.8,16.4 L115.0,16.8 L116.2,17.2 L117.5,17.8 L118.8,18.4 L120.0,19.1 L121.2,19.9 L122.5,20.8 L123.7,21.7 L125.0,22.7 L126.3,23.8 L127.5,25.0 L128.7,26.2 L130.0,27.5 L131.2,28.8 L132.5,30.2 L133.8,31.6 L135.0,33.0 L136.2,34.4 L137.5,35.9 L138.8,37.4 L140.0,38.9 L141.2,40.4 L142.5,41.9 L143.8,43.4 L145.0,44.9 L146.2,46.4 L147.5,47.8 L148.8,49.3 L150.0,50.7 L151.2,52.1 L152.5,53.4 L153.7,54.7 L155.0,56.0 L156.2,57.3 L157.5,58.5 L158.7,59.6 L160.0,60.8 L161.3,61.8 L162.5,62.9 L163.8,63.9 L165.0,64.8 L166.2,65.7 L167.5,66.6 L168.8,67.4 L170.0,68.2 L171.2,68.9 L172.5,69.6 L173.8,70.3 L175.0,70.9 L176.2,71.4 L177.5,72.0 L178.8,72.5 L180.0,73.0 L181.2,73.4 L182.5,73.8 L183.8,74.2 L185.0,74.5 L186.3,74.8 L187.5,75.1 L188.8,75.4 L190.0,75.7 L191.2,75.9 L192.5,76.1 L193.8,76.3 L195.0,76.5 L196.2,76.6 L197.5,76.8 L198.8,76.9 L200.0,77.0 L201.2,77.1 L202.5,77.2 L203.8,77.3 L205.0,77.4 L206.2,77.5 L207.5,77.5 L208.8,77.6 L210.0,77.6"/><line class="s-axis" x1="10" y1="78" x2="210" y2="78"/><line class="s-dash" x1="141.2" y1="78" x2="141.2" y2="34.4"/><text x="141.2" y="94" text-anchor="middle">z</text></svg></div><h4>Greater than z</h4><p>1 − table value.</p></div>
+            <div class="box plain"><div class="mini"><svg viewBox="0 0 220 100" role="img" aria-label="Area between two z-scores"><title>Area between two z-scores</title><path class="s-area" d="M91.2,78.0 L91.2,26.2 L92.0,25.5 L92.7,24.8 L93.4,24.2 L94.1,23.6 L94.8,22.9 L95.5,22.4 L96.2,21.8 L96.9,21.2 L97.6,20.7 L98.3,20.2 L99.0,19.7 L99.7,19.3 L100.4,18.9 L101.1,18.5 L101.8,18.1 L102.5,17.8 L103.2,17.4 L103.9,17.2 L104.6,16.9 L105.3,16.7 L106.0,16.5 L106.7,16.3 L107.4,16.2 L108.1,16.1 L108.8,16.0 L109.5,16.0 L110.2,16.0 L110.9,16.0 L111.6,16.1 L112.3,16.2 L113.0,16.3 L113.8,16.4 L114.5,16.6 L115.2,16.8 L115.9,17.1 L116.6,17.4 L117.3,17.7 L118.0,18.0 L118.7,18.3 L119.4,18.7 L120.1,19.1 L120.8,19.6 L121.5,20.0 L122.2,20.5 L122.9,21.1 L123.6,21.6 L124.3,22.2 L125.0,22.7 L125.7,23.4 L126.4,24.0 L127.1,24.6 L127.8,25.3 L128.5,26.0 L129.2,26.7 L129.9,27.4 L130.6,28.1 L131.3,28.9 L132.0,29.6 L132.7,30.4 L133.4,31.2 L134.1,32.0 L134.8,32.8 L135.5,33.6 L136.2,34.4 L137.0,35.3 L137.7,36.1 L138.4,36.9 L139.1,37.8 L139.8,38.6 L140.5,39.5 L141.2,40.3 L141.9,41.1 L142.6,42.0 L143.3,42.8 L144.0,43.7 L144.7,44.5 L145.4,45.3 L146.1,46.2 L146.8,47.0 L147.5,47.8 L147.5,78.0 Z"/><path class="s-curve" d="M10.0,77.6 L11.3,77.6 L12.5,77.5 L13.8,77.5 L15.0,77.4 L16.3,77.3 L17.5,77.2 L18.8,77.1 L20.0,77.0 L21.2,76.9 L22.5,76.8 L23.8,76.6 L25.0,76.5 L26.2,76.3 L27.5,76.1 L28.8,75.9 L30.0,75.7 L31.3,75.4 L32.5,75.1 L33.7,74.8 L35.0,74.5 L36.2,74.2 L37.5,73.8 L38.8,73.4 L40.0,73.0 L41.2,72.5 L42.5,72.0 L43.8,71.4 L45.0,70.9 L46.3,70.3 L47.5,69.6 L48.7,68.9 L50.0,68.2 L51.2,67.4 L52.5,66.6 L53.7,65.7 L55.0,64.8 L56.2,63.9 L57.5,62.9 L58.8,61.8 L60.0,60.8 L61.2,59.6 L62.5,58.5 L63.8,57.3 L65.0,56.0 L66.2,54.7 L67.5,53.4 L68.8,52.1 L70.0,50.7 L71.2,49.3 L72.5,47.8 L73.8,46.4 L75.0,44.9 L76.2,43.4 L77.5,41.9 L78.8,40.4 L80.0,38.9 L81.2,37.4 L82.5,35.9 L83.8,34.4 L85.0,33.0 L86.2,31.6 L87.5,30.2 L88.8,28.8 L90.0,27.5 L91.2,26.2 L92.5,25.0 L93.8,23.8 L95.0,22.7 L96.2,21.7 L97.5,20.8 L98.8,19.9 L100.0,19.1 L101.3,18.4 L102.5,17.8 L103.8,17.2 L105.0,16.8 L106.2,16.4 L107.5,16.2 L108.8,16.0 L110.0,16.0 L111.2,16.0 L112.5,16.2 L113.8,16.4 L115.0,16.8 L116.2,17.2 L117.5,17.8 L118.8,18.4 L120.0,19.1 L121.2,19.9 L122.5,20.8 L123.7,21.7 L125.0,22.7 L126.3,23.8 L127.5,25.0 L128.7,26.2 L130.0,27.5 L131.2,28.8 L132.5,30.2 L133.8,31.6 L135.0,33.0 L136.2,34.4 L137.5,35.9 L138.8,37.4 L140.0,38.9 L141.2,40.4 L142.5,41.9 L143.8,43.4 L145.0,44.9 L146.2,46.4 L147.5,47.8 L148.8,49.3 L150.0,50.7 L151.2,52.1 L152.5,53.4 L153.7,54.7 L155.0,56.0 L156.2,57.3 L157.5,58.5 L158.7,59.6 L160.0,60.8 L161.3,61.8 L162.5,62.9 L163.8,63.9 L165.0,64.8 L166.2,65.7 L167.5,66.6 L168.8,67.4 L170.0,68.2 L171.2,68.9 L172.5,69.6 L173.8,70.3 L175.0,70.9 L176.2,71.4 L177.5,72.0 L178.8,72.5 L180.0,73.0 L181.2,73.4 L182.5,73.8 L183.8,74.2 L185.0,74.5 L186.3,74.8 L187.5,75.1 L188.8,75.4 L190.0,75.7 L191.2,75.9 L192.5,76.1 L193.8,76.3 L195.0,76.5 L196.2,76.6 L197.5,76.8 L198.8,76.9 L200.0,77.0 L201.2,77.1 L202.5,77.2 L203.8,77.3 L205.0,77.4 L206.2,77.5 L207.5,77.5 L208.8,77.6 L210.0,77.6"/><line class="s-axis" x1="10" y1="78" x2="210" y2="78"/><line class="s-dash" x1="91.2" y1="78" x2="91.2" y2="20.2"/><text x="91.2" y="94" text-anchor="middle">z₁</text><line class="s-dash" x1="147.5" y1="78" x2="147.5" y2="41.8"/><text x="147.5" y="94" text-anchor="middle">z₂</text></svg></div><h4>Between z₁ and z₂</h4><p>Larger value − smaller value.</p></div>
+          </div>
+          <p>Example: P(Z &lt; 1) = .8413, so P(Z &gt; 1) = 1 − .8413 = .1587. The Z-table is used for confidence intervals and hypothesis tests.</p>
+        </div>
+
+        <div class="sub" id="m5-clt">
+          <h3><span class="idx">5.5</span>Central Limit Theorem (CLT)</h3>
+          <figure class="fig"><svg viewBox="0 0 640 162" role="img" aria-label="A skewed population becomes a normal distribution of sample means"><title>A skewed population becomes a normal distribution of sample means</title><rect class="s-bar" x="24" y="52.0" width="18" height="78.0" rx="2"/><rect class="s-bar" x="44" y="30.0" width="18" height="100.0" rx="2"/><rect class="s-bar" x="64" y="44.0" width="18" height="86.0" rx="2"/><rect class="s-bar" x="84" y="64.0" width="18" height="66.0" rx="2"/><rect class="s-bar" x="104" y="80.0" width="18" height="50.0" rx="2"/><rect class="s-bar" x="124" y="93.0" width="18" height="37.0" rx="2"/><rect class="s-bar" x="144" y="103.0" width="18" height="27.0" rx="2"/><rect class="s-bar" x="164" y="111.0" width="18" height="19.0" rx="2"/><rect class="s-bar" x="184" y="117.0" width="18" height="13.0" rx="2"/><rect class="s-bar" x="204" y="122.0" width="18" height="8.0" rx="2"/><rect class="s-bar" x="224" y="125.0" width="18" height="5.0" rx="2"/><line class="s-axis" x1="20" y1="130" x2="246" y2="130"/><text class="t-strong" x="133" y="152" text-anchor="middle">Population: skewed</text><line class="s-arrow" x1="268" y1="84" x2="384" y2="84"/><path class="s-head" d="M396,84 L382,77 L382,91 Z"/><text x="332" y="66" text-anchor="middle">take many samples of size n</text><text x="332" y="108" text-anchor="middle">and plot each sample mean</text><path class="s-band2" d="M426.0,130.0 L426.0,129.4 L428.4,129.2 L430.8,129.0 L433.1,128.7 L435.5,128.4 L437.9,127.9 L440.2,127.4 L442.6,126.8 L445.0,126.1 L447.4,125.2 L449.8,124.2 L452.1,122.9 L454.5,121.5 L456.9,119.9 L459.2,118.0 L461.6,115.9 L464.0,113.5 L466.4,110.9 L468.8,107.9 L471.1,104.6 L473.5,101.1 L475.9,97.2 L478.2,93.1 L480.6,88.8 L483.0,84.2 L485.4,79.4 L487.8,74.5 L490.1,69.4 L492.5,64.4 L494.9,59.4 L497.2,54.5 L499.6,49.7 L502.0,45.3 L504.4,41.1 L506.8,37.3 L509.1,34.0 L511.5,31.2 L513.9,29.0 L516.2,27.3 L518.6,26.3 L521.0,26.0 L523.4,26.3 L525.8,27.3 L528.1,29.0 L530.5,31.2 L532.9,34.0 L535.2,37.3 L537.6,41.1 L540.0,45.3 L542.4,49.7 L544.8,54.5 L547.1,59.4 L549.5,64.4 L551.9,69.4 L554.2,74.5 L556.6,79.4 L559.0,84.2 L561.4,88.8 L563.8,93.1 L566.1,97.2 L568.5,101.1 L570.9,104.6 L573.2,107.9 L575.6,110.9 L578.0,113.5 L580.4,115.9 L582.8,118.0 L585.1,119.9 L587.5,121.5 L589.9,122.9 L592.2,124.2 L594.6,125.2 L597.0,126.1 L599.4,126.8 L601.8,127.4 L604.1,127.9 L606.5,128.4 L608.9,128.7 L611.2,129.0 L613.6,129.2 L616.0,129.4 L616.0,130.0 Z"/><path class="s-curve" d="M426.0,129.4 L427.2,129.3 L428.4,129.2 L429.6,129.1 L430.8,129.0 L431.9,128.8 L433.1,128.7 L434.3,128.5 L435.5,128.4 L436.7,128.2 L437.9,127.9 L439.1,127.7 L440.2,127.4 L441.4,127.1 L442.6,126.8 L443.8,126.5 L445.0,126.1 L446.2,125.7 L447.4,125.2 L448.6,124.7 L449.8,124.2 L450.9,123.6 L452.1,122.9 L453.3,122.3 L454.5,121.5 L455.7,120.8 L456.9,119.9 L458.1,119.0 L459.2,118.0 L460.4,117.0 L461.6,115.9 L462.8,114.8 L464.0,113.5 L465.2,112.2 L466.4,110.9 L467.6,109.4 L468.8,107.9 L469.9,106.3 L471.1,104.6 L472.3,102.9 L473.5,101.1 L474.7,99.2 L475.9,97.2 L477.1,95.2 L478.2,93.1 L479.4,91.0 L480.6,88.8 L481.8,86.5 L483.0,84.2 L484.2,81.8 L485.4,79.4 L486.6,76.9 L487.8,74.5 L488.9,72.0 L490.1,69.4 L491.3,66.9 L492.5,64.4 L493.7,61.9 L494.9,59.4 L496.1,56.9 L497.2,54.5 L498.4,52.1 L499.6,49.7 L500.8,47.5 L502.0,45.3 L503.2,43.1 L504.4,41.1 L505.6,39.2 L506.8,37.3 L507.9,35.6 L509.1,34.0 L510.3,32.5 L511.5,31.2 L512.7,30.0 L513.9,29.0 L515.1,28.1 L516.2,27.3 L517.4,26.7 L518.6,26.3 L519.8,26.1 L521.0,26.0 L522.2,26.1 L523.4,26.3 L524.6,26.7 L525.8,27.3 L526.9,28.1 L528.1,29.0 L529.3,30.0 L530.5,31.2 L531.7,32.5 L532.9,34.0 L534.1,35.6 L535.2,37.3 L536.4,39.2 L537.6,41.1 L538.8,43.1 L540.0,45.3 L541.2,47.5 L542.4,49.7 L543.6,52.1 L544.8,54.5 L545.9,56.9 L547.1,59.4 L548.3,61.9 L549.5,64.4 L550.7,66.9 L551.9,69.4 L553.1,72.0 L554.2,74.5 L555.4,76.9 L556.6,79.4 L557.8,81.8 L559.0,84.2 L560.2,86.5 L561.4,88.8 L562.6,91.0 L563.8,93.1 L564.9,95.2 L566.1,97.2 L567.3,99.2 L568.5,101.1 L569.7,102.9 L570.9,104.6 L572.1,106.3 L573.2,107.9 L574.4,109.4 L575.6,110.9 L576.8,112.2 L578.0,113.5 L579.2,114.8 L580.4,115.9 L581.6,117.0 L582.8,118.0 L583.9,119.0 L585.1,119.9 L586.3,120.8 L587.5,121.5 L588.7,122.3 L589.9,122.9 L591.1,123.6 L592.2,124.2 L593.4,124.7 L594.6,125.2 L595.8,125.7 L597.0,126.1 L598.2,126.5 L599.4,126.8 L600.6,127.1 L601.8,127.4 L602.9,127.7 L604.1,127.9 L605.3,128.2 L606.5,128.4 L607.7,128.5 L608.9,128.7 L610.1,128.8 L611.2,129.0 L612.4,129.1 L613.6,129.2 L614.8,129.3 L616.0,129.4"/><line class="s-axis" x1="426" y1="130" x2="616" y2="130"/><text class="t-strong" x="521" y="152" text-anchor="middle">Sample means: ≈ normal</text></svg></figure>
+          <p><b>As the sample size grows, the distribution of sample means becomes approximately normal, whatever the shape of the population.</b></p>
+          <div class="grid3">
+            <div class="box plain"><span class="label">Centre</span>Mean of the sample means = μ</div>
+            <div class="box plain"><span class="label">Spread (standard error)</span>σ ÷ √n: 4 × the sample = half the error</div>
+            <div class="box plain"><span class="label">Why it matters</span>Normal-based tests work on large samples (n &gt; 30)</div>
+          </div>
+          <p class="trap"><b>Limit</b>The CLT does not rescue small samples (e.g. n = 8) from a skewed population.</p>
+        </div>
+
+        <div class="sub" id="m5-limits">
+          <h3><span class="idx">5.6</span>When the normal distribution fails, and the fix</h3>
+          <div class="tbl"><table>
+            <thead><tr><th>Limitation</th><th>Example</th><th>What to do</th></tr></thead>
+            <tbody>
+              <tr><td data-label="">Assumes symmetry</td><td data-label="Example">Incomes, spending (mean ≫ median)</td><td data-label="Fix">Log or square-root transformation</td></tr>
+              <tr><td data-label="">Needs continuous data</td><td data-label="Example">Counts of defects or calls</td><td data-label="Fix">Poisson or binomial instead</td></tr>
+              <tr><td data-label="">Sensitive to outliers</td><td data-label="Example">A few huge purchases</td><td data-label="Fix">Trim or treat outliers, or go non-parametric</td></tr>
+              <tr><td data-label="">Underestimates extreme events</td><td data-label="Example">Market crashes, insurance claims</td><td data-label="Fix">Another distribution (log-normal, exponential, Weibull)</td></tr>
+              <tr><td data-label="">Data have a finite range</td><td data-label="Example">Percentages from 0 to 100</td><td data-label="Fix">Transformation or a bounded model</td></tr>
+              <tr><td data-label="">CLT misapplied</td><td data-label="Example">n = 8 from a skewed population</td><td data-label="Fix">Larger sample, or a non-parametric method</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Module 6 ───────────────────────── -->
+      <section class="chapter" id="m6">
+        <header class="chapter-head"><span class="chapter-num">6</span><div><p class="eyebrow">Module 6</p><h2>Hypothesis testing</h2></div></header>
+        <p class="key">A test asks: if there were really no effect (H₀), how surprising would these data be? A small p-value means very surprising, so we reject H₀.</p>
+
+        <div class="sub" id="m6-hyp">
+          <h3><span class="idx">6.1</span>H₀ and Ha</h3>
+          <div class="grid2">
+            <div class="box plain"><h4>H₀ · null hypothesis</h4><p>No difference, no relationship, no effect. The <b>baseline</b> the results are measured against.</p><span class="tag">μ₁ = μ₂</span><span class="tag">difference = 0</span></div>
+            <div class="box"><h4>Ha · alternative hypothesis</h4><p>There is a difference or relationship that is not due to chance. What the researcher hopes to <b>support</b>.</p><span class="tag">≠</span><span class="tag">&lt;</span><span class="tag">&gt;</span></div>
+          </div>
+          <p class="label">The only two decisions</p>
+          <div class="grid2">
+            <div class="box good"><h4>Reject H₀ (p ≤ α)</h4><p>The data give evidence for Ha. It is <b>not proof</b>.</p></div>
+            <div class="box warn"><h4>Fail to reject H₀ (p &gt; α)</h4><p>Not enough evidence. It does <b>not prove</b> H₀ is true.</p></div>
+          </div>
+          <p class="trap"><b>Never write</b>"We accept H₀" or "this proves Ha".</p>
+        </div>
+
+        <div class="sub" id="m6-tails">
+          <h3><span class="idx">6.2</span>One tail or two? Decide before collecting data</h3>
+          <p class="lead">A drug company claims a 20% gain in recovery. What does the researcher suspect?</p>
+          <div class="grid3">
+            <div class="box plain"><div class="mini"><svg viewBox="0 0 220 108" role="img" aria-label="Two-tailed test: 2.5% in each tail beyond ±1.96"><title>Two-tailed test: 2.5% in each tail beyond ±1.96</title><path class="s-tail" d="M10.0,84.0 L10.0,83.6 L10.5,83.6 L11.0,83.6 L11.5,83.6 L11.9,83.5 L12.4,83.5 L12.9,83.5 L13.4,83.5 L13.9,83.4 L14.4,83.4 L14.8,83.4 L15.3,83.3 L15.8,83.3 L16.3,83.3 L16.8,83.3 L17.3,83.2 L17.8,83.2 L18.2,83.1 L18.7,83.1 L19.2,83.1 L19.7,83.0 L20.2,83.0 L20.7,82.9 L21.1,82.9 L21.6,82.8 L22.1,82.8 L22.6,82.7 L23.1,82.7 L23.6,82.6 L24.0,82.5 L24.5,82.5 L25.0,82.4 L25.5,82.3 L26.0,82.3 L26.5,82.2 L27.0,82.1 L27.4,82.0 L27.9,82.0 L28.4,81.9 L28.9,81.8 L29.4,81.7 L29.9,81.6 L30.3,81.5 L30.8,81.4 L31.3,81.3 L31.8,81.2 L32.3,81.1 L32.8,81.0 L33.3,80.9 L33.7,80.7 L34.2,80.6 L34.7,80.5 L35.2,80.4 L35.7,80.2 L36.2,80.1 L36.6,79.9 L37.1,79.8 L37.6,79.6 L38.1,79.5 L38.6,79.3 L39.1,79.1 L39.5,79.0 L40.0,78.8 L40.5,78.6 L41.0,78.4 L41.5,78.2 L42.0,78.0 L42.5,77.8 L42.9,77.6 L43.4,77.4 L43.9,77.2 L44.4,76.9 L44.9,76.7 L45.4,76.5 L45.8,76.2 L46.3,76.0 L46.8,75.7 L47.3,75.5 L47.8,75.2 L48.3,74.9 L48.8,74.6 L48.8,84.0 Z"/><path class="s-tail" d="M171.2,84.0 L171.2,74.6 L171.7,74.9 L172.2,75.2 L172.7,75.5 L173.2,75.7 L173.7,76.0 L174.2,76.2 L174.6,76.5 L175.1,76.7 L175.6,76.9 L176.1,77.2 L176.6,77.4 L177.1,77.6 L177.5,77.8 L178.0,78.0 L178.5,78.2 L179.0,78.4 L179.5,78.6 L180.0,78.8 L180.5,79.0 L180.9,79.1 L181.4,79.3 L181.9,79.5 L182.4,79.6 L182.9,79.8 L183.4,79.9 L183.8,80.1 L184.3,80.2 L184.8,80.4 L185.3,80.5 L185.8,80.6 L186.3,80.7 L186.8,80.9 L187.2,81.0 L187.7,81.1 L188.2,81.2 L188.7,81.3 L189.2,81.4 L189.7,81.5 L190.1,81.6 L190.6,81.7 L191.1,81.8 L191.6,81.9 L192.1,82.0 L192.6,82.0 L193.0,82.1 L193.5,82.2 L194.0,82.3 L194.5,82.3 L195.0,82.4 L195.5,82.5 L196.0,82.5 L196.4,82.6 L196.9,82.7 L197.4,82.7 L197.9,82.8 L198.4,82.8 L198.9,82.9 L199.3,82.9 L199.8,83.0 L200.3,83.0 L200.8,83.1 L201.3,83.1 L201.8,83.1 L202.2,83.2 L202.7,83.2 L203.2,83.3 L203.7,83.3 L204.2,83.3 L204.7,83.3 L205.2,83.4 L205.6,83.4 L206.1,83.4 L206.6,83.5 L207.1,83.5 L207.6,83.5 L208.1,83.5 L208.5,83.6 L209.0,83.6 L209.5,83.6 L210.0,83.6 L210.0,84.0 Z"/><path class="s-curve" d="M10.0,83.6 L11.3,83.6 L12.5,83.5 L13.8,83.4 L15.0,83.4 L16.3,83.3 L17.5,83.2 L18.8,83.1 L20.0,83.0 L21.2,82.9 L22.5,82.7 L23.8,82.6 L25.0,82.4 L26.2,82.2 L27.5,82.0 L28.8,81.8 L30.0,81.6 L31.3,81.3 L32.5,81.0 L33.7,80.7 L35.0,80.4 L36.2,80.0 L37.5,79.7 L38.8,79.2 L40.0,78.8 L41.2,78.3 L42.5,77.8 L43.8,77.2 L45.0,76.6 L46.3,76.0 L47.5,75.3 L48.7,74.6 L50.0,73.9 L51.2,73.1 L52.5,72.2 L53.7,71.3 L55.0,70.4 L56.2,69.4 L57.5,68.4 L58.8,67.3 L60.0,66.2 L61.2,65.0 L62.5,63.8 L63.8,62.6 L65.0,61.3 L66.2,60.0 L67.5,58.6 L68.8,57.2 L70.0,55.8 L71.2,54.3 L72.5,52.8 L73.8,51.3 L75.0,49.8 L76.2,48.3 L77.5,46.7 L78.8,45.2 L80.0,43.6 L81.2,42.1 L82.5,40.5 L83.8,39.0 L85.0,37.5 L86.2,36.1 L87.5,34.6 L88.8,33.2 L90.0,31.9 L91.2,30.5 L92.5,29.3 L93.8,28.1 L95.0,27.0 L96.2,25.9 L97.5,24.9 L98.8,24.0 L100.0,23.2 L101.3,22.5 L102.5,21.8 L103.8,21.3 L105.0,20.8 L106.2,20.5 L107.5,20.2 L108.8,20.1 L110.0,20.0 L111.2,20.1 L112.5,20.2 L113.8,20.5 L115.0,20.8 L116.2,21.3 L117.5,21.8 L118.8,22.5 L120.0,23.2 L121.2,24.0 L122.5,24.9 L123.7,25.9 L125.0,27.0 L126.3,28.1 L127.5,29.3 L128.7,30.5 L130.0,31.9 L131.2,33.2 L132.5,34.6 L133.8,36.1 L135.0,37.5 L136.2,39.0 L137.5,40.5 L138.8,42.1 L140.0,43.6 L141.2,45.2 L142.5,46.7 L143.8,48.3 L145.0,49.8 L146.2,51.3 L147.5,52.8 L148.8,54.3 L150.0,55.8 L151.2,57.2 L152.5,58.6 L153.7,60.0 L155.0,61.3 L156.2,62.6 L157.5,63.8 L158.7,65.0 L160.0,66.2 L161.3,67.3 L162.5,68.4 L163.8,69.4 L165.0,70.4 L166.2,71.3 L167.5,72.2 L168.8,73.1 L170.0,73.9 L171.2,74.6 L172.5,75.3 L173.8,76.0 L175.0,76.6 L176.2,77.2 L177.5,77.8 L178.8,78.3 L180.0,78.8 L181.2,79.2 L182.5,79.7 L183.8,80.0 L185.0,80.4 L186.3,80.7 L187.5,81.0 L188.8,81.3 L190.0,81.6 L191.2,81.8 L192.5,82.0 L193.8,82.2 L195.0,82.4 L196.2,82.6 L197.5,82.7 L198.8,82.9 L200.0,83.0 L201.2,83.1 L202.5,83.2 L203.8,83.3 L205.0,83.4 L206.2,83.4 L207.5,83.5 L208.8,83.6 L210.0,83.6"/><line class="s-axis" x1="10" y1="84" x2="210" y2="84"/><line class="s-tick" x1="48.8" y1="84" x2="48.8" y2="89"/><text x="48.8" y="102" text-anchor="middle">−1.96</text><line class="s-tick" x1="171.2" y1="84" x2="171.2" y2="89"/><text x="171.2" y="102" text-anchor="middle">+1.96</text><text class="t-strong" x="30.3" y="58" text-anchor="middle">2.5%</text><text class="t-strong" x="189.7" y="58" text-anchor="middle">2.5%</text><text x="110" y="54" text-anchor="middle">keep H₀</text></svg></div><h4>Two-tailed · Ha: μ ≠ 20%</h4><p>"It is different, in either direction." α is split: 2.5% in each tail. Critical z = ±1.96.</p></div>
+            <div class="box plain"><div class="mini"><svg viewBox="0 0 220 108" role="img" aria-label="Left-tailed test: 5% in the left tail beyond −1.645"><title>Left-tailed test: 5% in the left tail beyond −1.645</title><path class="s-tail" d="M10.0,84.0 L10.0,83.6 L10.6,83.6 L11.2,83.6 L11.8,83.5 L12.4,83.5 L13.0,83.5 L13.6,83.4 L14.3,83.4 L14.9,83.4 L15.5,83.3 L16.1,83.3 L16.7,83.3 L17.3,83.2 L17.9,83.2 L18.5,83.1 L19.1,83.1 L19.7,83.0 L20.3,83.0 L20.9,82.9 L21.5,82.8 L22.1,82.8 L22.8,82.7 L23.4,82.6 L24.0,82.6 L24.6,82.5 L25.2,82.4 L25.8,82.3 L26.4,82.2 L27.0,82.1 L27.6,82.0 L28.2,81.9 L28.8,81.8 L29.4,81.7 L30.0,81.6 L30.7,81.5 L31.3,81.3 L31.9,81.2 L32.5,81.1 L33.1,80.9 L33.7,80.8 L34.3,80.6 L34.9,80.4 L35.5,80.3 L36.1,80.1 L36.7,79.9 L37.3,79.7 L37.9,79.5 L38.5,79.3 L39.2,79.1 L39.8,78.9 L40.4,78.7 L41.0,78.4 L41.6,78.2 L42.2,77.9 L42.8,77.7 L43.4,77.4 L44.0,77.1 L44.6,76.8 L45.2,76.5 L45.8,76.2 L46.4,75.9 L47.1,75.6 L47.7,75.2 L48.3,74.9 L48.9,74.6 L49.5,74.2 L50.1,73.8 L50.7,73.4 L51.3,73.0 L51.9,72.6 L52.5,72.2 L53.1,71.8 L53.7,71.3 L54.3,70.9 L54.9,70.4 L55.6,70.0 L56.2,69.5 L56.8,69.0 L57.4,68.5 L58.0,68.0 L58.6,67.5 L58.6,84.0 Z"/><path class="s-curve" d="M10.0,83.6 L11.3,83.6 L12.5,83.5 L13.8,83.4 L15.0,83.4 L16.3,83.3 L17.5,83.2 L18.8,83.1 L20.0,83.0 L21.2,82.9 L22.5,82.7 L23.8,82.6 L25.0,82.4 L26.2,82.2 L27.5,82.0 L28.8,81.8 L30.0,81.6 L31.3,81.3 L32.5,81.0 L33.7,80.7 L35.0,80.4 L36.2,80.0 L37.5,79.7 L38.8,79.2 L40.0,78.8 L41.2,78.3 L42.5,77.8 L43.8,77.2 L45.0,76.6 L46.3,76.0 L47.5,75.3 L48.7,74.6 L50.0,73.9 L51.2,73.1 L52.5,72.2 L53.7,71.3 L55.0,70.4 L56.2,69.4 L57.5,68.4 L58.8,67.3 L60.0,66.2 L61.2,65.0 L62.5,63.8 L63.8,62.6 L65.0,61.3 L66.2,60.0 L67.5,58.6 L68.8,57.2 L70.0,55.8 L71.2,54.3 L72.5,52.8 L73.8,51.3 L75.0,49.8 L76.2,48.3 L77.5,46.7 L78.8,45.2 L80.0,43.6 L81.2,42.1 L82.5,40.5 L83.8,39.0 L85.0,37.5 L86.2,36.1 L87.5,34.6 L88.8,33.2 L90.0,31.9 L91.2,30.5 L92.5,29.3 L93.8,28.1 L95.0,27.0 L96.2,25.9 L97.5,24.9 L98.8,24.0 L100.0,23.2 L101.3,22.5 L102.5,21.8 L103.8,21.3 L105.0,20.8 L106.2,20.5 L107.5,20.2 L108.8,20.1 L110.0,20.0 L111.2,20.1 L112.5,20.2 L113.8,20.5 L115.0,20.8 L116.2,21.3 L117.5,21.8 L118.8,22.5 L120.0,23.2 L121.2,24.0 L122.5,24.9 L123.7,25.9 L125.0,27.0 L126.3,28.1 L127.5,29.3 L128.7,30.5 L130.0,31.9 L131.2,33.2 L132.5,34.6 L133.8,36.1 L135.0,37.5 L136.2,39.0 L137.5,40.5 L138.8,42.1 L140.0,43.6 L141.2,45.2 L142.5,46.7 L143.8,48.3 L145.0,49.8 L146.2,51.3 L147.5,52.8 L148.8,54.3 L150.0,55.8 L151.2,57.2 L152.5,58.6 L153.7,60.0 L155.0,61.3 L156.2,62.6 L157.5,63.8 L158.7,65.0 L160.0,66.2 L161.3,67.3 L162.5,68.4 L163.8,69.4 L165.0,70.4 L166.2,71.3 L167.5,72.2 L168.8,73.1 L170.0,73.9 L171.2,74.6 L172.5,75.3 L173.8,76.0 L175.0,76.6 L176.2,77.2 L177.5,77.8 L178.8,78.3 L180.0,78.8 L181.2,79.2 L182.5,79.7 L183.8,80.0 L185.0,80.4 L186.3,80.7 L187.5,81.0 L188.8,81.3 L190.0,81.6 L191.2,81.8 L192.5,82.0 L193.8,82.2 L195.0,82.4 L196.2,82.6 L197.5,82.7 L198.8,82.9 L200.0,83.0 L201.2,83.1 L202.5,83.2 L203.8,83.3 L205.0,83.4 L206.2,83.4 L207.5,83.5 L208.8,83.6 L210.0,83.6"/><line class="s-axis" x1="10" y1="84" x2="210" y2="84"/><line class="s-tick" x1="58.6" y1="84" x2="58.6" y2="89"/><text x="58.6" y="102" text-anchor="middle">−1.645</text><text class="t-strong" x="35.0" y="58" text-anchor="middle">5%</text><text x="110" y="54" text-anchor="middle">keep H₀</text></svg></div><h4>Left-tailed · Ha: μ &lt; 20%</h4><p>"It is lower than claimed." All 5% in the left tail. Critical z = −1.645.</p></div>
+            <div class="box plain"><div class="mini"><svg viewBox="0 0 220 108" role="img" aria-label="Right-tailed test: 5% in the right tail beyond +1.645"><title>Right-tailed test: 5% in the right tail beyond +1.645</title><path class="s-tail" d="M161.4,84.0 L161.4,67.5 L162.0,68.0 L162.6,68.5 L163.2,69.0 L163.8,69.5 L164.4,70.0 L165.1,70.4 L165.7,70.9 L166.3,71.3 L166.9,71.8 L167.5,72.2 L168.1,72.6 L168.7,73.0 L169.3,73.4 L169.9,73.8 L170.5,74.2 L171.1,74.6 L171.7,74.9 L172.3,75.2 L172.9,75.6 L173.6,75.9 L174.2,76.2 L174.8,76.5 L175.4,76.8 L176.0,77.1 L176.6,77.4 L177.2,77.7 L177.8,77.9 L178.4,78.2 L179.0,78.4 L179.6,78.7 L180.2,78.9 L180.8,79.1 L181.5,79.3 L182.1,79.5 L182.7,79.7 L183.3,79.9 L183.9,80.1 L184.5,80.3 L185.1,80.4 L185.7,80.6 L186.3,80.8 L186.9,80.9 L187.5,81.1 L188.1,81.2 L188.7,81.3 L189.3,81.5 L190.0,81.6 L190.6,81.7 L191.2,81.8 L191.8,81.9 L192.4,82.0 L193.0,82.1 L193.6,82.2 L194.2,82.3 L194.8,82.4 L195.4,82.5 L196.0,82.6 L196.6,82.6 L197.2,82.7 L197.9,82.8 L198.5,82.8 L199.1,82.9 L199.7,83.0 L200.3,83.0 L200.9,83.1 L201.5,83.1 L202.1,83.2 L202.7,83.2 L203.3,83.3 L203.9,83.3 L204.5,83.3 L205.1,83.4 L205.7,83.4 L206.4,83.4 L207.0,83.5 L207.6,83.5 L208.2,83.5 L208.8,83.6 L209.4,83.6 L210.0,83.6 L210.0,84.0 Z"/><path class="s-curve" d="M10.0,83.6 L11.3,83.6 L12.5,83.5 L13.8,83.4 L15.0,83.4 L16.3,83.3 L17.5,83.2 L18.8,83.1 L20.0,83.0 L21.2,82.9 L22.5,82.7 L23.8,82.6 L25.0,82.4 L26.2,82.2 L27.5,82.0 L28.8,81.8 L30.0,81.6 L31.3,81.3 L32.5,81.0 L33.7,80.7 L35.0,80.4 L36.2,80.0 L37.5,79.7 L38.8,79.2 L40.0,78.8 L41.2,78.3 L42.5,77.8 L43.8,77.2 L45.0,76.6 L46.3,76.0 L47.5,75.3 L48.7,74.6 L50.0,73.9 L51.2,73.1 L52.5,72.2 L53.7,71.3 L55.0,70.4 L56.2,69.4 L57.5,68.4 L58.8,67.3 L60.0,66.2 L61.2,65.0 L62.5,63.8 L63.8,62.6 L65.0,61.3 L66.2,60.0 L67.5,58.6 L68.8,57.2 L70.0,55.8 L71.2,54.3 L72.5,52.8 L73.8,51.3 L75.0,49.8 L76.2,48.3 L77.5,46.7 L78.8,45.2 L80.0,43.6 L81.2,42.1 L82.5,40.5 L83.8,39.0 L85.0,37.5 L86.2,36.1 L87.5,34.6 L88.8,33.2 L90.0,31.9 L91.2,30.5 L92.5,29.3 L93.8,28.1 L95.0,27.0 L96.2,25.9 L97.5,24.9 L98.8,24.0 L100.0,23.2 L101.3,22.5 L102.5,21.8 L103.8,21.3 L105.0,20.8 L106.2,20.5 L107.5,20.2 L108.8,20.1 L110.0,20.0 L111.2,20.1 L112.5,20.2 L113.8,20.5 L115.0,20.8 L116.2,21.3 L117.5,21.8 L118.8,22.5 L120.0,23.2 L121.2,24.0 L122.5,24.9 L123.7,25.9 L125.0,27.0 L126.3,28.1 L127.5,29.3 L128.7,30.5 L130.0,31.9 L131.2,33.2 L132.5,34.6 L133.8,36.1 L135.0,37.5 L136.2,39.0 L137.5,40.5 L138.8,42.1 L140.0,43.6 L141.2,45.2 L142.5,46.7 L143.8,48.3 L145.0,49.8 L146.2,51.3 L147.5,52.8 L148.8,54.3 L150.0,55.8 L151.2,57.2 L152.5,58.6 L153.7,60.0 L155.0,61.3 L156.2,62.6 L157.5,63.8 L158.7,65.0 L160.0,66.2 L161.3,67.3 L162.5,68.4 L163.8,69.4 L165.0,70.4 L166.2,71.3 L167.5,72.2 L168.8,73.1 L170.0,73.9 L171.2,74.6 L172.5,75.3 L173.8,76.0 L175.0,76.6 L176.2,77.2 L177.5,77.8 L178.8,78.3 L180.0,78.8 L181.2,79.2 L182.5,79.7 L183.8,80.0 L185.0,80.4 L186.3,80.7 L187.5,81.0 L188.8,81.3 L190.0,81.6 L191.2,81.8 L192.5,82.0 L193.8,82.2 L195.0,82.4 L196.2,82.6 L197.5,82.7 L198.8,82.9 L200.0,83.0 L201.2,83.1 L202.5,83.2 L203.8,83.3 L205.0,83.4 L206.2,83.4 L207.5,83.5 L208.8,83.6 L210.0,83.6"/><line class="s-axis" x1="10" y1="84" x2="210" y2="84"/><line class="s-tick" x1="161.4" y1="84" x2="161.4" y2="89"/><text x="161.4" y="102" text-anchor="middle">+1.645</text><text class="t-strong" x="185.0" y="58" text-anchor="middle">5%</text><text x="110" y="54" text-anchor="middle">keep H₀</text></svg></div><h4>Right-tailed · Ha: μ &gt; 20%</h4><p>"It is higher than claimed." All 5% in the right tail. Critical z = +1.645.</p></div>
+          </div>
+          <p class="tip"><b>Rule</b>A direction predicted <b>before</b> seeing the data → one-tailed. "Is it different?" → two-tailed. In a t-table, choose the column for one- or two-tailed α and the row for the degrees of freedom.</p>
+        </div>
+
+        <div class="sub" id="m6-decide">
+          <h3><span class="idx">6.3</span>Making the decision</h3>
+          <div class="grid2">
+            <div class="box"><h4>p-value approach</h4><p>p = the probability of results at least this extreme <b>if H₀ were true</b>.</p><p><b>p ≤ α (usually .05) → reject H₀.</b> It also shows how strong the evidence is: the smaller p, the stronger.</p></div>
+            <div class="box plain"><h4>Critical value approach</h4><p>Find the cut-off for α, then compute the test statistic.</p><p><b>Statistic beyond the critical value → reject H₀.</b> It only says inside or outside the rejection region.</p></div>
+          </div>
+          <div class="grid2">
+            <div class="box plain"><span class="label">Test statistic (z, t, F)</span>One number calculated from the sample.</div>
+            <div class="box plain"><span class="label">p-value</span>A probability calculated from that statistic.</div>
+          </div>
+          <p>Both approaches usually reach the same decision.</p>
+        </div>
+
+        <div class="sub" id="m6-zt">
+          <h3><span class="idx">6.4</span>z-test or t-test?</h3>
+          <div class="grid2">
+            <div class="box plain"><h4>z-test</h4><ul><li>Population σ <b>known</b></li><li>or a <b>large</b> sample (n &gt; 30)</li><li>Uses the standard normal distribution</li></ul></div>
+            <div class="box"><h4>t-test</h4><ul><li>σ <b>unknown</b>, estimated from the sample</li><li><b>Small</b> sample (n &lt; 30)</li><li>t-distribution: heavier tails, shaped by the degrees of freedom</li></ul></div>
+          </div>
+          <p>With large samples the t-distribution is practically normal, so both tests give very similar results. Software usually runs a t-test.</p>
+        </div>
+
+        <div class="sub" id="m6-errors">
+          <h3><span class="idx">6.5</span>Errors and power</h3>
+          <div class="errgrid">
+            <div class="h corner">Decision</div><div class="h">H₀ is true</div><div class="h">H₀ is false</div>
+            <div class="h rowh">Reject H₀</div><div class="err"><b>Type I error</b>false positive · probability α</div><div class="ok"><b>Correct</b>power = 1 − β</div>
+            <div class="h rowh">Fail to reject H₀</div><div class="ok"><b>Correct</b></div><div class="err"><b>Type II error</b>false negative · probability β</div>
+          </div>
+          <div class="grid2">
+            <div class="box bad plain"><span class="label">Type I example</span>Concluding a useless drug works.</div>
+            <div class="box bad plain"><span class="label">Type II example</span>Concluding an effective drug does not work.</div>
+          </div>
+          <div class="grid2">
+            <div class="box"><h4>Raise α (.05 → .10)</h4><ul class="effects"><li><span class="up">↑</span> easier to reject H₀</li><li><span class="up">↑</span> Type I errors (false alarms)</li><li><span class="down">↓</span> Type II errors</li><li><span class="up">↑</span> power</li></ul><p class="small muted">Lowering α does the opposite.</p></div>
+            <div class="box good"><h4>More power, same α</h4><p><b>Increase the sample size</b> (or the effect size). Real effects become easier to detect without more false positives.</p></div>
+          </div>
+          <div class="example"><b>Security guard</b>A guard who is quick to press the alarm (high α) catches more burglars (more power) but is also fooled by more raccoons (more Type I errors).</div>
+        </div>
+
+        <div class="sub" id="m6-ttests">
+          <h3><span class="idx">6.6</span>The three t-tests (class activity)</h3>
+          <div class="grid3">
+            <div class="box"><h4>One-sample</h4><p class="q">sample mean ⟷ a known value</p><span class="label">Activity</span>Is average salary different from the $75,000 benchmark?<span class="label">H₀</span>μ = 75,000</div>
+            <div class="box warn"><h4>Independent samples</h4><p class="q">group A | group B (different people)</p><span class="label">Activity</span>Does average salary differ between men and women?<span class="label">H₀</span>μ₁ = μ₂ · Levene's test picks the row</div>
+            <div class="box good"><h4>Paired samples</h4><p class="q">before → after (the same people)</p><span class="label">Activity</span>Did each employee's sales change after training? (matched by EmployeeID)<span class="label">H₀</span>mean difference = 0</div>
+          </div>
+          <p><b>Independent</b> = separate populations, or one group randomly split in two; one sample does not influence the other. <b>Paired</b> = each value is linked to one value in the other set.</p>
+          <p class="tip"><b>Directional version</b>If it was predicted <b>in advance</b> that men earn more: Ha: μ<sub>men</sub> &gt; μ<sub>women</sub> (one-tailed). Same for "sales increased after training".</p>
+        </div>
+
+        <div class="sub" id="m6-read">
+          <h3><span class="idx">6.7</span>Reading an independent t-test</h3>
+          <div class="fork">
+            <div class="start">Levene's test</div>
+            <div class="way"><b>p &gt; .05</b> → variances are equal → read the <b>"equal variances assumed"</b> row</div>
+            <div class="way"><b>p ≤ .05</b> → variances differ → read the <b>"equal variances not assumed"</b> row (Welch's t-test)</div>
+          </div>
+          <figure class="out"><figcaption>Output</figcaption><pre>Independent-samples t-test: Delivery time (minutes) by Region
+Levene's test for equal variances: F = 9.12, Sig. = .003
+
+                              t      df     Sig. (2-tailed)   Mean difference
+Equal variances assumed       2.30   118        .023               4.1
+Equal variances not assumed   2.18   86.5       .032               4.1</pre></figure>
+          <ul class="explain">
+            <li>Levene's p = .003 ≤ .05 → the variances differ → use the "not assumed" row.</li>
+            <li>p = .032 ≤ .05 → reject H₀: delivery time differs by region, by about 4.1 minutes.</li>
+            <li>Levene's p is about variances only. It picks the row; it is not the answer.</li>
+          </ul>
+          <div class="grid2">
+            <div class="box good plain"><span class="label">95% CI of the difference excludes 0</span>Significant difference</div>
+            <div class="box warn plain"><span class="label">95% CI includes 0</span>Not significant</div>
+          </div>
+          <p class="trap"><b>Paired test on training</b>"Sales rose significantly (p = .004)" is right. "The training caused it" is not: without a control group, other factors (season, market) could explain the rise.</p>
+        </div>
+
+        <div class="sub" id="m6-steps">
+          <h3><span class="idx">6.8</span>Steps of a test and the report</h3>
+          <ol class="steps">
+            <li><b>Set up</b>Define H₀ and Ha → select the test → choose α (.05, .01 or .10).</li>
+            <li><b>Run</b>Collect the data → compute the test statistic → find the p-value.</li>
+            <li><b>Decide and report</b>p ≤ α → reject H₀. Report the test statistic, the p-value and the decision, then a plain-language conclusion.</li>
+          </ol>
+          <div class="formula">t(24) = 3.18, p = .004 → sales rose significantly after training (mean +$1,240).<small>A complete one-line report</small></div>
+          <p class="small muted">Sampling strategies mentioned in this module: simple random, stratified (random within each subgroup) and cluster sampling.</p>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Module 7 ───────────────────────── -->
+      <section class="chapter" id="m7">
+        <header class="chapter-head"><span class="chapter-num">7</span><div><p class="eyebrow">Module 7</p><h2>ANOVA (analysis of variance)</h2></div></header>
+        <p class="key">ANOVA tests whether three or more group means differ by comparing the spread between the groups with the spread inside them.</p>
+
+        <div class="sub" id="m7-why">
+          <h3><span class="idx">7.1</span>Why ANOVA instead of several t-tests</h3>
+          <div class="grid2">
+            <div class="box bad"><h4>3 groups → 3 t-tests</h4><p>Each test has a 5% false-positive risk, so the risks add up: the <b>Type I error rate inflates</b>.</p></div>
+            <div class="box good"><h4>3 groups → 1 ANOVA</h4><p>One test compares all the means at once and keeps the error rate at α.</p></div>
+          </div>
+          <div class="grid3">
+            <div class="box plain"><span class="label">H₀</span>All group means are equal</div>
+            <div class="box plain"><span class="label">H₁</span>At least one mean differs</div>
+            <div class="box plain"><span class="label">Variables</span>Categorical factor (the groups) + continuous outcome</div>
+          </div>
+        </div>
+
+        <div class="sub" id="m7-f">
+          <h3><span class="idx">7.2</span>The F-ratio</h3>
+          <div class="formula">F = between-group variance ÷ within-group variance</div>
+          <figure class="fig"><svg viewBox="0 0 640 204" role="img" aria-label="Large F: group means far apart with little spread inside each group. Small F: means close together with wide spread."><title>Large F: group means far apart with little spread inside each group. Small F: means close together with wide spread.</title><rect class="s-panel" x="10" y="4" width="300" height="196" rx="10"/><text class="t-strong t-big" x="26" y="26">Large F</text><line class="s-dash" x1="40" y1="102.0" x2="295" y2="102.0"/><circle class="s-dot" cx="79" cy="133.0" r="4.5"/><circle class="s-dot" cx="90" cy="136.4" r="4.5"/><circle class="s-dot" cx="83" cy="139.8" r="4.5"/><circle class="s-dot" cx="92" cy="143.1" r="4.5"/><circle class="s-dot" cx="80" cy="146.5" r="4.5"/><circle class="s-dot" cx="88" cy="149.7" r="4.5"/><line class="s-mean" x1="67" y1="141.5" x2="103" y2="141.5"/><text x="85" y="172" text-anchor="middle">Group 1</text><circle class="s-dot" cx="164" cy="93.0" r="4.5"/><circle class="s-dot" cx="175" cy="96.4" r="4.5"/><circle class="s-dot" cx="168" cy="99.8" r="4.5"/><circle class="s-dot" cx="177" cy="103.1" r="4.5"/><circle class="s-dot" cx="165" cy="106.5" r="4.5"/><circle class="s-dot" cx="173" cy="109.7" r="4.5"/><line class="s-mean" x1="152" y1="101.5" x2="188" y2="101.5"/><text x="170" y="172" text-anchor="middle">Group 2</text><circle class="s-dot" cx="249" cy="53.0" r="4.5"/><circle class="s-dot" cx="260" cy="56.4" r="4.5"/><circle class="s-dot" cx="253" cy="59.8" r="4.5"/><circle class="s-dot" cx="262" cy="63.1" r="4.5"/><circle class="s-dot" cx="250" cy="66.5" r="4.5"/><circle class="s-dot" cx="258" cy="69.7" r="4.5"/><line class="s-mean" x1="237" y1="61.5" x2="273" y2="61.5"/><text x="255" y="172" text-anchor="middle">Group 3</text><text x="160" y="192" text-anchor="middle">Means far apart, tight groups → large F</text><rect class="s-panel" x="330" y="4" width="300" height="196" rx="10"/><text class="t-strong t-big" x="346" y="26">Small F</text><line class="s-dash" x1="360" y1="108.0" x2="615" y2="108.0"/><circle class="s-dot" cx="399" cy="78.0" r="4.5"/><circle class="s-dot" cx="410" cy="93.2" r="4.5"/><circle class="s-dot" cx="403" cy="108.0" r="4.5"/><circle class="s-dot" cx="412" cy="122.8" r="4.5"/><circle class="s-dot" cx="400" cy="138.0" r="4.5"/><circle class="s-dot" cx="408" cy="152.0" r="4.5"/><line class="s-mean" x1="387" y1="115.6" x2="423" y2="115.6"/><text x="405" y="172" text-anchor="middle">Group 1</text><circle class="s-dot" cx="484" cy="68.0" r="4.5"/><circle class="s-dot" cx="495" cy="83.2" r="4.5"/><circle class="s-dot" cx="488" cy="98.0" r="4.5"/><circle class="s-dot" cx="497" cy="112.8" r="4.5"/><circle class="s-dot" cx="485" cy="128.0" r="4.5"/><circle class="s-dot" cx="493" cy="142.0" r="4.5"/><line class="s-mean" x1="472" y1="105.6" x2="508" y2="105.6"/><text x="490" y="172" text-anchor="middle">Group 2</text><circle class="s-dot" cx="569" cy="58.0" r="4.5"/><circle class="s-dot" cx="580" cy="73.2" r="4.5"/><circle class="s-dot" cx="573" cy="88.0" r="4.5"/><circle class="s-dot" cx="582" cy="102.8" r="4.5"/><circle class="s-dot" cx="570" cy="118.0" r="4.5"/><circle class="s-dot" cx="578" cy="132.0" r="4.5"/><line class="s-mean" x1="557" y1="95.6" x2="593" y2="95.6"/><text x="575" y="172" text-anchor="middle">Group 3</text><text x="480" y="192" text-anchor="middle">Means close, wide groups → small F</text></svg></figure>
+          <div class="grid2">
+            <div class="box"><span class="label">Between-group variance</span>How far the group means are from the overall mean: the effect of the factor.</div>
+            <div class="box plain"><span class="label">Within-group (error) variance</span>The spread of scores inside each group, which the factor does not explain.</div>
+          </div>
+        </div>
+
+        <div class="sub" id="m7-assume">
+          <h3><span class="idx">7.3</span>Assumptions: check, and what to do if they fail</h3>
+          <div class="grid2">
+            <div class="box"><h4>Independence</h4><span class="label">Check</span>Study design (random assignment, each person measured once)<span class="label">If it fails</span>Fix the design</div>
+            <div class="box"><h4>Normality of the residuals</h4><p class="small muted">residual = a score − its group mean</p><span class="label">Check</span>Q-Q plot, Shapiro–Wilk, Kolmogorov–Smirnov<span class="label">If it fails</span>Transformation, or Kruskal–Wallis</div>
+            <div class="box warn"><h4>Equal variances</h4><span class="label">Check</span><b>Levene's test</b> (p &gt; .05 = OK)<span class="label">If it fails</span><b>Welch's ANOVA</b> (the course's choice). Ignoring it → more Type I errors.</div>
+            <div class="box"><h4>Random sampling</h4><span class="label">Check</span>How the data were collected<span class="label">If it fails</span>Results cannot be generalised</div>
+          </div>
+          <p class="trap"><b>Two-way designs</b>Unequal variances plus unequal group sizes can bias the results, and Welch's ANOVA is not available. Use a transformation, a generalised linear model or a non-parametric alternative.</p>
+        </div>
+
+        <div class="sub" id="m7-types">
+          <h3><span class="idx">7.4</span>One-way vs two-way</h3>
+          <div class="grid2">
+            <div class="box"><h4>One-way ANOVA</h4><p>One factor with 3+ levels.</p><p class="small muted">Flashcards vs summarising vs self-testing → exam score</p></div>
+            <div class="box warn"><h4>Two-way ANOVA</h4><p>Two factors → two <b>main effects</b> + one <b>interaction</b>.</p><p class="small muted">Teaching method × classroom → test score</p></div>
+          </div>
+          <figure class="fig"><svg viewBox="0 0 640 236" role="img" aria-label="Parallel lines mean no interaction; crossing lines mean the effect of the method depends on the classroom"><title>Parallel lines mean no interaction; crossing lines mean the effect of the method depends on the classroom</title><rect class="s-panel" x="10" y="4" width="300" height="206" rx="10"/><text class="t-strong" x="26" y="26">No interaction: parallel lines</text><line class="s-axis" x1="50" y1="176" x2="290" y2="176"/><line class="s-axis" x1="50" y1="44" x2="50" y2="176"/><text x="40" y="110" text-anchor="middle" transform="rotate(-90 40 110)">score</text><text x="80" y="194" text-anchor="middle">Classroom X</text><text x="250" y="194" text-anchor="middle">Classroom Y</text><line class="s-a" x1="80" y1="130" x2="250" y2="90"/><circle class="s-pa" cx="80" cy="130" r="5"/><circle class="s-pa" cx="250" cy="90" r="5"/><line class="s-b" x1="80" y1="160" x2="250" y2="120"/><circle class="s-pb" cx="80" cy="160" r="5"/><circle class="s-pb" cx="250" cy="120" r="5"/><rect class="s-panel" x="330" y="4" width="300" height="206" rx="10"/><text class="t-strong" x="346" y="26">Interaction: the lines cross</text><line class="s-axis" x1="370" y1="176" x2="610" y2="176"/><line class="s-axis" x1="370" y1="44" x2="370" y2="176"/><text x="360" y="110" text-anchor="middle" transform="rotate(-90 360 110)">score</text><text x="400" y="194" text-anchor="middle">Classroom X</text><text x="570" y="194" text-anchor="middle">Classroom Y</text><line class="s-a" x1="400" y1="130" x2="570" y2="70"/><circle class="s-pa" cx="400" cy="130" r="5"/><circle class="s-pa" cx="570" cy="70" r="5"/><line class="s-b" x1="400" y1="80" x2="570" y2="150"/><circle class="s-pb" cx="400" cy="80" r="5"/><circle class="s-pb" cx="570" cy="150" r="5"/><line class="s-a" x1="200" y1="226" x2="232" y2="226"/><text x="238" y="230">Method A</text><line class="s-b" x1="340" y1="226" x2="372" y2="226"/><text x="378" y="230">Method B</text></svg></figure>
+          <div class="grid2">
+            <div class="box plain"><span class="label">Main effect</span>One factor's own effect, averaged over the other.</div>
+            <div class="box plain"><span class="label">Interaction</span>The effect of one factor <b>depends on</b> the level of the other.</div>
+          </div>
+          <p class="small muted">MANOVA extends ANOVA to several dependent variables at once.</p>
+        </div>
+
+        <div class="sub" id="m7-after">
+          <h3><span class="idx">7.5</span>After a significant F</h3>
+          <ol class="steps">
+            <li><b>Significant F = at least one mean differs</b>It does not say which one.</li>
+            <li><b>Post hoc test → which pairs differ</b>Tukey HSD when variances are equal (the course mentions Bonferroni when they are not).</li>
+            <li><b>Effect size η² (eta-squared)</b>The share of the outcome's variance explained by the factor: η² = .17 → about 17%.</li>
+          </ol>
+        </div>
+
+        <div class="sub" id="m7-read">
+          <h3><span class="idx">7.6</span>Reading ANOVA outputs</h3>
+          <figure class="out"><figcaption>One-way ANOVA</figcaption><pre>Levene's test: Sig. = .318
+ANOVA: F(3, 76) = 4.62, Sig. = .005
+Tukey HSD: A vs C Sig. = .003 · A vs B Sig. = .412</pre></figure>
+          <ul class="explain">
+            <li>Levene's p = .318 &gt; .05 → equal variances, so the standard ANOVA is fine.</li>
+            <li>p = .005 → at least one region's mean differs.</li>
+            <li>Tukey: only A and C differ (p = .003); A vs B is not significant.</li>
+          </ul>
+          <figure class="out"><figcaption>Two-way ANOVA</figcaption><pre>Source                    F      Sig.
+Teaching method          5.84    .004
+Study time              11.20   &lt;.001
+Method × Study time      3.95    .010</pre></figure>
+          <ul class="explain">
+            <li>Both main effects are significant: method and study time each matter.</li>
+            <li>The interaction is significant: the method's effect depends on study time.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Module 8 ───────────────────────── -->
+      <section class="chapter" id="m8">
+        <header class="chapter-head"><span class="chapter-num">8</span><div><p class="eyebrow">Module 8</p><h2>Non-parametric tests</h2></div></header>
+        <p class="key">When the data are skewed, small, ordinal or have outliers, rank them and use the non-parametric version of the test.</p>
+
+        <div class="sub" id="m8-vs">
+          <h3><span class="idx">8.1</span>Why rank the data</h3>
+          <div class="grid2">
+            <div class="box plain"><h4>Parametric (t-test, ANOVA)</h4><ul><li>Assumes a population shape, usually normal</li><li>Uses the raw values (means, variances)</li><li><b>More powerful</b> when its assumptions hold</li></ul></div>
+            <div class="box warn"><h4>Non-parametric</h4><ul><li>No specific distribution; <b>no normality needed</b></li><li>Uses <b>ranks</b> (or medians, signs)</li><li>Robust to skew, outliers, small samples, ordinal scales</li></ul></div>
+          </div>
+          <p class="label">Ranking tames an outlier</p>
+          <div class="ranks">
+            <span class="rh">Value</span><span>12</span><span>15</span><span>18</span><span>21</span><span class="out">950</span>
+            <span class="rh">Rank</span><span class="rk">1</span><span class="rk">2</span><span class="rk">3</span><span class="rk">4</span><span class="rk">5</span>
+          </div>
+          <p>950 would drag a mean far up, but as a rank it is just "5th". That is why rank-based tests are robust.</p>
+          <p class="label">Use a non-parametric test when</p>
+          <p><span class="tag warn">data are skewed</span><span class="tag warn">the sample is small</span><span class="tag warn">there are outliers</span><span class="tag warn">the scale is ordinal (1–5)</span><span class="tag warn">t-test / ANOVA assumptions fail</span></p>
+        </div>
+
+        <div class="sub" id="m8-tests">
+          <h3><span class="idx">8.2</span>The four tests and what they replace</h3>
+          <div class="pairs">
+            <div class="pair"><span class="from">Independent t-test</span><span class="arrow">→</span><span class="to"><b>Mann–Whitney U</b><span>2 independent groups · H₀: the two distributions are the same · e.g. satisfaction online vs in-store</span></span></div>
+            <div class="pair"><span class="from">Paired t-test</span><span class="arrow">→</span><span class="to"><b>Wilcoxon signed-rank</b><span>2 related measurements · H₀: median difference = 0 · e.g. pain before vs after treatment</span></span></div>
+            <div class="pair"><span class="from">One-way ANOVA</span><span class="arrow">→</span><span class="to"><b>Kruskal–Wallis</b><span>3+ independent groups · H₀: all distributions are the same · e.g. satisfaction at 3 stores</span></span></div>
+            <div class="pair"><span class="from">Repeated-measures ANOVA</span><span class="arrow">→</span><span class="to"><b>Friedman</b><span>3+ related measurements · e.g. the same patients at 3 time points</span></span></div>
+          </div>
+          <p class="tip"><b>All four</b>need data that can be ranked (ordinal or continuous).</p>
+        </div>
+
+        <div class="sub" id="m8-details">
+          <h3><span class="idx">8.3</span>How each one works</h3>
+          <div class="grid2">
+            <div class="box"><h4>Mann–Whitney U</h4><span class="label">How</span>Ranks all values from both groups together; does one group tend to have higher ranks?<span class="label">Assumes</span>Independent groups, ordinal/continuous data, <b>similar shapes</b> (only then is it a difference in medians), <b>no major ties</b>
+              <span class="label">Not for</span>Paired data (→ Wilcoxon) or 3+ groups (→ Kruskal–Wallis)</div>
+            <div class="box"><h4>Wilcoxon signed-rank</h4><span class="label">How</span>Takes the absolute differences, ranks them, re-applies the + / − signs, tests whether the median difference is 0<span class="label">Assumes</span>Pairs, differences at least ordinal and roughly <b>symmetric</b>
+              <span class="label">Choose it when</span>n &lt; 30 with skewed differences, Likert data or extreme outliers. With n ≥ 30 or normal differences, use the paired t-test.</div>
+            <div class="box"><h4>Kruskal–Wallis</h4><span class="label">How</span>Ranks all observations across the groups<span class="label">Assumes</span>Each person in only one group; similar shapes (check with <b>boxplots + Levene's test</b>, skewness within ±1)
+              <span class="label">Remember</span>Always non-directional. Similar shapes → medians; different shapes → distributions. Significant → <b>post hoc</b> pairwise tests.</div>
+            <div class="box"><h4>Two factors, non-parametric</h4><span class="label">Scheirer–Ray–Hare</span>Extends Kruskal–Wallis to two-way designs<span class="label">ART ANOVA</span>Aligned rank transform: the most accurate for testing interactions</div>
+          </div>
+        </div>
+
+        <div class="sub" id="m8-read">
+          <h3><span class="idx">8.4</span>Reading non-parametric outputs</h3>
+          <figure class="out"><figcaption>Mann–Whitney U</figcaption><pre>Group      N    Mean rank
+Online     40     46.2
+In-store   40     34.8
+U = 572.0    Z = −2.24    Asymp. Sig. (2-tailed) = .025</pre></figure>
+          <ul class="explain">
+            <li>p = .025 &lt; .05 → satisfaction differs between the store types.</li>
+            <li>Online has the higher mean rank → online customers tend to be more satisfied.</li>
+            <li>A negative Z does not make the test invalid; the p-value decides.</li>
+          </ul>
+          <figure class="out"><figcaption>Wilcoxon signed-rank (after − before)</figcaption><pre>Negative ranks (after &lt; before): 15    Positive ranks: 3    Ties: 2
+Z = −2.65    Asymp. Sig. (2-tailed) = .008</pre></figure>
+          <ul class="explain">
+            <li>Mostly negative ranks and p = .008 → scores dropped significantly.</li>
+          </ul>
+          <figure class="out"><figcaption>Kruskal–Wallis</figcaption><pre>Branch   N    Mean rank
+North    25     31.4
+South    25     46.9
+West     25     35.7
+H = 7.92    df = 2    Asymp. Sig. = .019</pre></figure>
+          <ul class="explain">
+            <li>p = .019 → at least one branch differs; South ranks highest.</li>
+            <li>Only post hoc pairwise tests can say which branches differ.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Test chooser ───────────────────────── -->
+      <section class="chapter" id="choose">
+        <header class="chapter-head"><span class="chapter-num">⇄</span><div><p class="eyebrow">Decide</p><h2>Test chooser</h2></div></header>
+        <p class="key">Two questions decide almost every test: how many groups (and are they different people or the same people)? Are the data normal and interval, or skewed, ordinal or small?</p>
+        <div class="choose">
+          <div class="design"><h4>One sample vs a benchmark</h4><p class="eg">Average salary vs $75,000</p>
+            <div class="lane norm"><i>Normal</i><span>One-sample t-test (z-test if σ known)</span></div></div>
+          <div class="design"><h4>Two independent groups</h4><p class="eg">Men vs women · online vs in-store</p>
+            <div class="lane norm"><i>Normal</i><span>Independent t-test (Welch's if variances differ)</span></div>
+            <div class="lane rank"><i>Skewed / ordinal</i><span>Mann–Whitney U</span></div></div>
+          <div class="design"><h4>Same people twice</h4><p class="eg">Before vs after training</p>
+            <div class="lane norm"><i>Normal</i><span>Paired t-test</span></div>
+            <div class="lane rank"><i>Skewed / ordinal</i><span>Wilcoxon signed-rank</span></div></div>
+          <div class="design"><h4>3+ independent groups</h4><p class="eg">Three stores · three teaching methods</p>
+            <div class="lane norm"><i>Normal</i><span>One-way ANOVA (Welch's ANOVA if variances differ)</span></div>
+            <div class="lane rank"><i>Skewed / ordinal</i><span>Kruskal–Wallis</span></div></div>
+          <div class="design"><h4>Same people 3+ times</h4><p class="eg">Stress before, during and after a project</p>
+            <div class="lane rank"><i>Skewed / ordinal</i><span>Friedman</span></div></div>
+          <div class="design"><h4>Two factors on one outcome</h4><p class="eg">Teaching method × study time</p>
+            <div class="lane norm"><i>Normal</i><span>Two-way ANOVA</span></div>
+            <div class="lane rank"><i>Skewed / ordinal</i><span>Scheirer–Ray–Hare or ART ANOVA</span></div></div>
+          <div class="design"><h4>Several outcomes at once</h4><p class="eg">Two or more dependent variables</p>
+            <div class="lane norm"><i>Normal</i><span>MANOVA</span></div></div>
+          <div class="design"><h4>Which distribution?</h4><p class="eg">Module 5</p>
+            <div class="lane norm"><i>Out of n</i><span>Binomial</span></div>
+            <div class="lane norm"><i>Per interval</i><span>Poisson</span></div>
+            <div class="lane norm"><i>Measured</i><span>Normal</span></div></div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Outputs ───────────────────────── -->
+      <section class="chapter" id="outputs">
+        <header class="chapter-head"><span class="chapter-num">≡</span><div><p class="eyebrow">Cheat sheet</p><h2>Reading test outputs</h2></div></header>
+        <p class="key">Every output question comes down to one comparison: p against .05. The rest tells you which row to read and what to do next.</p>
+        <p class="group-title">Decisions</p>
+        <div class="reads">
+          <div class="read"><code>p ≤ .05</code><span>Reject H₀: significant difference or effect</span></div>
+          <div class="read"><code>p &gt; .05</code><span>Fail to reject H₀: not enough evidence (not "no difference proven")</span></div>
+          <div class="read"><code>95% CI excludes 0</code><span>Significant difference</span></div>
+          <div class="read"><code>95% CI includes 0</code><span>Not significant</span></div>
+          <div class="read"><code>z = 1.80 vs 1.645 (one-tailed)</code><span>Beyond the critical value → reject H₀ (1.96 is the two-tailed value)</span></div>
+        </div>
+        <p class="group-title">Assumption checks</p>
+        <div class="reads">
+          <div class="read"><code>Levene's p &gt; .05</code><span>Equal variances: "assumed" row / standard ANOVA</span></div>
+          <div class="read"><code>Levene's p ≤ .05</code><span>Unequal variances: "not assumed" row (Welch's t) / Welch's ANOVA</span></div>
+          <div class="read"><code>Shapiro–Wilk p ≤ .05</code><span>Not normal → consider a non-parametric test</span></div>
+        </div>
+        <p class="group-title">After the test</p>
+        <div class="reads">
+          <div class="read"><code>Significant ANOVA / Kruskal–Wallis</code><span>At least one group differs → post hoc test to find which</span></div>
+          <div class="read"><code>Significant A × B interaction</code><span>The effect of A depends on the level of B</span></div>
+          <div class="read"><code>η² = .17</code><span>The factor explains about 17% of the variance</span></div>
+          <div class="read"><code>Higher mean rank</code><span>That group tends to have higher values</span></div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Traps ───────────────────────── -->
+      <section class="chapter" id="traps">
+        <header class="chapter-head"><span class="chapter-num">!</span><div><p class="eyebrow">Avoid</p><h2>Common traps</h2></div></header>
+        <p class="key">Most wrong options sound confident. Prefer careful wording: "fail to reject", "evidence for", "at least one", "associated with".</p>
+        <div class="traps">
+          <div class="trap-pair"><div class="no">"We accept H₀" / "H₀ is proven"</div><div class="yes">"We fail to reject H₀"</div></div>
+          <div class="trap-pair"><div class="no">"Rejecting H₀ proves Ha"</div><div class="yes">It gives evidence for Ha</div></div>
+          <div class="trap-pair"><div class="no">"p is the probability that H₀ is true"</div><div class="yes">p = probability of results this extreme <i>if</i> H₀ is true</div></div>
+          <div class="trap-pair"><div class="no">"Significant ANOVA: all groups differ"</div><div class="yes">At least one group differs</div></div>
+          <div class="trap-pair"><div class="no">Choosing one-tailed after seeing the data</div><div class="yes">Decide the direction before collecting data</div></div>
+          <div class="trap-pair"><div class="no">Reading Levene's p as the test of the means</div><div class="yes">Levene's p is about variances; it only picks the row</div></div>
+          <div class="trap-pair"><div class="no">"The training caused the increase"</div><div class="yes">Sales rose significantly; without a control group other causes are possible</div></div>
+          <div class="trap-pair"><div class="no">Mann–Whitney for before/after data</div><div class="yes">Paired data → Wilcoxon signed-rank</div></div>
+          <div class="trap-pair"><div class="no">Kruskal–Wallis for the same people at 3 time points</div><div class="yes">Related measurements → Friedman</div></div>
+          <div class="trap-pair"><div class="no">Normal distribution for counts</div><div class="yes">Counts → Poisson or binomial</div></div>
+          <div class="trap-pair"><div class="no">"Non-parametric tests are always better"</div><div class="yes">When assumptions hold, parametric tests are more powerful</div></div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Formulas ───────────────────────── -->
+      <section class="chapter" id="numbers">
+        <header class="chapter-head"><span class="chapter-num">∑</span><div><p class="eyebrow">Memorise</p><h2>Formulas and numbers to know</h2></div></header>
+        <p class="key">The quiz tests understanding more than calculation, but these numbers come up in the options.</p>
+        <div class="formulas">
+          <div class="fx"><span>z-score</span><b>z = (X − μ) / σ</b><small>SDs from the mean</small></div>
+          <div class="fx"><span>Standard error</span><b>σ / √n</b><small>4 × n → half the error</small></div>
+          <div class="fx"><span>Binomial</span><b>mean = n·p</b><small>SD = √(n·p·(1 − p))</small></div>
+          <div class="fx"><span>Poisson</span><b>mean = λ</b><small>rescale λ to the interval</small></div>
+          <div class="fx"><span>Empirical rule</span><b>68 / 95 / 99.7 %</b><small>within 1 / 2 / 3 SD</small></div>
+          <div class="fx"><span>Critical z at the 5% level</span><b>1.645 · ±1.96</b><small>one-tailed · two-tailed</small></div>
+          <div class="fx"><span>Power</span><b>1 − β</b><small>chance of detecting a real effect</small></div>
+          <div class="fx"><span>F-ratio</span><b>between ÷ within</b><small>large F → means differ</small></div>
+          <div class="fx"><span>Usual significance level</span><b>α = .05</b><small>also .01 or .10</small></div>
+          <div class="fx"><span>Large sample</span><b>n &gt; 30</b><small>CLT, z-test, paired t over Wilcoxon</small></div>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Recall ───────────────────────── -->
+      <section class="chapter" id="recall">
+        <header class="chapter-head"><span class="chapter-num">✓</span><div><p class="eyebrow">The day before</p><h2>Recall check</h2></div></header>
+        <p class="key">Say each answer out loud before you open it. If you hesitate, go back to that section.</p>
+        <p class="group-title">Module 5 · Probability</p>
+        <details><summary>What are the four conditions of a binomial experiment?</summary><p>A fixed number of trials, two outcomes per trial, a constant probability of success and independent trials.</p></details>
+        <details><summary>How is Poisson different from binomial?</summary><p>Binomial counts successes in a fixed number of trials (maximum n). Poisson counts events in a fixed interval of time or space, using the average rate λ, with no upper limit.</p></details>
+        <details><summary>What does the Central Limit Theorem say, and why does it matter?</summary><p>Sample means become approximately normal as n grows, whatever the population's shape, with spread σ/√n. It lets us use normal-based tests on large samples.</p></details>
+        <details><summary>What does z = −1.5 mean?</summary><p>The value is 1.5 standard deviations below the mean.</p></details>
+        <p class="group-title">Module 6 · Hypothesis testing</p>
+        <details><summary>What is a p-value, and when do you reject H₀?</summary><p>The probability of results at least this extreme if H₀ were true. Reject H₀ when p ≤ α (usually .05).</p></details>
+        <details><summary>Type I vs Type II error?</summary><p>Type I: rejecting a true H₀ (false positive, probability α). Type II: failing to reject a false H₀ (false negative, probability β).</p></details>
+        <details><summary>What happens when α goes from .05 to .10?</summary><p>H₀ is rejected more easily: more Type I errors, fewer Type II errors, more power.</p></details>
+        <details><summary>When do you use a z-test instead of a t-test?</summary><p>When σ is known, or the sample is large (n &gt; 30). Otherwise a t-test.</p></details>
+        <details><summary>Levene's p = .006 in an independent t-test. Which row?</summary><p>Equal variances not assumed (Welch's t-test), because p ≤ .05 means the variances differ.</p></details>
+        <p class="group-title">Module 7 · ANOVA</p>
+        <details><summary>Why ANOVA instead of several t-tests?</summary><p>Several t-tests inflate the Type I error rate; one ANOVA compares all the means in a single test at α.</p></details>
+        <details><summary>What does the F-ratio compare?</summary><p>Between-group variance to within-group (error) variance. A large F means the means differ more than chance explains.</p></details>
+        <details><summary>What is an interaction effect?</summary><p>The effect of one factor depends on the level of the other factor.</p></details>
+        <p class="group-title">Module 8 · Non-parametric tests</p>
+        <details><summary>Name the non-parametric alternatives to the independent t-test, paired t-test and one-way ANOVA.</summary><p>Mann–Whitney U, Wilcoxon signed-rank and Kruskal–Wallis.</p></details>
+        <details><summary>A Kruskal–Wallis test is significant. What do you conclude and do next?</summary><p>At least one group differs. Run post hoc pairwise comparisons to find which.</p></details>
+        <details><summary>Why choose a t-test over Mann–Whitney when assumptions hold?</summary><p>It is more powerful: it uses the actual values, while ranks lose information.</p></details>
+        <a class="go-btn" href="index.html">Take a Quiz 2 practice run →</a>
+      </section>
+    </main>
+  </div>
 
   <footer class="site-footer">Study aid, not official course material. Based on the Module 5–8 readings and class activities.</footer>
+
+  <script>
+    // Contents: highlight the chapter and topic being read, in the side menu and in the phone chip bar.
+    const marks = [...document.querySelectorAll(".chapter, .sub[id]")];
+    const links = [...document.querySelectorAll(".side-toc a[href^='#'], .chip-toc a")];
+    const chipBar = document.querySelector(".chip-toc");
+    let ticking = false;
+    function spy() {
+      ticking = false;
+      const current = marks.filter((el) => el.getBoundingClientRect().top <= 110);
+      const chapter = [...current].reverse().find((el) => el.classList.contains("chapter")) || marks[0];
+      const sub = [...current].reverse().find((el) => el.classList.contains("sub") && chapter.contains(el));
+      for (const a of links) a.classList.toggle("active", a.hash === `#${chapter.id}` || (!!sub && a.hash === `#${sub.id}`));
+      for (const li of document.querySelectorAll(".side-toc > ol > li")) li.classList.toggle("open", li.firstElementChild.hash === `#${chapter.id}`);
+      const chip = chipBar.querySelector(`a[href="#${chapter.id}"]`);
+      if (chip && getComputedStyle(chipBar).display !== "none") chipBar.scrollTo({ left: chip.offsetLeft - chipBar.clientWidth / 2 + chip.clientWidth / 2, behavior: "smooth" });
+    }
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    spy();
+  </script>
 </body>
 </html>

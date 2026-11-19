@@ -11,7 +11,7 @@ A practice simulator for **Principles of Data Analytics Quiz 2** (Tuesday, Novem
 | 7 · ANOVA | Why ANOVA instead of many t-tests, F-ratio, between vs within variance, assumptions (residual normality, Levene's test, Welch's ANOVA), post hoc tests, one-way vs two-way ANOVA, main and interaction effects, η² |
 | 8 · Non-parametric tests | Parametric vs non-parametric, ranks, Mann–Whitney U, Wilcoxon signed-rank, Kruskal–Wallis, Friedman, Scheirer–Ray–Hare and ART ANOVA, choosing the right test, reading their outputs |
 
-The **[study guide](study-guide.html)** covers the quiz format and time plan, how to answer multiple-choice and short-answer questions, the essentials of each module, a test chooser, an output-reading cheat sheet, common traps, formulas and a last-day recall check.
+The **[study guide](study-guide.html)** is organised as chapters with a key idea and short topic cards, a contents menu that follows your reading, and diagrams: the normal curve with the 68-95-99.7 rule, Z-table areas, one- vs two-tailed rejection regions, the Central Limit Theorem, what makes F large, and interaction plots. It also has the quiz format and a time plan, how to answer, comparison cards (binomial vs Poisson vs normal, z vs t, the three t-tests, parametric vs non-parametric), a Type I/II error grid, a test chooser, an output cheat sheet, common traps, formulas and a recall check.
 
 ### Modules 1–4 (hidden for now)
 
@@ -58,12 +58,13 @@ midterm.html      midterm simulator page (Modules 1–4, not linked)
 midterm-bank.js   scenario bank (4 areas × 3 scenarios)
 midterm.js        midterm logic + UI
 study-guide.html  Quiz 2 study guide (Modules 5–8)
+guide.css         styles for the Quiz 2 study guide
 study-guide-midterm.html  midterm study guide (Modules 1–4, not linked)
 theory.html       theory recap page (Modules 1–4, not linked)
 test/             node:test suite
 ```
 
-When you change a script or `styles.css`, bump the `?v=` version on their links in `index.html` (and on the stylesheet link in `study-guide.html`). GitHub Pages lets browsers cache each file for 10 minutes, so without it a browser can mix a new file with an old one.
+When you change a script or `styles.css`, bump the `?v=` version on their links in `index.html` (and on the stylesheet links in `study-guide.html`). GitHub Pages lets browsers cache each file for 10 minutes, so without it a browser can mix a new file with an old one.
 
 ### Adding a question
 
