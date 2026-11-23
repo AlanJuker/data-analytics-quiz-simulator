@@ -37,17 +37,18 @@ test("each model answer earns full marks under its own rubric", () => {
 });
 
 test("an exam has one scenario per cluster, in order, avoiding the last attempt", () => {
-  const exam = buildExam(SCENARIOS, () => 0.5, ["A1", "B1", "C1", "D1"]);
+  const exam = buildExam(SCENARIOS, ["A1", "B1", "C1", "D1"]);
   assert.deepEqual(exam.map((it) => it.s.cluster), Object.keys(CLUSTERS));
   assert.ok(exam.every((it) => !["A1", "B1", "C1", "D1"].includes(it.s.id)));
 });
 
 test("a quick case is one scenario, preferring ones not yet practised", () => {
   const done = SCENARIOS.slice(1).map((s) => s.id);
-  const one = buildCase(SCENARIOS, Math.random, done);
+  const one = buildCase(SCENARIOS, done);
   assert.equal(one.length, 1);
   assert.equal(one[0].s.id, SCENARIOS[0].id);
-  assert.equal(buildCase(SCENARIOS, Math.random, SCENARIOS.map((s) => s.id)).length, 1, "falls back to the whole bank");
+  assert.equal(buildCase(SCENARIOS, SCENARIOS.map((s) => s.id)).length, 1, "falls back to the whole bank");
+  assert.deepEqual(buildCase(SCENARIOS, []).map((it) => it.s.id), buildCase(SCENARIOS, []).map((it) => it.s.id), "not random");
   assert.equal(gradeExam(one).max, POINTS_PER_QUESTION);
 });
 
@@ -56,7 +57,7 @@ test("quick cases cover the whole bank before repeating, and a new round does no
   const drawn = [];
   for (let i = 0; i < SCENARIOS.length + 1; i++) {
     seen = nextRound(SCENARIOS, seen);
-    const id = buildCase(SCENARIOS, Math.random, seen)[0].s.id;
+    const id = buildCase(SCENARIOS, seen)[0].s.id;
     seen = [...new Set([...seen, id])];
     drawn.push(id);
   }
@@ -65,7 +66,7 @@ test("quick cases cover the whole bank before repeating, and a new round does no
 });
 
 test("scoring gives partial credit and nothing for blank parts", () => {
-  const exam = buildExam(SCENARIOS, () => 0);
+  const exam = buildExam(SCENARIOS);
   const it = exam[0];
   it.answers = it.s.parts.map((p) => p.modelAnswer);
   it.answers[1] = "   ";

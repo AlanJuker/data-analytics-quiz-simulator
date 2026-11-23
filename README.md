@@ -20,7 +20,8 @@ The site only shows Quiz 2 material. The Modules 1–4 material is kept for a la
 ## How a quiz works
 
 - **Lengths:** Quick (5 MC + 1 short answer, 9 minutes, the default), Multiple choice (5 MC, 4 minutes), Quick open (1 short answer, 5 minutes) or Real Quiz 2 (25 + 2, 30 minutes). The timer always runs, at the real quiz's pace for each question type (about 45 seconds per multiple choice, 4–5 minutes per short answer), and submits the quiz when time runs out. You can move freely between questions, as in the real quiz.
-- **Always a different quiz:** questions you have seen least come first, so 12 Quiz 2 attempts cover all 180 Module 5–8 questions. A quiz counts as seen as soon as it starts, and the next one never repeats any of its questions. The setup screen shows how many questions of the selected modules you have seen.
+- **Always a different quiz, never random:** each quiz takes the questions you have completed the fewest times, then the ones done longest ago, following a fixed walk through the bank that rotates through Modules 5–8. Nothing repeats until you have done every question (12 Real Quiz 2 attempts cover all 180), and every Real Quiz 2 mixes all four modules. The setup screen shows how many questions you have seen.
+- **Unfinished quizzes come back:** a quiz counts only once it is submitted (by you or when time runs out), so if you leave one unfinished, the next start gives you the same questions.
 - **Mix:** about 1 in 5 multiple-choice questions asks you to interpret a test result (e.g., a t-test, ANOVA or Kruskal–Wallis output) or a data table. Questions come in this order: theory, then output interpretation, then the short answers.
 - **Style:** the questions test understanding, not memorisation. You identify the concept, choose the right test or chart, or interpret a result, and there is no arithmetic. Short-answer questions ask one thing each and can be answered in 2–3 sentences.
 - **Setup:** the modules are fixed to 5–8, as in Quiz 2, and the timer always runs. Just choose the length.
@@ -44,7 +45,7 @@ npm start          # python3 -m http.server 8000 → http://localhost:8000
 npm test           # node --test (Node 20+)
 ```
 
-The tests check that the question bank is well formed, that every Module 5–8 model answer earns full marks under its rubric, that the Quiz 1 and Quiz 2 formats have the right number of questions in the right order, that 12 Quiz 2 attempts cover Modules 5–8, that two quizzes in a row never share a question, that each module can fill the long format on its own, that grading still matches after the options are shuffled, and that short answers get the right partial credit. CI runs them on every push.
+The tests check that the question bank is well formed, that every Module 5–8 model answer earns full marks under its rubric, that the Quiz 1 and Quiz 2 formats have the right number of questions in the right order, that selection is deterministic and an unfinished quiz repeats, that every Quiz 2 mixes all four modules, that 12 Quiz 2 attempts cover Modules 5–8, that two quizzes in a row never share a question, that each module can fill the long format on its own, that grading still matches after the options are shuffled, and that short answers get the right partial credit. CI runs them on every push.
 
 ## Project structure
 

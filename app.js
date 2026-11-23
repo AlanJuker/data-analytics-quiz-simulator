@@ -1,10 +1,9 @@
-/* global QUESTIONS, buildQuiz, suggestPoints, itemScore, grade */
+/* global QUESTIONS, buildQuiz, markDone, suggestPoints, itemScore, grade */
 // UI layer: renders the four screens (setup → quiz → self-grading → results) into #app.
 
 const app = document.getElementById("app");
 const HISTORY_KEY = "pdaquiz.history";
-const SEEN_KEY = "pdaquiz.seen"; // question id → times shown, so new quizzes prefer unseen questions
-const LAST_KEY = "pdaquiz.last"; // the previous quiz's question ids, never repeated straight away
+const SEEN_KEY = "pdaquiz.seen"; // question id → { n, at }: times completed and when, so quizzes walk the bank
 const PASS_MARK = 70;
 const LETTERS = "ABCD";
 // The site focuses on Quiz 2, which always covers Modules 5-8: 25 multiple choice + 2 short answer in
@@ -67,9 +66,10 @@ function renderSetup(settings = { format: "quick" }) {
       tests), like Quiz 2. <strong>Quick</strong> gives 5 multiple-choice questions and 1 short answer;
       <strong>Multiple choice</strong> and <strong>Quick open</strong> practise one type at a time; <strong>Real Quiz 2</strong>
       is the full 25 + 2 in 30 minutes. A timer runs as in the real quiz and submits automatically when time runs out.
-      About 1 in 5 multiple-choice questions asks you to interpret a test result or a data table. Every new quiz gives
-      you the questions you have seen least, so you work through the whole bank. You grade your short answers against a
-      rubric after you submit. Revise with the <a href="study-guide.html">Quiz 2 study guide</a>.</p>
+      About 1 in 5 multiple-choice questions asks you to interpret a test result or a data table. Every new quiz
+      continues through the bank with questions you have not done yet, so nothing repeats until you have done them all.
+      A quiz counts once you submit it; if you leave one unfinished, you get the same questions next time. You grade
+      your short answers against a rubric after you submit. Revise with the <a href="study-guide.html">Quiz 2 study guide</a>.</p>
       <form id="setup">
         <fieldset><legend>Length</legend><div class="chips">
           ${Object.entries(FORMATS).map(([k, f]) => chip("radio", "format", k, f.label, settings.format === k)).join("")}
@@ -91,14 +91,9 @@ function renderSetup(settings = { format: "quick" }) {
     </section>` : ""}`;
 }
 
-// A quiz counts as seen as soon as it starts, so even an abandoned quiz is not repeated next time.
 function startQuiz(settings) {
   const f = FORMATS[settings.format];
-  const seen = load(SEEN_KEY, {});
-  const items = buildQuiz(QUESTIONS, { modules: QUIZ2_MODULES, mcCount: f.mc, openCount: f.open, seen, last: load(LAST_KEY, []) });
-  items.forEach((it) => (seen[it.q.id] = (seen[it.q.id] || 0) + 1));
-  save(SEEN_KEY, seen);
-  save(LAST_KEY, items.map((it) => it.q.id));
+  const items = buildQuiz(QUESTIONS, { modules: QUIZ2_MODULES, mcCount: f.mc, openCount: f.open, seen: load(SEEN_KEY, {}) });
   const now = Date.now();
   state = {
     screen: "quiz",
@@ -193,8 +188,11 @@ function submit() {
   finish(false);
 }
 
+// A quiz is recorded only when it is submitted (by you or when time runs out), so an unfinished quiz comes
+// back with the same questions next time.
 function finish(timeUp) {
   clearInterval(state.timerId);
+  save(SEEN_KEY, markDone(load(SEEN_KEY, {}), state.items.map((it) => it.q.id)));
   state.finishedAt = Date.now();
   state.timeUp = timeUp;
   const open = state.items.filter((it) => it.q.type === "open" && it.text.trim());

@@ -2,23 +2,21 @@
 // Midterm simulator: 4 applied scenarios (one per cluster) or a single quick case, free-text answers, rubric self-grading.
 // Pure logic first (also used by the Node tests), then the UI, which only runs in a browser.
 
-const lib = typeof module !== "undefined" ? require("./quiz.js") : { shuffle, suggestPoints };
+const lib = typeof module !== "undefined" ? require("./quiz.js") : { walk, suggestPoints };
 const POINTS_PER_QUESTION = 25;
 
 const newItem = (s) => ({ s, answers: s.parts.map(() => ""), points: s.parts.map((p) => p.keyPoints.map(() => false)) });
-const pick = (pool, rand, avoid) => {
-  const fresh = pool.filter((s) => !avoid.includes(s.id));
-  return lib.shuffle(fresh.length ? fresh : pool, rand)[0];
-};
+// No randomness: the first scenario in the given order that is not in `avoid` (already done this round).
+const pick = (pool, avoid) => pool.find((s) => !avoid.includes(s.id)) ?? pool[0];
 
-// One scenario per cluster, in the bank's cluster order; prefers scenarios not in `avoid` (the last attempt).
-function buildExam(bank, rand = Math.random, avoid = []) {
+// One scenario per cluster, in the bank's cluster order; prefers scenarios not in `avoid`.
+function buildExam(bank, avoid = []) {
   const clusters = [...new Set(bank.map((s) => s.cluster))];
-  return clusters.map((cluster) => newItem(pick(bank.filter((s) => s.cluster === cluster), rand, avoid)));
+  return clusters.map((cluster) => newItem(pick(bank.filter((s) => s.cluster === cluster), avoid)));
 }
 
-// Quick practice: one random scenario from any cluster, preferring ones not in `avoid` (already practised).
-const buildCase = (bank, rand = Math.random, avoid = []) => [newItem(pick(bank, rand, avoid))];
+// Quick practice: the next scenario not yet done, walking the bank one cluster at a time.
+const buildCase = (bank, avoid = []) => [newItem(pick(lib.walk(bank, (s) => s.cluster), avoid))];
 
 // Ids drawn so far this round. Once every scenario has been drawn a new round starts, keeping only the
 // most recent id so the first case of the new round is not an immediate repeat.
@@ -122,9 +120,8 @@ if (typeof document !== "undefined") {
   }
 
   function startExam(quick = false) {
-    const seen = nextRound(SCENARIOS, store.get(SEEN_KEY, []));
-    const items = (quick ? buildCase : buildExam)(SCENARIOS, Math.random, seen);
-    store.set(SEEN_KEY, [...new Set([...seen, ...items.map((it) => it.s.id)])]);
+    // Cases are recorded only when the exam is submitted; an unfinished exam is saved as a draft and resumed.
+    const items = (quick ? buildCase : buildExam)(SCENARIOS, nextRound(SCENARIOS, store.get(SEEN_KEY, [])));
     state = { items, index: 0, startedAt: Date.now() };
     state.timerId = setInterval(tick, 1000);
     saveDraft();
@@ -202,6 +199,8 @@ if (typeof document !== "undefined") {
 
   function finish() {
     clearInterval(state.timerId);
+    const seen = nextRound(SCENARIOS, store.get(SEEN_KEY, []));
+    store.set(SEEN_KEY, [...new Set([...seen, ...state.items.map((it) => it.s.id)])]);
     state.finishedAt = Date.now();
     suggestAll(state.items);
     store.del(DRAFT_KEY);

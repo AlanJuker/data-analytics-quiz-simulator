@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const QUESTIONS = require("../questions.js");
-const { buildQuiz, suggestPoints, itemScore, grade } = require("../quiz.js");
+const { buildQuiz, markDone, suggestPoints, itemScore, grade } = require("../quiz.js");
 
 const QUIZ2 = [5, 6, 7, 8];
 
@@ -81,26 +81,41 @@ test("quick format: 5 MC (one of them an output question) + 1 short answer from 
 });
 
 // Runs Quiz 2 attempts the way the app does: each one counts as seen and becomes `last` as soon as it starts.
-function attempts(n) {
-  const seen = {};
-  let last = [];
-  return Array.from({ length: n }, () => {
-    const ids = buildQuiz(QUESTIONS, { modules: QUIZ2, mcCount: 25, openCount: 2, seen, last }).map((it) => it.q.id);
-    ids.forEach((id) => (seen[id] = (seen[id] || 0) + 1));
-    last = ids;
+function attempts(n, size = { mcCount: 25, openCount: 2 }) {
+  let seen = {};
+  return Array.from({ length: n }, (_, i) => {
+    const options = typeof size === "function" ? size() : size;
+    const ids = buildQuiz(QUESTIONS, { modules: QUIZ2, ...options, seen }).map((it) => it.q.id);
+    seen = markDone(seen, ids, i + 1);
     return ids;
   });
 }
 
-test("new quizzes show unseen questions first: 12 Quiz 2 attempts cover all of Modules 5-8", () => {
+test("selection is not random, and an unfinished quiz gives the same questions again", () => {
+  const ids = (seen) => buildQuiz(QUESTIONS, { modules: QUIZ2, mcCount: 25, openCount: 2, seen }).map((it) => it.q.id);
+  assert.deepEqual(ids({}), ids({}), "same history, same questions");
+  const first = ids({});
+  assert.deepEqual(ids({}), first, "nothing recorded (unfinished), so the next start is identical");
+  assert.ok(!ids(markDone({}, first, 1)).some((id) => first.includes(id)), "after submitting, all new questions");
+});
+
+test("every Quiz 2 attempt mixes all four modules", () => {
+  for (const ids of attempts(12)) {
+    const mods = new Set(ids.map((id) => id.slice(0, 2)));
+    assert.deepEqual([...mods].sort(), ["m5", "m6", "m7", "m8"]);
+  }
+});
+
+test("quizzes walk through the bank: 12 Quiz 2 attempts cover all of Modules 5-8", () => {
   const shown = new Set(attempts(12).flat());
   const missing = QUESTIONS.filter((q) => q.module >= 5 && !shown.has(q.id)).map((q) => q.id);
   assert.deepEqual(missing, []);
 });
 
-test("two quizzes in a row never share a question", () => {
+test("two quizzes in a row never share a question, even when mixing lengths", () => {
+  const sizes = [{ mcCount: 5, openCount: 1 }, { mcCount: 5, openCount: 0 }, { mcCount: 0, openCount: 1 }, { mcCount: 25, openCount: 2 }];
   for (let trial = 0; trial < 20; trial++) {
-    const runs = attempts(30);
+    const runs = attempts(30, () => sizes[Math.floor(Math.random() * sizes.length)]);
     for (let i = 1; i < runs.length; i++) assert.ok(!runs[i].some((id) => runs[i - 1].includes(id)), `attempt ${i + 1} repeats attempt ${i}`);
   }
 });
