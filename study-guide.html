@@ -8,7 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>">
   <!-- Bump ?v= when a file changes: GitHub Pages lets browsers cache each file for 10 minutes. -->
   <link rel="stylesheet" href="styles.css?v=20261119-1">
-  <link rel="stylesheet" href="guide.css?v=20261119-1">
+  <link rel="stylesheet" href="guide.css?v=20261123-1">
 </head>
 <body class="q2">
   <header class="site-header">
@@ -17,7 +17,7 @@
     <p class="subtitle">Principles of Data Analytics · Modules 5–8 · Tuesday, November 24, 2026</p>
   </header>
 
-  <nav class="chip-toc" aria-label="Chapters"><a href="#start">Start</a><a href="#how">Answer</a><a href="#m5">M5</a><a href="#m6">M6</a><a href="#m7">M7</a><a href="#m8">M8</a><a href="#choose">Test chooser</a><a href="#outputs">Outputs</a><a href="#traps">Traps</a><a href="#numbers">Formulas</a><a href="#recall">Recall</a></nav>
+  <nav class="chip-toc" aria-label="Chapters"><a href="#start">Start</a><a href="#how">Answer</a><a href="#m5">M5</a><a href="#m6">M6</a><a href="#m7">M7</a><a href="#m8">M8</a><a href="#tests">All tests</a><a href="#choose">Test chooser</a><a href="#outputs">Outputs</a><a href="#traps">Traps</a><a href="#numbers">Formulas</a><a href="#recall">Recall</a></nav>
 
   <div class="layout">
     <aside class="side-toc" aria-label="Contents">
@@ -35,6 +35,8 @@
           <ol><li><a href="#m7-why">Why ANOVA</a></li><li><a href="#m7-f">The F-ratio</a></li><li><a href="#m7-assume">Assumptions</a></li><li><a href="#m7-types">One-way vs two-way</a></li><li><a href="#m7-after">After a significant F</a></li><li><a href="#m7-read">Reading outputs</a></li></ol></li>
         <li><a href="#m8">M8 · Non-parametric</a>
           <ol><li><a href="#m8-vs">Why rank the data</a></li><li><a href="#m8-tests">The four tests</a></li><li><a href="#m8-details">How each one works</a></li><li><a href="#m8-read">Reading outputs</a></li></ol></li>
+        <li><a href="#tests">Every test</a>
+          <ol><li><a href="#tests-routine">The 4-step routine</a></li><li><a href="#tests-same">Same or different people?</a></li><li><a href="#tests-family">Each test and its twin</a></li><li><a href="#tests-two">One or two samples</a></li><li><a href="#tests-three">Three or more</a></li><li><a href="#tests-helpers">Helper tests</a></li><li><a href="#tests-direction">Which way did it go?</a></li><li><a href="#tests-say">Say it right</a></li></ol></li>
         <li><a href="#choose">Test chooser</a></li>
         <li><a href="#outputs">Reading outputs</a></li>
         <li><a href="#traps">Common traps</a></li>
@@ -76,6 +78,7 @@
             <a class="mod" href="#m7"><span class="mnum">7</span><span><b>ANOVA</b><em>Do three or more group means differ?</em><small>F-ratio, assumptions, post hoc tests, two-way ANOVA</small></span></a>
             <a class="mod" href="#m8"><span class="mnum">8</span><span><b>Non-parametric tests</b><em>What if the data are not normal?</em><small>Mann–Whitney U, Wilcoxon, Kruskal–Wallis, Friedman</small></span></a>
           </div>
+          <p class="tip"><b>Stuck on test questions?</b>Start with <a href="#tests">Every test, one by one</a>: each test next to its twin, how to read its output and how to word the answer.</p>
         </div>
 
         <div class="sub" id="start-day">
@@ -483,6 +486,185 @@ H = 7.92    df = 2    Asymp. Sig. = .019</pre></figure>
             <li>p = .019 → at least one branch differs; South ranks highest.</li>
             <li>Only post hoc pairwise tests can say which branches differ.</li>
           </ul>
+        </div>
+      </section>
+
+      <!-- ───────────────────────── Every test ───────────────────────── -->
+      <section class="chapter" id="tests">
+        <header class="chapter-head"><span class="chapter-num">⚖</span><div><p class="eyebrow">All the tests</p><h2>Every test, one by one</h2></div></header>
+        <p class="key">Every test asks the same thing: is the difference in this sample too big to be chance? The tests differ only in <b>who is compared</b> and <b>what kind of data</b> you have. Get those two right and the rest is reading p.</p>
+
+        <div class="sub" id="tests-routine">
+          <h3><span class="idx">T.1</span>The 4-step routine for any test question</h3>
+          <ol class="steps">
+            <li><b>Who is compared?</b>One group against a number · two different groups · the same people twice · three or more groups · the same people three or more times · two factors at once.</li>
+            <li><b>What kind of data?</b>Normal, interval data → the <b>parametric</b> test (t-test, ANOVA). Skewed, ordinal (1–5 ratings), small sample or outliers → its <b>non-parametric twin</b> (works on ranks).</li>
+            <li><b>Decide with p</b>p ≤ .05 → reject H₀, the result is significant. p &gt; .05 → fail to reject H₀, no significant difference. Compare the "2-tailed" p with .05 directly.</li>
+            <li><b>Say which way, in the design's words</b>Look at the means, mean ranks or +/− ranks for the direction. Different people → "the groups <b>differ</b>". Same people → "scores <b>changed</b> (rose / dropped)".</li>
+          </ol>
+        </div>
+
+        <div class="sub" id="tests-same">
+          <h3><span class="idx">T.2</span>Same people or different people?</h3>
+          <p class="lead">This is the question most wrong answers get wrong. Look for these clue words.</p>
+          <div class="grid2">
+            <div class="box"><h4>Independent: different people</h4><p>Each person is in <b>one</b> group only.</p><p><span class="tag">men vs women</span><span class="tag">online vs in-store</span><span class="tag">North, South, West branches</span><span class="tag">three teaching methods</span><span class="tag">treatment vs control group</span></p><span class="label">Tests</span>Independent t-test · Mann–Whitney U · one-way ANOVA · Kruskal–Wallis</div>
+            <div class="box good"><h4>Related: the same people again</h4><p>Each value is <b>linked</b> to a value in the other set.</p><p><span class="tag good">before vs after</span><span class="tag good">the same patients</span><span class="tag good">each employee</span><span class="tag good">matched by ID</span><span class="tag good">at 3 time points</span></p><span class="label">Tests</span>Paired t-test · Wilcoxon signed-rank · repeated-measures ANOVA · Friedman</div>
+          </div>
+          <p class="tip"><b>Quick check</b>Can you draw a line from each value on one side to <i>one</i> value on the other side (the same person)? Yes → related. No → independent.</p>
+        </div>
+
+        <div class="sub" id="tests-family">
+          <h3><span class="idx">T.3</span>Each test and its twin</h3>
+          <p class="lead">Every parametric test has a non-parametric twin for the same design. Learn them in pairs.</p>
+          <div class="tbl"><table>
+            <thead><tr><th>Who is compared</th><th>Normal data (parametric)</th><th>Skewed / ordinal (non-parametric twin)</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>One group vs a number</td><td data-label="Parametric">One-sample t-test (z-test if σ is known)</td><td data-label="Twin">— (not covered)</td><td data-label="Example">Average salary vs the $75,000 benchmark</td></tr>
+              <tr><td>2 different groups</td><td data-label="Parametric">Independent t-test (Welch's if variances differ)</td><td data-label="Twin"><b>Mann–Whitney U</b></td><td data-label="Example">Satisfaction online vs in-store</td></tr>
+              <tr><td>Same people, 2 times</td><td data-label="Parametric">Paired t-test</td><td data-label="Twin"><b>Wilcoxon signed-rank</b></td><td data-label="Example">Pain before vs after treatment</td></tr>
+              <tr><td>3+ different groups</td><td data-label="Parametric">One-way ANOVA (Welch's ANOVA if variances differ)</td><td data-label="Twin"><b>Kruskal–Wallis</b></td><td data-label="Example">Satisfaction at three branches</td></tr>
+              <tr><td>Same people, 3+ times</td><td data-label="Parametric">Repeated-measures ANOVA</td><td data-label="Twin"><b>Friedman</b></td><td data-label="Example">Stress before, during and after a project</td></tr>
+              <tr><td>Two factors, one outcome</td><td data-label="Parametric">Two-way ANOVA</td><td data-label="Twin"><b>Scheirer–Ray–Hare</b> or <b>ART ANOVA</b></td><td data-label="Example">Teaching method × study time → score</td></tr>
+              <tr><td>Several outcomes at once</td><td data-label="Parametric">MANOVA</td><td data-label="Twin">—</td><td data-label="Example">Method → score <i>and</i> satisfaction</td></tr>
+            </tbody>
+          </table></div>
+          <p class="tip"><b>Why the twins exist</b>Parametric tests use the raw values and assume normal data; they are more powerful when that holds. The twins rank the values first, so skew and outliers stop mattering. Same question, safer method.</p>
+        </div>
+
+        <div class="sub" id="tests-two">
+          <h3><span class="idx">T.4</span>One or two samples</h3>
+          <div class="grid2">
+            <div class="box plain"><h4>One-sample t-test</h4><p class="q">Is this group's average different from a known value?</p>
+              <span class="label">H₀</span>μ = the value (e.g. 75,000)
+              <span class="label">Output</span>t, df, p, mean difference
+              <span class="label">Say it</span>"Average salary is significantly different from $75,000 (it is higher)."
+              <span class="label">z or t?</span>z-test when σ is known or n is large; t-test when σ is estimated from the sample.</div>
+            <div class="box plain"><h4>Levene's first, then the t-test</h4><p class="q">Applies to the independent t-test only.</p>
+              <span class="label">Levene's p &gt; .05</span>Equal variances → "equal variances assumed" row
+              <span class="label">Levene's p ≤ .05</span>Unequal variances → "not assumed" row (Welch's t-test)
+              <span class="label">Remember</span>Levene's only picks the row. The answer is the t-test's p on that row.</div>
+          </div>
+          <div class="grid2 wide">
+            <div class="box"><h4>Independent t-test</h4><p class="q">Do two different groups have different means?</p>
+              <span class="label">H₀</span>μ₁ = μ₂
+              <span class="label">Direction</span>Which group has the higher mean (the mean difference)
+              <span class="label">Say it</span>"Delivery time differs between the regions by about 4.1 minutes."
+              <span class="label">Twin</span>Mann–Whitney U</div>
+            <div class="box warn"><h4>Mann–Whitney U</h4><p class="q">Do two different groups differ, when the data are skewed or ordinal?</p>
+              <span class="label">How</span>Ranks everyone from both groups together, then asks: does one group sit higher in the ranking?
+              <span class="label">Output</span>Mean rank per group, U, Z, p
+              <span class="label">Direction</span>The group with the <b>higher mean rank</b> tends to have higher values
+              <span class="label">Say it</span>"Online customers were significantly more satisfied than in-store customers."
+              <span class="label">Twin</span>Independent t-test</div>
+            <div class="box good"><h4>Paired t-test</h4><p class="q">Did the same people change between two measurements?</p>
+              <span class="label">H₀</span>Mean difference = 0
+              <span class="label">Direction</span>The mean difference (after − before): + rose, − dropped
+              <span class="label">Say it</span>"Sales rose significantly after training (t(24) = 3.18, p = .004)."
+              <span class="label">Twin</span>Wilcoxon signed-rank</div>
+            <div class="box good"><h4>Wilcoxon signed-rank</h4><p class="q">Did the same people change, when the differences are skewed or ordinal?</p>
+              <span class="label">How</span>Works out after − before per person, ranks the sizes, then puts the + / − signs back
+              <span class="label">Output</span>Negative ranks, positive ranks, ties, Z, p
+              <span class="label">Direction</span>Mostly negative ranks → the second measurement is lower. Mostly positive → higher.
+              <span class="label">Say it</span>"Pain scores dropped significantly after treatment."
+              <span class="label">Twin</span>Paired t-test</div>
+          </div>
+          <figure class="out"><figcaption>Wilcoxon output, label by label</figcaption><pre>Pain score (after − before), n = 20
+Negative ranks (after &lt; before): 15     ← 15 people: pain went DOWN
+Positive ranks (after &gt; before):  3     ← 3 other people: pain went UP
+Ties:                             2     ← 2 people: no change (left out)
+Z = −2.65    Asymp. Sig. (2-tailed) = .008</pre></figure>
+          <ul class="explain">
+            <li>The three rows are three different groups of people: 15 + 3 + 2 = 20.</li>
+            <li>Z says how far the result is from "no change". Its minus sign comes from the negative ranks winning. |Z| &gt; 1.96 → significant at .05.</li>
+            <li>p = .008 &lt; .05 and mostly negative → pain dropped significantly. One group measured twice, not two groups.</li>
+          </ul>
+        </div>
+
+        <div class="sub" id="tests-three">
+          <h3><span class="idx">T.5</span>Three or more groups or times</h3>
+          <p class="lead">All of these only say <b>"at least one differs"</b>. To know which ones, you need a post hoc test.</p>
+          <div class="grid2 wide">
+            <div class="box"><h4>One-way ANOVA</h4><p class="q">Do 3+ different groups have different means?</p>
+              <span class="label">H₀</span>All the means are equal
+              <span class="label">Output</span>F (between ÷ within variance), df, p
+              <span class="label">Order</span>Levene's (if p ≤ .05 → Welch's ANOVA) → F → Tukey post hoc → η²
+              <span class="label">Say it</span>"At least one region's mean differs; Tukey shows only A and C differ."
+              <span class="label">Twin</span>Kruskal–Wallis</div>
+            <div class="box warn"><h4>Kruskal–Wallis</h4><p class="q">Do 3+ different groups differ, when the data are skewed or ordinal?</p>
+              <span class="label">Output</span>Mean rank per group, H, df, p
+              <span class="label">Direction</span>The highest mean rank tends to have the highest values
+              <span class="label">Say it</span>"At least one branch differs; South ranks highest. Post hoc tests show which pairs."
+              <span class="label">Twin</span>One-way ANOVA</div>
+            <div class="box good"><h4>Friedman</h4><p class="q">Did the same people change across 3+ time points, when the data are skewed or ordinal?</p>
+              <span class="label">Output</span>Mean rank per time point, χ², df, p
+              <span class="label">Direction</span>Compare the mean ranks over time
+              <span class="label">Say it</span>"Stress differed across the three time points; it was lowest after the project."
+              <span class="label">Twin</span>Repeated-measures ANOVA</div>
+            <div class="box plain"><h4>Two-way ANOVA</h4><p class="q">Do two factors affect one outcome, and do they work together?</p>
+              <span class="label">Output</span>Three rows: factor A, factor B, A × B
+              <span class="label">Main effect</span>One factor's own effect, averaged over the other
+              <span class="label">Interaction</span>The effect of A <b>depends on</b> the level of B (lines cross)
+              <span class="label">Twin</span>Scheirer–Ray–Hare; ART ANOVA is the most accurate for interactions</div>
+          </div>
+          <figure class="out"><figcaption>Friedman output</figcaption><pre>Time      Mean rank
+Before       2.6
+During       2.1
+After        1.3
+N = 30    χ² = 14.8    df = 2    Asymp. Sig. = .001</pre></figure>
+          <ul class="explain">
+            <li>Same 30 people at three times → related → Friedman (not Kruskal–Wallis).</li>
+            <li>p = .001 → stress differs across the time points; "After" has the lowest mean rank.</li>
+          </ul>
+        </div>
+
+        <div class="sub" id="tests-helpers">
+          <h3><span class="idx">T.6</span>Helper tests: they never answer the research question</h3>
+          <p class="lead">These run before or after the main test. A common wrong answer reads their p as the result.</p>
+          <div class="grid2 wide">
+            <div class="box plain"><h4>Levene's test</h4><span class="label">Checks</span>Equal <b>variances</b> across the groups
+              <span class="label">p &gt; .05</span>Equal → standard t-test row / standard ANOVA
+              <span class="label">p ≤ .05</span>Unequal → Welch's t-test / Welch's ANOVA</div>
+            <div class="box plain"><h4>Shapiro–Wilk</h4><span class="label">Checks</span>Is the data (or the residuals) <b>normal</b>?
+              <span class="label">p &gt; .05</span>Normal enough → parametric test
+              <span class="label">p ≤ .05</span>Not normal → consider the non-parametric twin</div>
+            <div class="box plain"><h4>Post hoc (Tukey HSD)</h4><span class="label">When</span>Only after a <b>significant</b> ANOVA (or Kruskal–Wallis, with pairwise tests)
+              <span class="label">Answers</span><b>Which</b> pairs of groups differ</div>
+            <div class="box plain"><h4>η² (eta-squared)</h4><span class="label">What</span>Effect size: how <b>big</b> the effect is, not whether it is significant
+              <span class="label">Read</span>η² = .17 → the factor explains about 17% of the variance</div>
+          </div>
+          <p class="trap"><b>Flip for the helpers</b>For Levene's and Shapiro–Wilk, p &gt; .05 is the <b>good</b> news (the assumption holds). For the main test, p ≤ .05 is the finding.</p>
+        </div>
+
+        <div class="sub" id="tests-direction">
+          <h3><span class="idx">T.7</span>Which way did it go?</h3>
+          <p>p only says <b>whether</b> there is a difference. The direction always comes from another part of the output:</p>
+          <div class="reads">
+            <div class="read"><code>t-tests</code><span>The group means or the mean difference (sign of t follows which group was subtracted)</span></div>
+            <div class="read"><code>Mann–Whitney, Kruskal–Wallis, Friedman</code><span>The higher mean rank = higher values</span></div>
+            <div class="read"><code>Wilcoxon</code><span>More negative ranks = second measurement lower; more positive = higher</span></div>
+            <div class="read"><code>ANOVA</code><span>The group means, and the post hoc test for which pairs</span></div>
+            <div class="read"><code>Negative Z or t</code><span>Only the direction. It does not make the result invalid or non-significant</span></div>
+          </div>
+          <div class="grid2">
+            <div class="box plain"><h4>Two-tailed (the default)</h4><p>Ha: "there is a difference, either way". Compare the 2-tailed p with .05. You can still say which way it went: first p says there is a difference, then the means or ranks show the direction.</p></div>
+            <div class="box plain"><h4>One-tailed</h4><p>Ha names a direction <b>before</b> the data ("pain will drop"). One-tailed p = 2-tailed p ÷ 2, but only if the result went the predicted way. Matters near the cut-off: 2-tailed .08 → one-tailed .04.</p></div>
+          </div>
+        </div>
+
+        <div class="sub" id="tests-say">
+          <h3><span class="idx">T.8</span>Say it right: test by test</h3>
+          <div class="traps">
+            <div class="trap-pair"><div class="no">Wilcoxon: "The two groups of patients differ"</div><div class="yes">"Pain dropped significantly after treatment" (one group, measured twice)</div></div>
+            <div class="trap-pair"><div class="no">Mann–Whitney: "Satisfaction changed over time"</div><div class="yes">"Online customers were more satisfied than in-store customers" (two groups)</div></div>
+            <div class="trap-pair"><div class="no">p &gt; .05: "The groups are the same"</div><div class="yes">"No significant difference" (not enough evidence; equality is not proven)</div></div>
+            <div class="trap-pair"><div class="no">ANOVA / Kruskal–Wallis: "All the branches differ" or "South differs from North"</div><div class="yes">"At least one branch differs"; only the post hoc test names the pairs</div></div>
+            <div class="trap-pair"><div class="no">Levene's p = .003: "Delivery time differs by region"</div><div class="yes">"The variances differ, so read the Welch row", then use that row's p</div></div>
+            <div class="trap-pair"><div class="no">Shapiro–Wilk p = .30: "Significant, reject H₀"</div><div class="yes">"The data look normal", so the parametric test is fine</div></div>
+            <div class="trap-pair"><div class="no">Paired t-test: "The training caused the rise"</div><div class="yes">"Sales rose significantly"; without a control group other causes are possible</div></div>
+            <div class="trap-pair"><div class="no">Two-way ANOVA interaction: "Both factors matter"</div><div class="yes">"The effect of method depends on study time" (that is the interaction; main effects are separate rows)</div></div>
+            <div class="trap-pair"><div class="no">Two-tailed p = .03: "Compare with .025, so not significant"</div><div class="yes">Compare with .05 → significant (.025 per tail is only for critical values: ±1.96)</div></div>
+          </div>
         </div>
       </section>
 

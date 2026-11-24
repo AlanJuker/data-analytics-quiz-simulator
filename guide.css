@@ -66,6 +66,7 @@
 .grid2 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 .grid3 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
 .grid4 { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.grid2.wide { grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); }
 .box { padding: 14px 16px; border: 1px solid var(--border); border-top: 4px solid var(--accent); border-radius: 12px; background: var(--bg); min-width: 0; }
 .box.good { border-top-color: var(--good); }
 .box.warn { border-top-color: var(--warn); }
