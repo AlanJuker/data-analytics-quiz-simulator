@@ -19,12 +19,12 @@ The site only shows Quiz 2 material. The Modules 1–4 material is kept for a la
 
 ## How a quiz works
 
-- **Lengths:** Quick (5 MC + 1 short answer, 9 minutes, the default), Multiple choice (5 MC, 4 minutes), Quick open (1 short answer, 5 minutes) or Real Quiz 2 (25 + 2, 30 minutes). The timer always runs, at the real quiz's pace for each question type (about 45 seconds per multiple choice, 4–5 minutes per short answer), and submits the quiz when time runs out. You can move freely between questions, as in the real quiz.
+- **Lengths:** Quick (5 MC + 1 short answer, 9 minutes, the default), Multiple choice (5 MC, 4 minutes), Quick open (1 short answer, 5 minutes) or Real Quiz 2 (25 + 2, 30 minutes). By default a countdown runs at the real quiz's pace for each question type (about 45 seconds per multiple choice, 4–5 minutes per short answer) and submits the quiz when time runs out. Tick **No time limit** to practise without it: the clock then counts up and never submits for you (the choice is remembered). You can move freely between questions, as in the real quiz.
 - **Always a different quiz, never random:** each quiz takes the questions you have completed the fewest times, then the ones done longest ago, following a fixed walk through the bank that rotates through Modules 5–8. Nothing repeats until you have done every question (12 Real Quiz 2 attempts cover all 180), and every Real Quiz 2 mixes all four modules. The setup screen shows how many questions you have seen.
 - **Unfinished quizzes come back:** a quiz counts only once it is submitted (by you or when time runs out), so if you leave one unfinished, the next start gives you the same questions.
 - **Mix:** about 1 in 5 multiple-choice questions asks you to interpret a test result (e.g., a t-test, ANOVA or Kruskal–Wallis output) or a data table. Questions come in this order: theory, then output interpretation, then the short answers.
 - **Style:** the questions test understanding, not memorisation. You identify the concept, choose the right test or chart, or interpret a result, and there is no arithmetic. Short-answer questions ask one thing each and can be answered in 2–3 sentences.
-- **Setup:** the modules are fixed to 5–8, as in Quiz 2, and the timer always runs. Just choose the length.
+- **Setup:** the modules are fixed to 5–8, as in Quiz 2. Choose the length, and optionally tick No time limit.
 - **During the quiz:** a question navigator, flags, and keyboard shortcuts (`1`–`4` / `A`–`D` to answer, `←` `→` to move, `F` to flag).
 - **Short answers:** after you submit, you see the model answer and a rubric. Points are pre-ticked by keyword matching, and you confirm or correct them. Each short answer earns partial credit.
 - **Results:** your score against a 70% pass mark, a breakdown by module and question type, and a full review with explanations. Past attempts are saved in your browser.

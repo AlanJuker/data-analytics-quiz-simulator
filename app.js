@@ -3,12 +3,13 @@
 
 const app = document.getElementById("app");
 const HISTORY_KEY = "pdaquiz.history";
+const UNTIMED_KEY = "pdaquiz.untimed"; // remembers the "No time limit" choice
 const SEEN_KEY = "pdaquiz.seen"; // question id → { n, at }: times completed and when, so quizzes walk the bank
 const PASS_MARK = 70;
 const LETTERS = "ABCD";
 // The site focuses on Quiz 2, which always covers Modules 5-8: 25 multiple choice + 2 short answer in
-// 30 minutes. Quick is the default. The timer always runs, at the real quiz's pace per question type:
-// about 45 seconds per multiple choice and 4-5 minutes per short answer.
+// 30 minutes. Quick is the default. The countdown runs at the real quiz's pace per question type (about
+// 45 seconds per multiple choice and 4-5 minutes per short answer) unless "No time limit" is ticked.
 // Modules 1-4 questions stay in the bank for a later full exam.
 const QUIZ2_MODULES = [5, 6, 7, 8];
 const FORMATS = {
@@ -56,7 +57,7 @@ const chip = (type, name, value, label, checked) =>
   `<label class="chip"><input type="${type}" name="${name}" value="${value}" ${checked ? "checked" : ""}> ${label}</label>`;
 
 // ───────────── Setup ─────────────
-function renderSetup(settings = { format: "quick" }) {
+function renderSetup(settings = { format: "quick", untimed: load(UNTIMED_KEY, false) }) {
   state = null;
   const history = loadHistory();
   app.innerHTML = `
@@ -65,7 +66,8 @@ function renderSetup(settings = { format: "quick" }) {
       <p class="muted">Every quiz covers Modules 5–8 (probability, hypothesis testing, ANOVA and non-parametric
       tests), like Quiz 2. <strong>Quick</strong> gives 5 multiple-choice questions and 1 short answer;
       <strong>Multiple choice</strong> and <strong>Quick open</strong> practise one type at a time; <strong>Real Quiz 2</strong>
-      is the full 25 + 2 in 30 minutes. A timer runs as in the real quiz and submits automatically when time runs out.
+      is the full 25 + 2 in 30 minutes. A timer runs as in the real quiz and submits automatically when time runs out,
+      unless you tick <strong>No time limit</strong>.
       About 1 in 5 multiple-choice questions asks you to interpret a test result or a data table. Every new quiz
       continues through the bank with questions you have not done yet, so nothing repeats until you have done them all.
       A quiz counts once you submit it; if you leave one unfinished, you get the same questions next time. You grade
@@ -74,6 +76,7 @@ function renderSetup(settings = { format: "quick" }) {
         <fieldset><legend>Length</legend><div class="chips">
           ${Object.entries(FORMATS).map(([k, f]) => chip("radio", "format", k, f.label, settings.format === k)).join("")}
         </div></fieldset>
+        <div class="chips">${chip("checkbox", "untimed", "1", "No time limit (the clock counts up and never submits for you)", settings.untimed)}</div>
         <p class="muted small">${seenText(QUIZ2_MODULES)}</p>
         <button class="primary" type="submit">Start quiz</button>
       </form>
@@ -101,7 +104,7 @@ function startQuiz(settings) {
     items,
     index: 0,
     startedAt: now,
-    deadline: now + f.minutes * 60 * 1000,
+    deadline: settings.untimed ? null : now + f.minutes * 60 * 1000,
     saved: false,
   };
   state.timerId = setInterval(tick, 1000);
@@ -311,7 +314,9 @@ function reviewItem(it, i) {
 app.addEventListener("submit", (e) => {
   e.preventDefault();
   const form = new FormData(e.target);
-  startQuiz({ format: form.get("format") });
+  const settings = { format: form.get("format"), untimed: form.has("untimed") };
+  save(UNTIMED_KEY, settings.untimed);
+  startQuiz(settings);
 });
 
 app.addEventListener("click", (e) => {
