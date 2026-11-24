@@ -27,7 +27,7 @@ The site only shows Quiz 2 material. The Modules 1–4 material is kept for a la
 - **Setup:** the modules are fixed to 5–8, as in Quiz 2. Choose the length, and optionally tick No time limit.
 - **During the quiz:** a question navigator, flags, and keyboard shortcuts (`1`–`4` / `A`–`D` to answer, `←` `→` to move, `F` to flag).
 - **Short answers:** after you submit, you see the model answer and a rubric. Points are pre-ticked by keyword matching, and you confirm or correct them. Each short answer earns partial credit.
-- **Results:** your score against a 70% pass mark, a breakdown by module and question type, and a full review with explanations. Past attempts are saved in your browser.
+- **Results:** your score against a 70% pass mark, a breakdown by module and question type, and a full review with explanations. Your last 20 attempts are saved in your browser with their answers: press **Review** in "Your attempts" to reopen any of them, even if you closed the page before seeing the results.
 
 Multiple-choice options are shuffled on every attempt, and a test checks that the correct option is never noticeably longer than the others.
 

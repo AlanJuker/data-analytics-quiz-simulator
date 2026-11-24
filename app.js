@@ -21,7 +21,7 @@ const FORMATS = {
 // Each format has a different number of questions, so an attempt's length tells its format.
 const formatName = (total) => Object.values(FORMATS).find((f) => f.mc + f.open === total)?.short ?? `${total} questions`;
 
-let state = null; // { screen, settings, items, index, startedAt, deadline, finishedAt, timerId, saved }
+let state = null; // { screen, settings, items, index, startedAt, deadline, finishedAt, date, timerId, reviewing }
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const fmt = (sec) => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
@@ -46,6 +46,29 @@ function save(key, value) {
 // Only Quiz 2 attempts (Modules 5-8) are listed; older Quiz 1 attempts stay saved but hidden.
 const loadHistory = () => load(HISTORY_KEY, []).filter((h) => h.modules.every((m) => QUIZ2_MODULES.includes(m)));
 const saveHistory = (list) => save(HISTORY_KEY, list.slice(0, 20));
+
+// Each submitted attempt keeps its answers, so its review can be reopened from "Your attempts".
+// Saved when the quiz is submitted and again after self-grading (same date → same entry).
+function saveAttempt() {
+  const g = grade(state.items);
+  const entry = {
+    date: state.date, modules: QUIZ2_MODULES, total: g.total, percent: g.percent, format: state.settings.format,
+    seconds: Math.round((state.finishedAt - state.startedAt) / 1000), timeUp: state.timeUp,
+    items: state.items.map(({ q, order, choice, text, points }) => ({ id: q.id, order, choice, text, points })),
+  };
+  saveHistory([entry, ...loadHistory().filter((h) => h.date !== state.date)]);
+}
+
+function openReview(i) {
+  const h = loadHistory()[i];
+  const byId = Object.fromEntries(QUESTIONS.map((q) => [q.id, q]));
+  state = {
+    screen: "results", settings: { format: h.format || "quick", untimed: load(UNTIMED_KEY, false) },
+    items: h.items.map(({ id, ...rest }) => ({ q: byId[id], ...rest })).filter((it) => it.q),
+    date: h.date, startedAt: 0, finishedAt: h.seconds * 1000, timeUp: h.timeUp, reviewing: true,
+  };
+  renderResults();
+}
 
 function seenText(modules) {
   const seen = load(SEEN_KEY, {});
@@ -85,10 +108,11 @@ function renderSetup(settings = { format: "quick", untimed: load(UNTIMED_KEY, fa
     <section class="card">
       <div class="row spread"><h2>Your attempts</h2><button class="link" data-act="clear-history">Clear</button></div>
       <table>
-        <thead><tr><th>Date</th><th>Length</th><th class="num">Questions</th><th class="num">Score</th></tr></thead>
-        <tbody>${history.map((h) => `
+        <thead><tr><th>Date</th><th>Length</th><th class="num">Questions</th><th class="num">Score</th><th></th></tr></thead>
+        <tbody>${history.map((h, i) => `
           <tr><td>${esc(new Date(h.date).toLocaleString())}</td><td>${esc(formatName(h.total))}</td>
-          <td class="num">${h.total}</td><td class="num">${h.percent}%</td></tr>`).join("")}
+          <td class="num">${h.total}</td><td class="num">${h.percent}%</td>
+          <td>${h.items ? `<button class="link" data-review="${i}">Review</button>` : ""}</td></tr>`).join("")}
         </tbody>
       </table>
     </section>` : ""}`;
@@ -105,7 +129,6 @@ function startQuiz(settings) {
     index: 0,
     startedAt: now,
     deadline: settings.untimed ? null : now + f.minutes * 60 * 1000,
-    saved: false,
   };
   state.timerId = setInterval(tick, 1000);
   renderQuestion();
@@ -197,9 +220,11 @@ function finish(timeUp) {
   clearInterval(state.timerId);
   save(SEEN_KEY, markDone(load(SEEN_KEY, {}), state.items.map((it) => it.q.id)));
   state.finishedAt = Date.now();
+  state.date = new Date(state.finishedAt).toISOString();
   state.timeUp = timeUp;
   const open = state.items.filter((it) => it.q.type === "open" && it.text.trim());
   open.forEach((it) => (it.points = suggestPoints(it.q, it.text)));
+  saveAttempt();
   if (open.length) renderSelfGrade();
   else renderResults();
 }
@@ -242,13 +267,11 @@ function renderResults() {
   state.screen = "results";
   const g = grade(state.items);
   const seconds = Math.round((state.finishedAt - state.startedAt) / 1000);
-  if (!state.saved) {
-    saveHistory([{ date: new Date().toISOString(), modules: QUIZ2_MODULES, total: g.total, percent: g.percent }, ...loadHistory()]);
-    state.saved = true;
-  }
+  if (!state.reviewing) saveAttempt();
   const pass = g.percent >= PASS_MARK;
   app.innerHTML = `
-    ${state.timeUp ? '<section class="card"><strong>Time is up.</strong> Your quiz was submitted automatically.</section>' : ""}
+    ${state.reviewing ? `<section class="card"><strong>Past attempt</strong> from ${esc(new Date(state.date).toLocaleString())}.</section>`
+      : state.timeUp ? '<section class="card"><strong>Time is up.</strong> Your quiz was submitted automatically.</section>' : ""}
     <section class="card">
       <div class="row spread">
         <div>
@@ -322,6 +345,8 @@ app.addEventListener("submit", (e) => {
 app.addEventListener("click", (e) => {
   const goto = e.target.closest("[data-goto]");
   if (goto) return go(Number(goto.dataset.goto));
+  const review = e.target.closest("[data-review]");
+  if (review) return openReview(Number(review.dataset.review));
   const act = e.target.closest("[data-act]")?.dataset.act;
   if (act === "prev") go(state.index - 1);
   else if (act === "next") go(state.index + 1);
