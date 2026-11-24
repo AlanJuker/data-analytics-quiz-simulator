@@ -493,6 +493,12 @@ H = 7.92    df = 2    Asymp. Sig. = .019</pre></figure>
       <section class="chapter" id="tests">
         <header class="chapter-head"><span class="chapter-num">⚖</span><div><p class="eyebrow">All the tests</p><h2>Every test, one by one</h2></div></header>
         <p class="key">Every test asks the same thing: is the difference in this sample too big to be chance? The tests differ only in <b>who is compared</b> and <b>what kind of data</b> you have. Get those two right and the rest is reading p.</p>
+        <div class="reads">
+          <div class="read"><code>t-tests, ANOVA</code><span>compare <b>means</b> (ANOVA uses variances to do it, but tests means)</span></div>
+          <div class="read"><code>Mann–Whitney, Wilcoxon, Kruskal–Wallis, Friedman</code><span>compare <b>ranks</b>: roughly medians or whole distributions</span></div>
+          <div class="read"><code>Levene's</code><span>compares <b>variances</b> (spread), only to check an assumption</span></div>
+          <div class="read"><code>Shapiro–Wilk</code><span>compares the <b>shape</b> with a normal curve, only to check an assumption</span></div>
+        </div>
 
         <div class="sub" id="tests-routine">
           <h3><span class="idx">T.1</span>The 4-step routine for any test question</h3>
